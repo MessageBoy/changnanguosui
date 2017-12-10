@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white">
+    </FrameLayout>
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/tab_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_message_drawable"
+            android:text="首页"
+            />
+
+
+        <RadioButton
+            android:id="@+id/rb_study"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_application_drawable"
+            android:text="学习"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_vote"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_contacts_drawable"
+            android:text="投票"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_business"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_application_drawable"
+            android:text="业务"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_my"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_mine_drawable"
+            android:text="我的"
+            />
+    </RadioGroup>
+
+
+</LinearLayout>

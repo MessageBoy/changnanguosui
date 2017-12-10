@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/consult_msg_edit"
+            android:paddingLeft="10dp"
+            android:hint="联系方式:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:background="@drawable/consult_msg_edit"
+            android:gravity="top"
+            android:hint="您要咨询的问题:"
+            android:textColor="@color/tab_text" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/consult_msg_but_bg"
+            android:gravity="center"
+            android:text="问题提交"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>
