@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#eb3d3a</color>
     <color name="colorAccent">#eb3d3a</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="text">#333333</color>
     <color name="title">#666666</color>
     <color name="red">#eb3d3a</color>
@@ -13,4 +14,6 @@
     <color name="tab_text">#666666</color>
     <color name="tab_indicator">#21a7ec</color>
     <color name="transparent">#00000000</color>
+    <color name="online_search">#cdcdcd</color>
+    <color name="online_search_bg">#f7f7f7</color>
 </resources>
