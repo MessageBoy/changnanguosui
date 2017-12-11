@@ -1,20 +1,22 @@
 package com.outsource.changnanguoshui.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
+import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
-import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
-import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
-import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
-import com.outsource.changnanguoshui.activity.taxBusiness.TaxBusinessActivity;
-import com.outsource.changnanguoshui.adapter.HomeAdapter;
+import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.HomeBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
 
@@ -58,43 +60,36 @@ public class HomepageFragment extends BaseFragment
     {
         modularList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         informationList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        homeAdapter = new HomeAdapter(getActivity(), setHomeData());
+        homeAdapter = new HomeAdapter(getActivity(), R.layout.item_home, setHomeData());
         modularList.setAdapter(homeAdapter);
-        homeAdapter.setOnItemClickLitener(new HomeAdapter.OnItemClickLitener()
+        homeAdapter.setItemListener(new CommonBaseAdapter.onItemClickerListener()
         {
             @Override
-            public void onItemClick(View view, int position)
+            public void onItemClick(View view, Object data, int position)
             {
+                Intent intent;
                 switch (position)
                 {
                     case 1:
                         startActivity(PartyBuildingActivity.class);
                         break;
-                    case 2:
-                        startActivity(OnlinePaymentActivity.class);
+                    case 6:
+                        intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
+                        intent.putExtra("position", Constant.ZERO);
+                        startActivity(intent);
                         break;
-                    case 3:
-                        startActivity(OnlineLearnActivity.class);
+                    case 7:
+                        intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
+                        intent.putExtra("position", Constant.ONE);
+                        startActivity(intent);
                         break;
-                    case 4:
-                        startActivity(TaxBusinessActivity.class);
+                    case 8:
+                        intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
+                        intent.putExtra("position", Constant.Two);
+                        startActivity(intent);
                         break;
-                    case 5:
-                        startActivity(TaxBusinessActivity.class);
-                        break;
-                    case 9:
-                        startActivity(ShuiQiHDActivity.class);
-                        break;
-                    case 10:
-                        startActivity(ShuiQiHDActivity.class);
-                        break;
+
                 }
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position)
-            {
-
             }
         });
     }
@@ -121,4 +116,22 @@ public class HomepageFragment extends BaseFragment
         }
         return data;
     }
+
+    class HomeAdapter extends CommonBaseAdapter<HomeBean>
+    {
+
+        public HomeAdapter(Context context, @LayoutRes int itemLayoutId, List<HomeBean> data)
+        {
+            super(context, itemLayoutId, data);
+        }
+
+        @Override
+        public void bindViewData(BaseViewHolder holder, HomeBean item, int position)
+        {
+            holder.setImageResource(R.id.icon_home, item.getIcon());
+            holder.setText(R.id.title_home, item.getTitle());
+
+        }
+    }
+
 }

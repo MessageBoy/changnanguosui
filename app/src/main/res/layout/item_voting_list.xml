@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/voting_bg">
+
+        <ImageView
+            android:id="@+id/icon_voting"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/vvoting"/>
+
+        <TextView
+            android:id="@+id/title_voting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_voting"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="南昌市国税纪检查办设计费IE我跟姐姐沙拉酱付款翁开"
+            android:textColor="#333333"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_voting"
+            android:layout_margin="5dp"
+            android:text="3票"
+            android:textColor="#666666"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/title_voting"
+            android:layout_margin="5dp"
+            android:drawableLeft="@mipmap/toupaio"
+            android:text="投TA一票"
+            android:drawablePadding="3dp"
+            android:textColor="#666666"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="45dp"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/icon_nb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="8dp"
+        android:src="@mipmap/unread_file"/>
+
+    <TextView
+        android:id="@+id/title_nb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="抚州职业技术学校（爱上各位酒喝完爱上各位酒喝完爱上各位酒喝完）"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/time_nb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="2017-12-20"
+        android:textSize="13sp"
+        android:textColor="#999999"/>
+</LinearLayout>

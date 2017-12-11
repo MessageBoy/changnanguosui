@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.outsource.changnanguoshui"
         minSdkVersion 15
@@ -29,7 +29,11 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'joda-time:joda-time:2.9.1'//时间
+    compile 'com.amap.api:map2d:latest.integration'  //2d地图
+    compile 'com.amap.api:location:latest.integration' //定位
+    compile 'com.amap.api:search:latest.integration'  //搜索
 }

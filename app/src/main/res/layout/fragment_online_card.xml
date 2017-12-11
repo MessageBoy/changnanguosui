@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white">
+    </FrameLayout>
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/tab_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_card"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_message_drawable"
+            android:text="打卡"
+            />
+
+
+        <RadioButton
+            android:id="@+id/rb_history"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_application_drawable"
+            android:text="历史"
+            />
+
+    </RadioGroup>
+
+
+</LinearLayout>
