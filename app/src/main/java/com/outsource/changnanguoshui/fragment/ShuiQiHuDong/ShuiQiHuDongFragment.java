@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.ShuiQiHuDong.SuiQiAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.utlis.ItemDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,7 @@ public class ShuiQiHuDongFragment extends BaseFragment {
     @Override
     protected void initData() {
         recycleOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleOnline.addItemDecoration(new ItemDivider().setDividerColor(R.color.div));
         siQiAdapter = new SuiQiAdapter(getActivity(), setOnlineData());
         recycleOnline.setAdapter(siQiAdapter);
     }

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.adapter.onlineLearn.OnlineAdapter;
+import com.outsource.changnanguoshui.adapter.onlineLearn.OnlineVideoAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 public class OnlineVideoFragment extends BaseFragment {
     int type;
     Unbinder unbinder;
-    OnlineAdapter onlineAdapter;
+    OnlineVideoAdapter onlineVideoAdapter;
     @BindView(R.id.recycle_online)
     RecyclerView recycleOnline;
 
@@ -60,8 +60,8 @@ public class OnlineVideoFragment extends BaseFragment {
     @Override
     protected void initData() {
         recycleOnline.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        onlineAdapter = new OnlineAdapter(getActivity(), setOnlineData());
-        recycleOnline.setAdapter(onlineAdapter);
+        onlineVideoAdapter = new OnlineVideoAdapter(getActivity(), setOnlineData());
+        recycleOnline.setAdapter(onlineVideoAdapter);
     }
 
     @Override

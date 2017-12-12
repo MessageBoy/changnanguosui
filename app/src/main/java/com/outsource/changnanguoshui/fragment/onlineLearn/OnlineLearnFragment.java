@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.onlineLearn.OnlineAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.utlis.ItemDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class OnlineLearnFragment extends BaseFragment {
     @Override
     protected void initData() {
         recycleOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleOnline.addItemDecoration(new ItemDivider().setDividerColor(R.color.div));
         onlineAdapter = new OnlineAdapter(getActivity(), setOnlineData());
         recycleOnline.setAdapter(onlineAdapter);
     }
