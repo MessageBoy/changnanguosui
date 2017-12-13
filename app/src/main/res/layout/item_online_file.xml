@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingLeft="3dp"
-    android:paddingRight="3dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     >
 
     <FrameLayout
@@ -15,8 +15,8 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="82dp"
             android:layout_marginTop="2dp"
             android:src="@mipmap/online_file_img" />
 
@@ -33,23 +33,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:lineSpacingExtra="5dp"
         android:layout_toRightOf="@id/online_img_frame"
+        android:textSize="14dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="全国党员先锋要加快党建学习，好不容缓的跟着党的步伐前进。"
-        android:textColor="@color/black" />
+        android:text="全国党员先锋要加快党建学习好不容缓的跟着党的步伐前进。"
+        android:textColor="@color/tab_text" />
 
     <TextView
         android:id="@+id/online_but"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/context"
         android:background="@drawable/online_but_bg"
         android:text="三会一课"
         android:textColor="@color/white"
-        android:textSize="12dp" />
+        android:textSize="10dp" />
     
     
     <TextView
@@ -57,8 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/online_img_frame"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/online_but"
+        android:layout_alignParentBottom="true"
         android:textColor="@color/gray"
         android:text="3-24  12:25"
         android:textSize="12dp"
@@ -69,8 +69,7 @@
         android:layout_marginLeft="10dp"
         android:layout_alignParentRight="true"
         android:drawableLeft="@mipmap/online_sc"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/online_but"
+        android:layout_alignParentBottom="true"
         android:gravity="center_vertical"
         android:textColor="@color/gray"
         android:layout_marginRight="10dp"
