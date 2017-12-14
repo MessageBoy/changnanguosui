@@ -1,18 +1,24 @@
 package com.outsource.changnanguoshui.fragment;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
+import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.MeLearnActivity;
+import com.outsource.changnanguoshui.activity.MemberInformationActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
@@ -49,8 +55,36 @@ public class MyFragment extends BaseFragment {
         myList.setAdapter(homeAdapter);
         homeAdapter.setItemListener(new CommonBaseAdapter.onItemClickerListener() {
             @Override
-            public void onItemClick(View view, Object data, int position) {
-
+            public void onItemClick(View view, Object data, int position)
+            {
+                Intent intent;
+                switch (position)
+                {
+                    case 3:
+                        startActivity(MemberInformationActivity.class);
+                        break;
+                    case 4:
+                        intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
+                        intent.putExtra("position", Constant.Two);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        try
+                        {
+                            intent = new Intent();
+                            ComponentName cn = new ComponentName("com.geostar.futian", "com.geostar.futian.activity.SplashActivity");
+                            intent.setComponent(cn);
+                            intent.putExtra("userid", "chenfang");
+                            intent.putExtra("password", "888888");
+                            intent.setAction("android.intent.action.MAIN");
+                            startActivity(intent);
+                        } catch (Exception e)
+                        {
+                            Log.e("11", e.getMessage());
+                            Alert(e.getMessage());
+                        }
+                        break;
+                }
             }
         });
     }
