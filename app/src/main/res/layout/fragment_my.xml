@@ -105,7 +105,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="未完成学习"
+                        android:text="学习进度"
                         android:textColor="@color/white"/>
 
                     <TextView
@@ -133,7 +133,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="未完成学习"
+                        android:text="我的收藏"
                         android:textColor="@color/white"/>
 
                     <TextView
@@ -156,6 +156,7 @@
                 android:paddingRight="15dp">
 
                 <TextView
+                    android:id="@+id/me_learn"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:drawableRight="@mipmap/ic_next_click"
@@ -172,7 +173,7 @@
                     android:layout_height="43dp"
                     android:drawableRight="@mipmap/ic_next_click"
                     android:gravity="center_vertical"
-                    android:text="我的学习"/>
+                    android:text="内容查询"/>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
