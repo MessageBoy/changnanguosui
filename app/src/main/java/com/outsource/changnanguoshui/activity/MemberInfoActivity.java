@@ -8,8 +8,9 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.TabAdapter;
 import com.outsource.changnanguoshui.application.BaseActivity;
-import com.outsource.changnanguoshui.fragment.AccountMaintenanceFragment;
-import com.outsource.changnanguoshui.fragment.MemberInfoFragment;
+import com.outsource.changnanguoshui.fragment.DepartmentalProfileFragment;
+import com.outsource.changnanguoshui.fragment.MemberInformationFragment;
+import com.outsource.changnanguoshui.fragment.OrganizationalFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,8 @@ public class MemberInfoActivity extends BaseActivity
         mPageTitleList.add("组织架构");
         mPageTitleList.add("成员信息");
         mFragmentList.add(new DepartmentalProfileFragment());
-        mFragmentList.add(new AccountMaintenanceFragment());
+        mFragmentList.add(new OrganizationalFragment());
+        mFragmentList.add(new MemberInformationFragment());
         mAdapter = new TabAdapter(this, getSupportFragmentManager(),
                 mFragmentList, mPageTitleList);
         viewPager.setAdapter(mAdapter);

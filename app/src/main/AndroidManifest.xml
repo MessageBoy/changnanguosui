@@ -47,6 +47,7 @@
         <activity android:name=".activity.ShuiQiHuDong.ConsultMsgActivity"/>
         <activity android:name=".activity.PersonnelManagementActivity"/>
         <activity android:name=".activity.MemberInfoActivity"/>
+        <activity android:name=".activity.MemberInformationActivity"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

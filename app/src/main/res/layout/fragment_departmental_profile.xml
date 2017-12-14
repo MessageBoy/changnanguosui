@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="5dp"
+            android:text="        当然，近两年万达高层职位变动也蛮频繁的。据不完全统计，在不到两年的时间内，已经有至少 9 名万达系高管离职。就在 11 月初，万达集团总裁助理黄春雷就离开了万达转投新城控股。
+看来，老王最后还是得靠王思聪，毕竟是爆赚 50 亿的商业鬼才，不为几所用太可惜~
+目前，在大连万达商业地产官网上的管理团队一栏，陈平的名字依旧还在。资料显示，陈平现年54岁，1985年7月毕业于华南工学院（现更名为华南理工大学），获得工学学士学位。2001年6月加入万达集团，曾担任万达集团副总裁及南京项目公司总经理，担任万达商业地产副总裁兼任万达学院院长，陈平共在万达工作了16年。资料显示，2011年11月11日，万达集团在河北省廊坊市投资7亿元建设的万达学院一起宣布竣工。万达学院一期总建筑面积约8万平方米，配备教学服务设施，包括教学楼、行政楼、体育馆、展览馆、公寓、餐厅、信息中心等，供万达集团高中层管理人员系统培训所用。万达学院总建筑面积12.8万平方米，全部建成后可同时容纳3000名学员。万达官网在介绍中称，万达学院是中国最好的企业学院之一。"
+            android:textColor="@color/tab_text"
+            android:textSize="15sp"/>
+    </ScrollView>
+</LinearLayout>

@@ -79,6 +79,7 @@ public class HomepageFragment extends BaseFragment
                         intent = new Intent(getActivity(), PersonnelManagementActivity.class);
                         intent.putExtra("position", Constant.ZERO);
                         startActivity(intent);
+                        break;
                     case 1:
                         startActivity(PartyBuildingActivity.class);
                         break;
@@ -117,7 +118,7 @@ public class HomepageFragment extends BaseFragment
                         break;
                     case 11:
                         intent = new Intent(getActivity(), PersonnelManagementActivity.class);
-                        intent.putExtra("position", Constant.ZERO);
+                        intent.putExtra("position", Constant.ONE);
                         startActivity(intent);
                         break;
 
