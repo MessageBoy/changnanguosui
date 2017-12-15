@@ -15,6 +15,7 @@ import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
+import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
 import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
@@ -93,7 +94,7 @@ public class HomepageFragment extends BaseFragment
                         startActivity(TaxBusinessActivity.class);
                         break;
                     case 5:
-                        startActivity(TaxBusinessActivity.class);
+                        startActivity(RegulatoryRetrievalActivity.class);
                         break;
                     case 6:
                         intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
