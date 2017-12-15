@@ -159,6 +159,7 @@
                 android:paddingRight="15dp">
 
                 <TextView
+                    android:id="@+id/my_study"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:drawableRight="@mipmap/ic_next_click"
@@ -171,11 +172,12 @@
                     android:background="@color/div"/>
 
                 <TextView
+                    android:id="@+id/content_query"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:drawableRight="@mipmap/ic_next_click"
                     android:gravity="center_vertical"
-                    android:text="我的学习"/>
+                    android:text="内容查询"/>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

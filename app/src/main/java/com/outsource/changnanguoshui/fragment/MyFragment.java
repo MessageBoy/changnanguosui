@@ -1,6 +1,5 @@
 package com.outsource.changnanguoshui.fragment;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +7,9 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
@@ -43,6 +44,18 @@ public class MyFragment extends BaseFragment
     String[] title = {"在线缴费", "缴费查询", "在线学习", "我的信息", "线上活动", "设置"};
     int[] icon = {R.mipmap.zxjf_m, R.mipmap.jfcx_m, R.mipmap.zxxx_m, R.mipmap.wdxx_m, R.mipmap.xshd_m, R.mipmap.sz};
     MyAdapter homeAdapter;
+    @BindView(R.id.user_head)
+    ImageView userHead;
+    @BindView(R.id.user_name)
+    TextView userName;
+    @BindView(R.id.user_info)
+    TextView userInfo;
+    @BindView(R.id.wwcxx)
+    TextView wwcxx;
+    @BindView(R.id.xxjd)
+    TextView xxjd;
+    @BindView(R.id.wdsc)
+    TextView wdsc;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
@@ -68,20 +81,7 @@ public class MyFragment extends BaseFragment
                         startActivity(intent);
                         break;
                     case 5:
-                        try
-                        {
-                            intent = new Intent();
-                            ComponentName cn = new ComponentName("com.geostar.futian", "com.geostar.futian.activity.SplashActivity");
-                            intent.setComponent(cn);
-                            intent.putExtra("userid", "chenfang");
-                            intent.putExtra("password", "888888");
-                            intent.setAction("android.intent.action.MAIN");
-                            startActivity(intent);
-                        } catch (Exception e)
-                        {
-                            Log.e("11", e.getMessage());
-                            Alert(e.getMessage());
-                        }
+
                         break;
                 }
             }
@@ -109,6 +109,21 @@ public class MyFragment extends BaseFragment
             data.add(new HomeBean(icon[i], title[i]));
         }
         return data;
+    }
+
+
+    @OnClick({R.id.user_head, R.id.my_study, R.id.content_query})
+    public void onViewClicked(View view)
+    {
+        switch (view.getId())
+        {
+            case R.id.user_head:
+                break;
+            case R.id.my_study:
+                break;
+            case R.id.content_query:
+                break;
+        }
     }
 
     class MyAdapter extends CommonBaseAdapter<HomeBean>
@@ -148,7 +163,13 @@ public class MyFragment extends BaseFragment
                     @Override
                     public void onResponse(GetMyBean response, int id)
                     {
-
+                        if (response.getStatus() == 1)
+                        {
+                            wwcxx.setText(response.getStudy_unfinish() + "");
+                            wdsc.setText(response.getFavorite_num() + "");
+                            xxjd.setText(response.getStudy_plan() + "");
+                            userName.setText(response.getReal_name());
+                        }
                     }
                 });
     }
