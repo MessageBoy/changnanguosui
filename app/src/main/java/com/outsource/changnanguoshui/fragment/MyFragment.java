@@ -18,13 +18,19 @@ import com.outsource.changnanguoshui.activity.MemberInformationActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
+import com.outsource.changnanguoshui.bean.GetMyBean;
 import com.outsource.changnanguoshui.bean.HomeBean;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/4.
@@ -91,7 +97,7 @@ public class MyFragment extends BaseFragment
     @Override
     protected void initData()
     {
-
+        getData();
     }
 
 
@@ -119,5 +125,31 @@ public class MyFragment extends BaseFragment
             holder.setImageResource(R.id.icon_personal, item.getIcon());
             holder.setText(R.id.title_personal, item.getTitle());
         }
+    }
+
+
+    private void getData()
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "GetMy")
+                .build()
+                .execute(new GenericsCallback<GetMyBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+
+                    }
+
+                    @Override
+                    public void onResponse(GetMyBean response, int id)
+                    {
+
+                    }
+                });
     }
 }

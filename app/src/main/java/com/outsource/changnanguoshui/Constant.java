@@ -10,4 +10,9 @@ public class Constant
     public static final int ONE = 1;
     public static final int Two = 2;
     public static final int Three = 3;
+    public static final String DOMAIN_NAME = "cndj.edongli.net";
+    public static final String HTTP_URL = "http://" + DOMAIN_NAME + "/services/pub/api.ashx";
+    public static final String USER_ID = "user_id";
+    public static final String TOKEN = "token";
+    public static final String ACT = "act";
 }

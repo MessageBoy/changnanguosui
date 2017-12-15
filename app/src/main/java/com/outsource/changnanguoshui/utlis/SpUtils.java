@@ -16,9 +16,6 @@ public class SpUtils
      */
     public static final String FILE_NAME = "config";
 
-    public static final String TEXT_TYPE = "text_type";
-    public static final String USER_NAME = "userName";
-    public static final String USER_ID = "userId";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
