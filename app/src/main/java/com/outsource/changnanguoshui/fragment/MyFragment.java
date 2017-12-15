@@ -20,10 +20,12 @@ import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.GetMyBean;
 import com.outsource.changnanguoshui.bean.HomeBean;
+import com.outsource.changnanguoshui.utlis.CircleTransform;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
 import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -38,7 +40,8 @@ import okhttp3.Call;
  * Created by Administrator on 2017/12/4.
  */
 
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment
+{
     @BindView(R.id.my_list)
     RecyclerView myList;
     String[] title = {"在线缴费", "缴费查询", "在线学习", "我的信息", "线上活动", "设置"};
@@ -59,12 +62,14 @@ public class MyFragment extends BaseFragment {
     Unbinder unbinder;
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState)
+    {
         myList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         myList.addItemDecoration(new ItemDivider().setDividerWith(2).setDividerColor(ContextCompat.getColor(getActivity(), R.color.div)));
         homeAdapter = new MyAdapter(getActivity(), R.layout.item_personal, setHomeData());
         myList.setAdapter(homeAdapter);
-        homeAdapter.setItemListener(new CommonBaseAdapter.onItemClickerListener() {
+        homeAdapter.setItemListener(new CommonBaseAdapter.onItemClickerListener()
+        {
             @Override
             public void onItemClick(View view, Object data, int position)
             {
@@ -88,7 +93,8 @@ public class MyFragment extends BaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutId()
+    {
         return R.layout.fragment_my;
     }
 
@@ -99,9 +105,11 @@ public class MyFragment extends BaseFragment {
     }
 
 
-    private List<HomeBean> setHomeData() {
+    private List<HomeBean> setHomeData()
+    {
         List<HomeBean> data = new ArrayList<>();
-        for (int i = 0; i < title.length; i++) {
+        for (int i = 0; i < title.length; i++)
+        {
             data.add(new HomeBean(icon[i], title[i]));
         }
         return data;
@@ -129,7 +137,8 @@ public class MyFragment extends BaseFragment {
         }
 
         @Override
-        public void bindViewData(BaseViewHolder holder, HomeBean item, int position) {
+        public void bindViewData(BaseViewHolder holder, HomeBean item, int position)
+        {
 
             holder.setImageResource(R.id.icon_personal, item.getIcon());
             holder.setText(R.id.title_personal, item.getTitle());
@@ -159,10 +168,15 @@ public class MyFragment extends BaseFragment {
                     {
                         if (response.getStatus() == 1)
                         {
-                            wwcxx.setText(response.getStudy_unfinish() + "");
-                            wdsc.setText(response.getFavorite_num() + "");
-                            xxjd.setText(response.getStudy_plan() + "");
+                            wwcxx.setText("(" + response.getStudy_unfinish() + ")");
+                            wdsc.setText("(" + response.getFavorite_num() + ")");
+                            xxjd.setText("(" + response.getStudy_plan() + ")");
                             userName.setText(response.getReal_name());
+                            Picasso.with(getActivity())
+                                    .load(Constant.DOMAIN_NAME + response.getPic_url())
+                                    .placeholder(R.mipmap.male_head)
+                                    .transform(new CircleTransform())
+                                    .into(userHead);
                         }
                     }
                 });

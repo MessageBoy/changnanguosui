@@ -15,6 +15,7 @@ import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
+import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
 import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
@@ -44,7 +45,7 @@ public class HomepageFragment extends BaseFragment
     @BindView(R.id.information_list)
     RecyclerView informationList;
 
-    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险推送", "文件查询", "通知公告", "在线打卡", "线上活动", "税企互动", "廉政举报", "账号维护"};
+    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险推送", "法规检索", "通知公告", "在线打卡", "线上活动", "税企互动", "廉政举报", "账号维护"};
     int[] icon = {R.mipmap.dyxx, R.mipmap.djfc, R.mipmap.zxdf, R.mipmap.zxxx, R.mipmap.fxts, R.mipmap.wjcx, R.mipmap.tzgg, R.mipmap.zxdk, R.mipmap.xshd, R.mipmap.sqhd, R.mipmap.lzjb, R.mipmap.zhwh};
     HomeAdapter homeAdapter;
 
@@ -93,7 +94,7 @@ public class HomepageFragment extends BaseFragment
                         startActivity(TaxBusinessActivity.class);
                         break;
                     case 5:
-                        startActivity(TaxBusinessActivity.class);
+                        startActivity(RegulatoryRetrievalActivity.class);
                         break;
                     case 6:
                         intent = new Intent(getActivity(), AdministrativeManagementActivity.class);

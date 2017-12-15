@@ -32,6 +32,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'joda-time:joda-time:2.9.1'//时间
     compile 'com.amap.api:map2d:latest.integration'  //2d地图
     compile 'com.amap.api:location:latest.integration' //定位

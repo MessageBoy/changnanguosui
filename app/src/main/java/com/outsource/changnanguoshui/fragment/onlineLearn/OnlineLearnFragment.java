@@ -2,83 +2,57 @@ package com.outsource.changnanguoshui.fragment.onlineLearn;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.onlineLearn.OnlineAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/5.
  */
-public class OnlineLearnFragment extends BaseFragment {
-    int type;
-    Unbinder unbinder;
+public class OnlineLearnFragment extends BaseFragment
+{
     OnlineAdapter onlineAdapter;
-    @BindView(R.id.recycle_online)
+    @BindView(R.id.recycler_view)
     RecyclerView recycleOnline;
+    int page = 1;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            type = bundle.getInt("type");
-        }
-    }
-
-    public static Fragment newInstance(int type) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
-        OnlineLearnFragment fragment = new OnlineLearnFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    protected void initView(View view, Bundle savedInstanceState)
+    {
     }
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
-
+    protected int getLayoutId()
+    {
+        return R.layout.fragment_list;
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_online_learn;
-    }
-
-    @Override
-    protected void initData() {
+    protected void initData()
+    {
         recycleOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycleOnline.addItemDecoration(new ItemDivider().setDividerColor(R.color.div));
+        recycleOnline.addItemDecoration(new ItemDivider().setDividerWith(2).setDividerColor(R.color.div));
         onlineAdapter = new OnlineAdapter(getActivity(), setOnlineData());
         recycleOnline.setAdapter(onlineAdapter);
+        getData();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     private List<String> setOnlineData()
     {
@@ -90,4 +64,30 @@ public class OnlineLearnFragment extends BaseFragment {
         return data;
     }
 
+    private void getData()
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "GetStudyList")
+                .addParams("type_id", "1")
+                .addParams("page", page + "")
+                .build()
+                .execute(new GenericsCallback<String>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id)
+                    {
+
+                    }
+                });
+    }
 }
