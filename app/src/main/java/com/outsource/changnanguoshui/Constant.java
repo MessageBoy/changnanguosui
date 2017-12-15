@@ -15,4 +15,5 @@ public class Constant
     public static final String USER_ID = "user_id";
     public static final String TOKEN = "token";
     public static final String ACT = "act";
+    public static final String IsLogin = "login";
 }
