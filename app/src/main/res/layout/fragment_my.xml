@@ -56,7 +56,7 @@
                     android:layout_below="@+id/user_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="4dp"
-                    android:text="编辑和修改个人资料"
+                    android:text="查看或编辑个人资料"
                     android:textColor="@color/white"
                     android:textSize="15sp"/>
             </RelativeLayout>
@@ -81,10 +81,11 @@
                         android:textColor="@color/white"/>
 
                     <TextView
+                        android:id="@+id/wwcxx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="(3)"
+                        android:text="(0)"
                         android:textColor="@color/white"/>
                 </LinearLayout>
 
@@ -105,14 +106,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="未完成学习"
+                        android:text="学习进度"
                         android:textColor="@color/white"/>
 
                     <TextView
+                        android:id="@+id/xxjd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="(3)"
+                        android:text="(0)"
                         android:textColor="@color/white"/>
                 </LinearLayout>
 
@@ -133,14 +135,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="未完成学习"
+                        android:text="我的收藏"
                         android:textColor="@color/white"/>
 
                     <TextView
+                        android:id="@+id/wdsc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="(3)"
+                        android:text="(0)"
                         android:textColor="@color/white"/>
                 </LinearLayout>
             </LinearLayout>
