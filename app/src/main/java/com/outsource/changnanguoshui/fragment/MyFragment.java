@@ -31,14 +31,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/4.
  */
 
-public class MyFragment extends BaseFragment
-{
+public class MyFragment extends BaseFragment {
     @BindView(R.id.my_list)
     RecyclerView myList;
     String[] title = {"在线缴费", "缴费查询", "在线学习", "我的信息", "线上活动", "设置"};
@@ -56,16 +56,15 @@ public class MyFragment extends BaseFragment
     TextView xxjd;
     @BindView(R.id.wdsc)
     TextView wdsc;
+    Unbinder unbinder;
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState)
-    {
+    protected void initView(View view, Bundle savedInstanceState) {
         myList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         myList.addItemDecoration(new ItemDivider().setDividerWith(2).setDividerColor(ContextCompat.getColor(getActivity(), R.color.div)));
         homeAdapter = new MyAdapter(getActivity(), R.layout.item_personal, setHomeData());
         myList.setAdapter(homeAdapter);
-        homeAdapter.setItemListener(new CommonBaseAdapter.onItemClickerListener()
-        {
+        homeAdapter.setItemListener(new CommonBaseAdapter.onItemClickerListener() {
             @Override
             public void onItemClick(View view, Object data, int position)
             {
@@ -89,8 +88,7 @@ public class MyFragment extends BaseFragment
     }
 
     @Override
-    protected int getLayoutId()
-    {
+    protected int getLayoutId() {
         return R.layout.fragment_my;
     }
 
@@ -101,16 +99,13 @@ public class MyFragment extends BaseFragment
     }
 
 
-    private List<HomeBean> setHomeData()
-    {
+    private List<HomeBean> setHomeData() {
         List<HomeBean> data = new ArrayList<>();
-        for (int i = 0; i < title.length; i++)
-        {
+        for (int i = 0; i < title.length; i++) {
             data.add(new HomeBean(icon[i], title[i]));
         }
         return data;
     }
-
 
     @OnClick({R.id.user_head, R.id.my_study, R.id.content_query})
     public void onViewClicked(View view)
@@ -134,8 +129,7 @@ public class MyFragment extends BaseFragment
         }
 
         @Override
-        public void bindViewData(BaseViewHolder holder, HomeBean item, int position)
-        {
+        public void bindViewData(BaseViewHolder holder, HomeBean item, int position) {
 
             holder.setImageResource(R.id.icon_personal, item.getIcon());
             holder.setText(R.id.title_personal, item.getTitle());

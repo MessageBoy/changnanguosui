@@ -33,8 +33,8 @@
         <RadioButton
             android:id="@+id/rb_study"
             style="@style/radio_button_tab"
-            android:drawableTop="@drawable/selector_application_drawable"
-            android:text="学习"
+            android:drawableTop="@drawable/selector_shuiwen_drawable"
+            android:text="税闻"
             />
 
         <RadioButton

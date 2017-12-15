@@ -16,4 +16,5 @@
     <color name="transparent">#00000000</color>
     <color name="online_search">#cdcdcd</color>
     <color name="online_search_bg">#f7f7f7</color>
+    <color name="login_qrcode">#fe504c</color>
 </resources>
