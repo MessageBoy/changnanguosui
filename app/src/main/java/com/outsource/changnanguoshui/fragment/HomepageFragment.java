@@ -44,7 +44,7 @@ public class HomepageFragment extends BaseFragment
     @BindView(R.id.information_list)
     RecyclerView informationList;
 
-    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险推送", "文件查询", "通知公告", "在线打卡", "线上活动", "税企互动", "廉政举报", "账号维护"};
+    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险推送", "法规检索", "通知公告", "在线打卡", "线上活动", "线上答疑", "业务办理", "举报建议"};
     int[] icon = {R.mipmap.dyxx, R.mipmap.djfc, R.mipmap.zxdf, R.mipmap.zxxx, R.mipmap.fxts, R.mipmap.wjcx, R.mipmap.tzgg, R.mipmap.zxdk, R.mipmap.xshd, R.mipmap.sqhd, R.mipmap.lzjb, R.mipmap.zhwh};
     HomeAdapter homeAdapter;
 
