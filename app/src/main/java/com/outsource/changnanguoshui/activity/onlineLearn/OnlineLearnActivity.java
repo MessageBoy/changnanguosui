@@ -46,7 +46,7 @@ public class OnlineLearnActivity extends BaseActivity
         mPageTitleList.add("在线文档");
         mPageTitleList.add("视频学习");
         mFragmentList.add(new OnlineLearnFragment());
-        mFragmentList.add(new OnlineVideoFragment().newInstance(2));
+        mFragmentList.add(new OnlineVideoFragment());
         mAdapter = new TabAdapter(this, getSupportFragmentManager(),
                 mFragmentList, mPageTitleList);
         viewPager.setAdapter(mAdapter);

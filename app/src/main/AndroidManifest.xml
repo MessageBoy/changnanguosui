@@ -51,6 +51,7 @@
         <activity android:name=".activity.MemberInfoActivity"/>
         <activity android:name=".activity.MemberInformationActivity"/>
         <activity android:name=".activity.RegulatoryRetrievalActivity"/>
+        <activity android:name=".activity.LearningDetailsActivity"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

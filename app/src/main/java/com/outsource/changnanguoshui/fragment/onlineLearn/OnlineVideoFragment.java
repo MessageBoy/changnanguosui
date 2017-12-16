@@ -1,91 +1,153 @@
 package com.outsource.changnanguoshui.fragment.onlineLearn;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.adapter.onlineLearn.OnlineVideoAdapter;
+import com.outsource.changnanguoshui.activity.LearningDetailsActivity;
+import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.application.BaseViewHolder;
+import com.outsource.changnanguoshui.bean.GetStudyListBean;
+import com.outsource.changnanguoshui.utlis.DateUtils;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.outsource.changnanguoshui.utlis.google.RefreshUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/5.
  */
-public class OnlineVideoFragment extends BaseFragment {
-    int type;
-    Unbinder unbinder;
-    OnlineVideoAdapter onlineVideoAdapter;
-    @BindView(R.id.recycle_online)
+public class OnlineVideoFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener, CommonBaseAdapter.onItemClickerListener
+{
+    MyAdapter adapter;
+    @BindView(R.id.swipe_target)
     RecyclerView recycleOnline;
+    @BindView(R.id.swipeToLoadLayout)
+    SwipeToLoadLayout swipeToLoadLayout;
+    int page = 1;
+    List<GetStudyListBean.ListBean> mData;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            type = bundle.getInt("type");
-        }
-    }
-
-    public static Fragment newInstance(int type) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
-        OnlineVideoFragment fragment = new OnlineVideoFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    protected void initView(View view, Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_online_learn;
-    }
-
-    @Override
-    protected void initData() {
-        recycleOnline.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        onlineVideoAdapter = new OnlineVideoAdapter(getActivity(), setOnlineData());
-        recycleOnline.setAdapter(onlineVideoAdapter);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    private List<String> setOnlineData()
+    protected void initView(View view, Bundle savedInstanceState)
     {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
-        {
-            data.add("1");
-        }
-        return data;
     }
+
+    @Override
+    protected int getLayoutId()
+    {
+        return R.layout.fragment_list;
+    }
+
+    @Override
+    protected void initData()
+    {
+        mData = new ArrayList<>();
+        recycleOnline.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        adapter = new MyAdapter(getActivity(), R.layout.item_online_video, mData);
+        recycleOnline.setAdapter(adapter);
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
+        adapter.setItemListener(this);
+        getData();
+
+    }
+
+    private void getData()
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "GetStudyList")
+                .addParams("type_id", "2")
+                .addParams("page", page + "")
+                .build()
+                .execute(new GenericsCallback<GetStudyListBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Alert("网络请求出错：" + e.getMessage());
+                        RefreshUtils.isRefresh(swipeToLoadLayout);
+                    }
+
+                    @Override
+                    public void onResponse(GetStudyListBean response, int id)
+                    {
+                        RefreshUtils.isRefresh(swipeToLoadLayout);
+                        if (response.getStatus() == 1)
+                        {
+                            if (page == 1)
+                                mData.clear();
+                            mData.addAll(response.getList());
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
+
+    class MyAdapter extends CommonBaseAdapter<GetStudyListBean.ListBean>
+    {
+
+        public MyAdapter(Context context, @LayoutRes int itemLayoutId, List<GetStudyListBean.ListBean> data)
+        {
+            super(context, itemLayoutId, data);
+        }
+
+        @Override
+        public void bindViewData(BaseViewHolder holder, GetStudyListBean.ListBean item, int position)
+        {
+            holder.setText(R.id.title_ov, item.getTitle());
+//            holder.setText(R.id.online_but, item.getCategory_name());
+            holder.setText(R.id.time_ov, DateUtils.getDate(item.getAdd_time()));
+            holder.setImageResource(R.id.state_of, item.getStatus() == 0 ? R.mipmap.online_file_noover : R.mipmap.hang_the_air);
+            holder.setImageResource(R.id.collection_ov, item.getIs_favorite() == 0 ? R.mipmap.online_sc : R.mipmap.online_sc);
+            holder.setImage(R.id.icon_ov, item.getImg_url());
+        }
+    }
+
+    @Override
+    public void onItemClick(View view, Object data, int position)
+    {
+        Intent intent = new Intent(getActivity(), LearningDetailsActivity.class);
+        intent.putExtra("id", ((GetStudyListBean.ListBean) data).getId());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLoadMore()
+    {
+        page++;
+        getData();
+    }
+
+    @Override
+    public void onRefresh()
+    {
+        page = 1;
+        getData();
+
+    }
+
 
 }

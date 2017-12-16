@@ -3,10 +3,14 @@ package com.outsource.changnanguoshui.utlis;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.outsource.changnanguoshui.R;
+import com.outsource.changnanguoshui.application.MyApplication;
 
 public class ItemDivider extends RecyclerView.ItemDecoration
 {
@@ -19,7 +23,7 @@ public class ItemDivider extends RecyclerView.ItemDecoration
     public ItemDivider()
     {
         initPaint();
-        paint.setColor(0xffff0000);
+        paint.setColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.div));
     }
 
     private void initPaint()

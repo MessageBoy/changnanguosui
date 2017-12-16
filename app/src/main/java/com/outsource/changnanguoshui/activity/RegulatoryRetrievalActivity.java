@@ -45,10 +45,7 @@ public class RegulatoryRetrievalActivity extends BaseActivity {
     @Override
     protected void initData() {
         title.setText("法规检索");
-
-
         getData();
-
     }
 
 

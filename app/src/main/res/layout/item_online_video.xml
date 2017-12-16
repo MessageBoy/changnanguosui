@@ -1,55 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/voting_bg">
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/voting_bg">
+
+
+            <ImageView
+                android:id="@+id/icon_ov"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/vvoting"/>
+
+
+            <TextView
+                android:id="@+id/title_ov"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/icon_ov"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="南昌市国税纪检查办设计费IE我跟姐姐沙拉酱付款翁开"
+                android:textColor="#666666"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/time_ov"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_ov"
+                android:layout_margin="5dp"
+                android:text="2017-11-24"
+                android:textColor="#999999"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/collection_ov"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_ov"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/collection_txt"
+                android:src="@mipmap/online_sc"/>
+
+            <TextView
+                android:id="@+id/collection_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/title_ov"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="收藏"
+                android:textColor="@color/gray"
+                android:textSize="12dp"
+                />
+
+        </RelativeLayout>
 
         <ImageView
-            android:id="@+id/icon_voting"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/vvoting"/>
-
-        <TextView
-            android:id="@+id/title_voting"
+            android:id="@+id/state_ov"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon_voting"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="南昌市国税纪检查办设计费IE我跟姐姐沙拉酱付款翁开"
-            android:textColor="#333333"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title_voting"
-            android:layout_margin="5dp"
-            android:text="2017-11-24"
-            android:textColor="#666666"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/title_voting"
-            android:layout_margin="5dp"
-            android:drawableLeft="@mipmap/online_sc"
-            android:text="收藏"
-            android:drawablePadding="3dp"
-            android:textColor="#666666"
-            android:textSize="12sp"/>
-    </RelativeLayout>
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/online_file_noover"/>
+    </FrameLayout>
 </LinearLayout>

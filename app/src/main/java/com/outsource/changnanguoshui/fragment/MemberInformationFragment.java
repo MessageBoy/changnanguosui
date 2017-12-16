@@ -26,7 +26,7 @@ import butterknife.BindView;
 
 public class MemberInformationFragment extends BaseFragment
 {
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.swipe_target)
     RecyclerView recyclerView;
     MyAdapter adapter;
     List<String> mData = new ArrayList<>();

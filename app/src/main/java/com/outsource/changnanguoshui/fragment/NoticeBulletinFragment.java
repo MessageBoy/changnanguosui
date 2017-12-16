@@ -25,7 +25,7 @@ import butterknife.BindView;
  */
 public class NoticeBulletinFragment extends BaseFragment
 {
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.swipe_target)
     RecyclerView recyclerView;
     MyAdapter adapter;
     List<NoticeBulletinBean> mData = new ArrayList<>();
