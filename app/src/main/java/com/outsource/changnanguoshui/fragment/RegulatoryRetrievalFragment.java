@@ -4,9 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.application.BaseFragment;
-import com.outsource.changnanguoshui.fragment.onlineLearn.OnlineNotPaymentFragment;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/15.
@@ -15,6 +20,7 @@ import com.outsource.changnanguoshui.fragment.onlineLearn.OnlineNotPaymentFragme
 public class RegulatoryRetrievalFragment extends BaseFragment
 {
     int type;
+    int page = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -31,7 +37,7 @@ public class RegulatoryRetrievalFragment extends BaseFragment
     {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
-        OnlineNotPaymentFragment fragment = new OnlineNotPaymentFragment();
+        RegulatoryRetrievalFragment fragment = new RegulatoryRetrievalFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -51,6 +57,35 @@ public class RegulatoryRetrievalFragment extends BaseFragment
     @Override
     protected void initData()
     {
+        getData();
+    }
 
+    private void getData()
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams("channel_id", "" + 2)
+                .addParams("parent_id", "" + type)
+                .addParams("page", "" + page)
+                .addParams(Constant.ACT, "GetNews")
+                .build()
+                .execute(new GenericsCallback<String>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id)
+                    {
+//                        if (response.getStatus() == 1)
+//                        {
+//
+//                        }
+                    }
+                });
     }
 }

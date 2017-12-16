@@ -19,6 +19,20 @@ public class DateUtils
         return dateTime.toString("yyyy-MM-dd");
     }
 
+    public static String getDate(String str)
+    {
+        String time = "";
+        try
+        {
+            str = str.substring(str.indexOf("(") + 1, str.indexOf("+"));
+            time = new DateTime(Long.parseLong(str)).toString("yyyy-MM-dd");
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return time;
+    }
+
     // 当周开始时间
     public static Date getWeekStart()
     {

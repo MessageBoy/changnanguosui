@@ -48,13 +48,7 @@ public class RegulatoryRetrievalActivity extends BaseActivity
     protected void initData()
     {
         title.setText("法规检索");
-
-        mAdapter = new TabAdapter(RegulatoryRetrievalActivity.this, getSupportFragmentManager(),
-                mFragmentList, mPageTitleList);
-        viewPager.setAdapter(mAdapter);
-        tabLayout.setupWithViewPager(viewPager);
         getData();
-
     }
 
 
@@ -91,7 +85,10 @@ public class RegulatoryRetrievalActivity extends BaseActivity
                                 mPageTitleList.add(data.getTitle());
                                 mFragmentList.add(new RegulatoryRetrievalFragment().newInstance(data.getId()));
                             }
-
+                            mAdapter = new TabAdapter(RegulatoryRetrievalActivity.this, getSupportFragmentManager(),
+                                    mFragmentList, mPageTitleList);
+                            viewPager.setAdapter(mAdapter);
+                            tabLayout.setupWithViewPager(viewPager);
                         }
                     }
                 });

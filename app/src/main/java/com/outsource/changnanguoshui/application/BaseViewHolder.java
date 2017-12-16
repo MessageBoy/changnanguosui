@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
+import com.outsource.changnanguoshui.R;
+import com.squareup.picasso.Picasso;
+
 /**
  * Created by Administrator on 2017/12/8.
  */
@@ -47,6 +51,19 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         if (tv != null)
         {
             tv.setImageResource(icon);
+        }
+        return this;
+    }
+
+    public BaseViewHolder setImage(int viewId, String url)
+    {
+        ImageView tv = getView(viewId);
+        if (tv != null)
+        {
+            Picasso.with(MyApplication.getInstance())
+                    .load(Constant.DOMAIN_NAME + url)
+                    .placeholder(R.mipmap.male_head)
+                    .into(tv);
         }
         return this;
     }
