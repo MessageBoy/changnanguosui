@@ -5,16 +5,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.TabAdapter;
 import com.outsource.changnanguoshui.application.BaseActivity;
+import com.outsource.changnanguoshui.bean.GetCategorysBean;
 import com.outsource.changnanguoshui.fragment.PartyBuildingFragment;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/5.
@@ -42,18 +48,7 @@ public class PartyBuildingActivity extends BaseActivity
     protected void initData()
     {
         title.setText("党建风采");
-        mPageTitleList.add("三会一课");
-        mPageTitleList.add("彻底落实十九大精神");
-        mPageTitleList.add("两学一做");
-        mFragmentList.add(new PartyBuildingFragment().newInstance(1));
-        mFragmentList.add(new PartyBuildingFragment().newInstance(2));
-        mFragmentList.add(new PartyBuildingFragment().newInstance(3));
-        mAdapter = new TabAdapter(this, getSupportFragmentManager(),
-                mFragmentList, mPageTitleList);
-        viewPager.setAdapter(mAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        //设置fragment缓存数为2，不设置默认为1滑到第三个后再回到第一个fragment会从新加载
-        viewPager.setOffscreenPageLimit(1);
+        getData();
     }
 
 
@@ -62,4 +57,35 @@ public class PartyBuildingActivity extends BaseActivity
     {
         finish();
     }
+
+    private void getData() {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams("channel_id", "" + 14)
+                .addParams("parent_id", "" + 2)
+                .addParams(Constant.ACT, "GetCategorys")
+                .build()
+                .execute(new GenericsCallback<GetCategorysBean>(new JsonGenerics()) {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(GetCategorysBean response, int id) {
+                        if (response.getStatus() == 1) {
+                            for (GetCategorysBean.ListBean data : response.getList()) {
+                                mPageTitleList.add(data.getTitle());
+                                mFragmentList.add(new PartyBuildingFragment().newInstance(data.getId()));
+                            }
+                            mAdapter = new TabAdapter(PartyBuildingActivity.this, getSupportFragmentManager(),
+                                    mFragmentList, mPageTitleList);
+                            viewPager.setAdapter(mAdapter);
+                            tabLayout.setupWithViewPager(viewPager);
+                        }
+                    }
+                });
+    }
+
 }

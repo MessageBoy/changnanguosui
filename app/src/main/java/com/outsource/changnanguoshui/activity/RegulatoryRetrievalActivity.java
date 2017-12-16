@@ -26,8 +26,7 @@ import okhttp3.Call;
  * Created by Administrator on 2017/12/15.
  */
 
-public class RegulatoryRetrievalActivity extends BaseActivity
-{
+public class RegulatoryRetrievalActivity extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.tab_layout)
@@ -39,33 +38,26 @@ public class RegulatoryRetrievalActivity extends BaseActivity
     private TabAdapter mAdapter;
 
     @Override
-    protected void initView()
-    {
+    protected void initView() {
         setContentView(R.layout.activity_party_building);
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         title.setText("法规检索");
 
-        mAdapter = new TabAdapter(RegulatoryRetrievalActivity.this, getSupportFragmentManager(),
-                mFragmentList, mPageTitleList);
-        viewPager.setAdapter(mAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+
         getData();
 
     }
 
 
     @OnClick(R.id.back)
-    public void onViewClicked()
-    {
+    public void onViewClicked() {
         finish();
     }
 
-    private void getData()
-    {
+    private void getData() {
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
@@ -73,25 +65,23 @@ public class RegulatoryRetrievalActivity extends BaseActivity
                 .addParams("parent_id", "" + 2)
                 .addParams(Constant.ACT, "GetCategorys")
                 .build()
-                .execute(new GenericsCallback<GetCategorysBean>(new JsonGenerics())
-                {
+                .execute(new GenericsCallback<GetCategorysBean>(new JsonGenerics()) {
                     @Override
-                    public void onError(Call call, Exception e, int id)
-                    {
+                    public void onError(Call call, Exception e, int id) {
 
                     }
 
                     @Override
-                    public void onResponse(GetCategorysBean response, int id)
-                    {
-                        if (response.getStatus() == 1)
-                        {
-                            for (GetCategorysBean.ListBean data : response.getList())
-                            {
+                    public void onResponse(GetCategorysBean response, int id) {
+                        if (response.getStatus() == 1) {
+                            for (GetCategorysBean.ListBean data : response.getList()) {
                                 mPageTitleList.add(data.getTitle());
                                 mFragmentList.add(new RegulatoryRetrievalFragment().newInstance(data.getId()));
                             }
-
+                            mAdapter = new TabAdapter(RegulatoryRetrievalActivity.this, getSupportFragmentManager(),
+                                    mFragmentList, mPageTitleList);
+                            viewPager.setAdapter(mAdapter);
+                            tabLayout.setupWithViewPager(viewPager);
                         }
                     }
                 });

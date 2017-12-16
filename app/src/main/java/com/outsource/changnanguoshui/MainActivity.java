@@ -37,8 +37,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void initData()
     {
-        SpUtils.setParam(this, Constant.TOKEN, "e3088a16a3efee4783573720e195ed69");
-        SpUtils.setParam(this, Constant.USER_ID, "9ebdc124309ce352");
         radioGroup.setOnCheckedChangeListener(this);
         rbHome.setChecked(true);
     }
