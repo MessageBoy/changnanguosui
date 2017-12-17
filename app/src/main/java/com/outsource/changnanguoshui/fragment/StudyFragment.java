@@ -91,7 +91,7 @@ public class StudyFragment extends BaseFragment implements OnRefreshListener, On
                 .execute(new GenericsCallback<StudyBean>(new JsonGenerics()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Alert("网络请求出错：" + e.getMessage());
+                        Alert("网络请求错误");
                         RefreshUtils.isRefresh(swipeToLoadLayout);
                     }
 

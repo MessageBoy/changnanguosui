@@ -9,7 +9,6 @@ import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.TabAdapter;
 import com.outsource.changnanguoshui.application.BaseActivity;
 import com.outsource.changnanguoshui.fragment.onlineLearn.OnlineNotPaymentFragment;
-import com.outsource.changnanguoshui.fragment.onlineLearn.OnlinePaymentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class OnlinePaymentActivity extends BaseActivity
         mPageTitleList.add("未缴纳党费");
         mPageTitleList.add("已缴纳党费");
         mFragmentList.add(new OnlineNotPaymentFragment().newInstance(1));
-        mFragmentList.add(new OnlinePaymentFragment().newInstance(2));
+        mFragmentList.add(new OnlineNotPaymentFragment().newInstance(0));
         mAdapter = new TabAdapter(this, getSupportFragmentManager(),
                 mFragmentList, mPageTitleList);
         viewPager.setAdapter(mAdapter);
