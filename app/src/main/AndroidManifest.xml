@@ -51,8 +51,14 @@
         <activity android:name=".activity.MemberInfoActivity"/>
         <activity android:name=".activity.MemberInformationActivity"/>
         <activity android:name=".activity.RegulatoryRetrievalActivity"/>
-        <activity android:name=".activity.LearningDetailsActivity"/>
         <activity android:name=".activity.StudyDetailsActivity"/>
+        <activity android:name=".activity.LearningQueryActivity"/>
+        <activity android:name=".activity.LearningProgressActivity"/>
+        <activity
+            android:name=".activity.LearningDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="52f029b965c9d0a83b0773abd155671d">

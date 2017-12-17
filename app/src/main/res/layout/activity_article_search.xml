@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@mipmap/tab_bg"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/selector_app_back"
+            />
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/back"
+            >
+
+            <com.outsource.changnanguoshui.utlis.DribSearchView
+                android:id="@+id/dribSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                app:breadth="4"
+                app:search_color="@color/white"/>
+
+            <EditText
+                android:id="@+id/editview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+
+        android:id="@+id/swipeToLoadLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:default_to_loading_more_scrolling_duration="500"
+        app:load_more_complete_delay_duration="0"
+        app:load_more_final_drag_offset="@dimen/load_more_final_offset_google"
+        app:load_more_trigger_offset="@dimen/load_more_trigger_offset_google"
+        app:refresh_final_drag_offset="@dimen/refresh_final_offset_google"
+        app:refresh_trigger_offset="@dimen/refresh_trigger_offset_google"
+        app:swipe_style="above">
+
+        <include
+            android:id="@id/swipe_refresh_header"
+            layout="@layout/layout_google_hook_header"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"/>
+
+        <include
+            android:id="@id/swipe_load_more_footer"
+            layout="@layout/layout_google_hook_footer"/>
+
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+</LinearLayout>

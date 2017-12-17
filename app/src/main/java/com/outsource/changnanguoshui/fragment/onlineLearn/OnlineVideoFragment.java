@@ -66,7 +66,7 @@ public class OnlineVideoFragment extends BaseFragment implements OnRefreshListen
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
         adapter.setItemListener(this);
-        getData();
+        onRefresh();
 
     }
 
@@ -120,7 +120,7 @@ public class OnlineVideoFragment extends BaseFragment implements OnRefreshListen
             holder.setText(R.id.title_ov, item.getTitle());
 //            holder.setText(R.id.online_but, item.getCategory_name());
             holder.setText(R.id.time_ov, DateUtils.getDate(item.getAdd_time()));
-            holder.setImageResource(R.id.state_of, item.getStatus() == 0 ? R.mipmap.online_file_noover : R.mipmap.hang_the_air);
+            holder.setImageResource(R.id.state_ov, item.getStatus() == 0 ? R.mipmap.online_file_noover : R.mipmap.hang_the_air);
             holder.setImageResource(R.id.collection_ov, item.getIs_favorite() == 0 ? R.mipmap.online_sc : R.mipmap.online_sc);
             holder.setImage(R.id.icon_ov, item.getImg_url());
         }
