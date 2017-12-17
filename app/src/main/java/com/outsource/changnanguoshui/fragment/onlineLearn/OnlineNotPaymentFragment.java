@@ -5,28 +5,29 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.onlineLearn.NotPaymentAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/5.
  */
 public class OnlineNotPaymentFragment extends BaseFragment {
     int type;
-    Unbinder unbinder;
     NotPaymentAdapter notPaymentAdapter;
     @BindView(R.id.recycle_online)
     RecyclerView recycleOnline;
@@ -60,26 +61,34 @@ public class OnlineNotPaymentFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        getData();
         recycleOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleOnline.addItemDecoration(new ItemDivider().setDividerColor(R.color.div));
         notPaymentAdapter = new NotPaymentAdapter(getActivity(), setOnlineData());
         recycleOnline.setAdapter(notPaymentAdapter);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
+    private void getData() {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "GetMyPayLog")
+                .addParams("flag", ""+type)
+                .build()
+                .execute(new GenericsCallback<String>(new JsonGenerics()) {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Alert("网络请求出错：" + e.getMessage());
+                    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+                    @Override
+                    public void onResponse(String response, int id) {
 
+                    }
+                });
+    }
     private List<String> setOnlineData()
     {
         List<String> data = new ArrayList<>();

@@ -45,8 +45,8 @@ public class OnlinePaymentActivity extends BaseActivity
         title.setText("在线缴费");
         mPageTitleList.add("未缴纳党费");
         mPageTitleList.add("已缴纳党费");
-        mFragmentList.add(new OnlineNotPaymentFragment().newInstance(1));
-        mFragmentList.add(new OnlinePaymentFragment().newInstance(2));
+        mFragmentList.add(new OnlineNotPaymentFragment().newInstance(0));
+        mFragmentList.add(new OnlinePaymentFragment().newInstance(1));
         mAdapter = new TabAdapter(this, getSupportFragmentManager(),
                 mFragmentList, mPageTitleList);
         viewPager.setAdapter(mAdapter);
