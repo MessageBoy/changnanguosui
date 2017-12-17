@@ -16,6 +16,6 @@ public class Constant
     public static final String TOKEN = "token";
     public static final String ACT = "act";
     public static final String IsLogin = "login";
-    public static final String BUSINESS_TRANSACT="http://wsbs.jxgs.gov.cn:7037/login";
+    public static final String BUSINESS_TRANSACT = "http://wsbs.jxgs.gov.cn:7037/login";
 
 }

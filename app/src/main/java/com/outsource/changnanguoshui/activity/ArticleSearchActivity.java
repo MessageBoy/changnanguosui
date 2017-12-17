@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseActivity;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.GetSearchNewsBean;
+import com.outsource.changnanguoshui.utlis.DateUtils;
 import com.outsource.changnanguoshui.utlis.DribSearchView;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
@@ -72,7 +74,7 @@ public class ArticleSearchActivity extends BaseActivity implements OnRefreshList
         mData = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new ItemDivider());
-        adapter = new MyAdapter(this, R.layout.item_me_learn, mData);
+        adapter = new MyAdapter(this, R.layout.item_party_building, mData);
         recyclerView.setAdapter(adapter);
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
@@ -128,6 +130,7 @@ public class ArticleSearchActivity extends BaseActivity implements OnRefreshList
             @Override
             public void afterTextChanged(Editable editable)
             {
+                page = 1;
                 getData();
             }
         });
@@ -204,21 +207,19 @@ public class ArticleSearchActivity extends BaseActivity implements OnRefreshList
         @Override
         public void bindViewData(BaseViewHolder holder, GetSearchNewsBean.ListBean item, int position)
         {
-//            holder.setText(R.id.context, item.getTitle());
-//            holder.setText(R.id.study_type, item.getStudy_type() == 0 ? "选学" : "必学");
-//            holder.setText(R.id.learn_time, "已学时间：" + item.getLearn_time());
-//            holder.setText(R.id.study_time, "需学时间：" + item.getStudy_time());
-//            holder.setText(R.id.point, "   |   " + item.getPoint() + "分");
-//            holder.setImageResource(R.id.state_ml, item.getStatus() == 0 ? R.mipmap.online_file_noover : R.mipmap.hang_the_air);
-//            holder.setImage(R.id.me_learn_img, item.getImg_url());
+            holder.setText(R.id.context, item.getTitle());
+            holder.setText(R.id.party_time, DateUtils.getDate(item.getAdd_time()));
+            holder.setImage(R.id.party_img, item.getImg_url());
+            holder.setVisibility(R.id.party_img, TextUtils.isEmpty(item.getImg_url()) ? View.GONE : View.VISIBLE);
         }
     }
 
     @Override
     public void onItemClick(View view, Object data, int position)
     {
-        Intent intent = new Intent(this, LearningDetailsActivity.class);
-        intent.putExtra("id", ((GetSearchNewsBean.ListBean) data).getId());
+        Intent intent = new Intent(this, StudyDetailsActivity.class);
+        intent.putExtra("activityTitle", "文章详情");
+        intent.putExtra("webUrl", Constant.DOMAIN_NAME + ((GetSearchNewsBean.ListBean) data).getPage_url());
         startActivity(intent);
     }
 

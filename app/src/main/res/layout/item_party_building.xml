@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
     >
 
     <ImageView
@@ -14,20 +13,21 @@
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_alignParentRight="true"
+        android:scaleType="fitXY"
         android:src="@mipmap/online_file_img"
         />
 
-   
+
     <TextView
         android:id="@+id/context"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:lineSpacingExtra="5dp"
-        android:gravity="left"
-        android:maxLines="2"
-        android:layout_toLeftOf="@+id/party_img"
         android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/party_img"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="2"
         android:text="全国党员先锋要加快党建学习好不容缓的跟着党的步伐前进。"
         android:textColor="@color/tab_text"
         android:textSize="14dp"
@@ -37,12 +37,12 @@
         android:id="@+id/party_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/context"
+        android:layout_marginBottom="10dp"
         android:text="3-24  12:25"
         android:textColor="@color/gray"
         android:textSize="13dp"
-        android:layout_below="@id/context"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
         />
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
+import com.outsource.changnanguoshui.activity.ArticleSearchActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
@@ -124,10 +125,10 @@ public class HomepageFragment extends BaseFragment
                         break;
                     case 11:
                         intent = new Intent(getActivity(), ConsultMsgActivity.class);
-                        intent.putExtra("activityTitle","举报建议");
-                        intent.putExtra("category_id","1");
-                        intent.putExtra("content_hint","请输入举报建议信息");
-                        intent.putExtra("button_msg","提交建议");
+                        intent.putExtra("activityTitle", "举报建议");
+                        intent.putExtra("category_id", "1");
+                        intent.putExtra("content_hint", "请输入举报建议信息");
+                        intent.putExtra("button_msg", "提交建议");
                         startActivity(intent);
                         break;
 
@@ -145,6 +146,7 @@ public class HomepageFragment extends BaseFragment
             case R.id.time_home:
                 break;
             case R.id.search_home:
+                startActivity(ArticleSearchActivity.class);
                 break;
         }
     }
