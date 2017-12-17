@@ -21,6 +21,7 @@
                 android:nestedScrollingEnabled="false"></android.support.v7.widget.RecyclerView>
 
             <Button
+                android:id="@+id/payment_submit"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:gravity="center"

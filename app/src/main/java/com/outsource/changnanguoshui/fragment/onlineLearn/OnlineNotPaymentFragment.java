@@ -1,16 +1,23 @@
 package com.outsource.changnanguoshui.fragment.onlineLearn;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.adapter.onlineLearn.NotPaymentAdapter;
+import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.application.BaseViewHolder;
+import com.outsource.changnanguoshui.bean.OnlinePayMentBen;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
@@ -21,16 +28,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/12/5.
  */
-public class OnlineNotPaymentFragment extends BaseFragment {
+public class OnlineNotPaymentFragment extends BaseFragment implements CommonBaseAdapter.onItemClickerListener {
     int type;
-    NotPaymentAdapter notPaymentAdapter;
     @BindView(R.id.recycle_online)
     RecyclerView recycleOnline;
+    MyAdapter adapter;
+    List<OnlinePayMentBen.ListBean> data;
+    @BindView(R.id.payment_submit)
+    Button paymentSubmit;
+    Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +64,16 @@ public class OnlineNotPaymentFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
+        getData();
+        data = new ArrayList<>();
 
+        if (type == 0) {
+            paymentSubmit.setVisibility(View.GONE);
+        }
+        recycleOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleOnline.addItemDecoration(new ItemDivider());
+        adapter = new MyAdapter(getActivity(), R.layout.item_not_already_payment, data);
+        recycleOnline.setAdapter(adapter);
     }
 
     @Override
@@ -61,11 +83,7 @@ public class OnlineNotPaymentFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        getData();
-        recycleOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycleOnline.addItemDecoration(new ItemDivider().setDividerColor(R.color.div));
-        notPaymentAdapter = new NotPaymentAdapter(getActivity(), setOnlineData());
-        recycleOnline.setAdapter(notPaymentAdapter);
+
     }
 
     private void getData() {
@@ -75,28 +93,59 @@ public class OnlineNotPaymentFragment extends BaseFragment {
                 .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
                 .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
                 .addParams(Constant.ACT, "GetMyPayLog")
-                .addParams("flag", ""+type)
+                .addParams("flag", "" + type)
                 .build()
-                .execute(new GenericsCallback<String>(new JsonGenerics()) {
+                .execute(new GenericsCallback<OnlinePayMentBen>(new JsonGenerics()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Alert("网络请求出错：" + e.getMessage());
+                        Alert("网络请求出错");
                     }
 
                     @Override
-                    public void onResponse(String response, int id) {
-
+                    public void onResponse(OnlinePayMentBen response, int id) {
+                        if (response.getStatus() == 1) {
+                            data.addAll(response.getList());
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }
-    private List<String> setOnlineData()
-    {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
-        {
-            data.add("1");
+
+    @Override
+    public void onItemClick(View view, Object data, int position) {
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    class MyAdapter extends CommonBaseAdapter<OnlinePayMentBen.ListBean> {
+
+        public MyAdapter(Context context, @LayoutRes int itemLayoutId, List<OnlinePayMentBen.ListBean> data) {
+            super(context, itemLayoutId, data);
         }
-        return data;
+
+        @Override
+        public void bindViewData(BaseViewHolder holder, OnlinePayMentBen.ListBean item, int position) {
+            if (type == 0) {
+                holder.setVisibility(R.id.checkbox, View.GONE);
+            } else {
+                holder.setVisibility(R.id.checkbox, View.VISIBLE);
+            }
+            holder.setText(R.id.money_number, item.getAmount() + "");
+            holder.setText(R.id.year_date, item.getPay_month());
+        }
     }
 
 }
