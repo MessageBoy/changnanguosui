@@ -20,6 +20,7 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/tab_text"
         android:text="抚州职业技术学校（爱上各位酒喝完爱上各位酒喝完爱上各位酒喝完）"
         android:textSize="14sp"/>
 

@@ -45,6 +45,16 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         return this;
     }
 
+    public BaseViewHolder setVisibility(int viewId, int visibility)
+    {
+        View tv = getView(viewId);
+        if (tv != null)
+        {
+            tv.setVisibility(visibility);
+        }
+        return this;
+    }
+
     public BaseViewHolder setImageResource(int viewId, int icon)
     {
         ImageView tv = getView(viewId);

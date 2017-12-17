@@ -16,7 +16,9 @@ import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
+import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ConsultMsgActivity;
 import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
+import com.outsource.changnanguoshui.activity.StudyDetailsActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
 import com.outsource.changnanguoshui.activity.taxBusiness.TaxBusinessActivity;
@@ -115,11 +117,17 @@ public class HomepageFragment extends BaseFragment
                         startActivity(ShuiQiHDActivity.class);
                         break;
                     case 10:
-                        startActivity(ShuiQiHDActivity.class);
+                        intent = new Intent(getActivity(), StudyDetailsActivity.class);
+                        intent.putExtra("webUrl", Constant.BUSINESS_TRANSACT);
+                        intent.putExtra("activityTitle", "业务办理");
+                        startActivity(intent);
                         break;
                     case 11:
-                        intent = new Intent(getActivity(), PersonnelManagementActivity.class);
-                        intent.putExtra("position", Constant.ONE);
+                        intent = new Intent(getActivity(), ConsultMsgActivity.class);
+                        intent.putExtra("activityTitle","举报建议");
+                        intent.putExtra("category_id","1");
+                        intent.putExtra("content_hint","请输入举报建议信息");
+                        intent.putExtra("button_msg","提交建议");
                         startActivity(intent);
                         break;
 

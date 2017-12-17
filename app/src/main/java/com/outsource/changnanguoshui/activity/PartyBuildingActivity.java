@@ -62,8 +62,7 @@ public class PartyBuildingActivity extends BaseActivity
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
-                .addParams("channel_id", "" + 14)
-                .addParams("parent_id", "" + 2)
+                .addParams("channel_id", "" + 16)
                 .addParams(Constant.ACT, "GetCategorys")
                 .build()
                 .execute(new GenericsCallback<GetCategorysBean>(new JsonGenerics()) {

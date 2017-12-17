@@ -20,10 +20,11 @@
    
     <TextView
         android:id="@+id/context"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lineSpacingExtra="5dp"
+        android:gravity="left"
         android:maxLines="2"
         android:layout_toLeftOf="@+id/party_img"
         android:layout_marginRight="10dp"
@@ -33,11 +34,14 @@
         />
 
     <TextView
+        android:id="@+id/party_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3-24  12:25"
         android:textColor="@color/gray"
         android:textSize="13dp"
+        android:layout_below="@id/context"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         />
 
