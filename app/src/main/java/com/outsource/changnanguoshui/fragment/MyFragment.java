@@ -14,7 +14,11 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
+import com.outsource.changnanguoshui.activity.LearningProgressActivity;
+import com.outsource.changnanguoshui.activity.LearningQueryActivity;
+import com.outsource.changnanguoshui.activity.MeLearnActivity;
 import com.outsource.changnanguoshui.activity.MemberInformationActivity;
+import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
@@ -76,6 +80,9 @@ public class MyFragment extends BaseFragment
                 Intent intent;
                 switch (position)
                 {
+                    case 2:
+                        startActivity(OnlineLearnActivity.class);
+                        break;
                     case 3:
                         startActivity(MemberInformationActivity.class);
                         break;
@@ -115,16 +122,31 @@ public class MyFragment extends BaseFragment
         return data;
     }
 
-    @OnClick({R.id.user_head, R.id.my_study, R.id.content_query})
+    @OnClick({R.id.user_head, R.id.xxjd_ll, R.id.wwcxx_ll, R.id.wdsc_ll, R.id.my_study, R.id.content_query})
     public void onViewClicked(View view)
     {
+        Intent intent;
         switch (view.getId())
         {
             case R.id.user_head:
                 break;
             case R.id.my_study:
+                intent = new Intent(getActivity(), MeLearnActivity.class);
+                intent.putExtra("position", Constant.ZERO);
+                startActivity(intent);
                 break;
             case R.id.content_query:
+                startActivity(LearningQueryActivity.class);
+                break;
+            case R.id.wdsc_ll:
+                break;
+            case R.id.xxjd_ll:
+                startActivity(LearningProgressActivity.class);
+                break;
+            case R.id.wwcxx_ll:
+                intent = new Intent(getActivity(), MeLearnActivity.class);
+                intent.putExtra("position", Constant.ONE);
+                startActivity(intent);
                 break;
         }
     }
@@ -160,7 +182,7 @@ public class MyFragment extends BaseFragment
                     @Override
                     public void onError(Call call, Exception e, int id)
                     {
-
+                        Alert("网络请求出错:" + e.getMessage());
                     }
 
                     @Override

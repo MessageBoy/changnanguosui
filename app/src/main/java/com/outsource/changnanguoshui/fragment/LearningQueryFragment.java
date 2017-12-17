@@ -16,6 +16,7 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.LearningDetailsActivity;
+import com.outsource.changnanguoshui.activity.LearningQueryActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
@@ -36,7 +37,7 @@ import okhttp3.Call;
 /**
  * Created by Administrator on 2017/12/5.
  */
-public class MeLearnFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener, CommonBaseAdapter.onItemClickerListener
+public class LearningQueryFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener, CommonBaseAdapter.onItemClickerListener, LearningQueryActivity.onAfterTextChanged
 {
     @BindView(R.id.swipe_target)
     RecyclerView recyclerView;
@@ -44,6 +45,7 @@ public class MeLearnFragment extends BaseFragment implements OnRefreshListener, 
     SwipeToLoadLayout swipeToLoadLayout;
     int page = 1;
     int type = 0;
+    String skey = "";
     MyAdapter adapter;
     List<GetMyStudyListBean.ListBean> mData;
 
@@ -62,7 +64,7 @@ public class MeLearnFragment extends BaseFragment implements OnRefreshListener, 
     {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
-        MeLearnFragment fragment = new MeLearnFragment();
+        LearningQueryFragment fragment = new LearningQueryFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -100,8 +102,9 @@ public class MeLearnFragment extends BaseFragment implements OnRefreshListener, 
                 .url(Constant.HTTP_URL)
                 .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
                 .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
-                .addParams(Constant.ACT, "GetMyStudyList")
+                .addParams(Constant.ACT, "GetStudy")
                 .addParams("flag", type + "")
+                .addParams("skey", skey)
                 .addParams("page", page + "")
                 .build()
                 .execute(new GenericsCallback<GetMyStudyListBean>(new JsonGenerics())
@@ -117,15 +120,20 @@ public class MeLearnFragment extends BaseFragment implements OnRefreshListener, 
                     public void onResponse(GetMyStudyListBean response, int id)
                     {
                         RefreshUtils.isRefresh(swipeToLoadLayout);
-                        if (response.getStatus() == 1)
-                        {
-                            if (page == 1)
-                                mData.clear();
-                            mData.addAll(response.getList());
-                            adapter.notifyDataSetChanged();
-                        }
+                        if (page == 1)
+                            mData.clear();
+                        mData.addAll(response.getList());
+                        adapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    @Override
+    public void setDate(String a)
+    {
+        page = 1;
+        skey = a;
+        getData();
     }
 
     class MyAdapter extends CommonBaseAdapter<GetMyStudyListBean.ListBean>
@@ -157,6 +165,7 @@ public class MeLearnFragment extends BaseFragment implements OnRefreshListener, 
         startActivity(intent);
     }
 
+
     @Override
     public void onLoadMore()
     {
@@ -171,5 +180,4 @@ public class MeLearnFragment extends BaseFragment implements OnRefreshListener, 
         getData();
 
     }
-    
 }

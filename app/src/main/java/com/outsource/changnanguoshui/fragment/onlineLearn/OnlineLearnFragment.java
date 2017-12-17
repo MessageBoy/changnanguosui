@@ -69,7 +69,7 @@ public class OnlineLearnFragment extends BaseFragment implements OnRefreshListen
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
         adapter.setItemListener(this);
-        getData();
+        onRefresh();
 
     }
 

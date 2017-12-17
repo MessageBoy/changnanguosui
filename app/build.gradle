@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.outsource.changnanguoshui"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -35,11 +35,12 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'//图片加载
     compile 'joda-time:joda-time:2.9.1'//时间
-    compile 'com.github.iwgang:countdownview:2.1.6'
-    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
-    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
+    compile 'com.github.iwgang:countdownview:2.1.6'//倒计时
+    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'//刷新加载
+    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'//刷新加载
+    compile 'fm.jiecao:jiecaovideoplayer:5.5.2'//视频播放 最低版本16
     compile 'com.amap.api:map2d:latest.integration'  //2d地图
     compile 'com.amap.api:location:latest.integration' //定位
     compile 'com.amap.api:search:latest.integration'  //搜索
