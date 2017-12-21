@@ -60,7 +60,6 @@
             android:name=".activity.LearningDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="52f029b965c9d0a83b0773abd155671d">

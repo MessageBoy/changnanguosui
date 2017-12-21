@@ -88,9 +88,7 @@ public class TaxBusinessActivity extends BaseActivity implements OnRefreshListen
                 .url(Constant.HTTP_URL)
                 .addParams(Constant.USER_ID, SpUtils.getParam(getApplicationContext(), Constant.USER_ID, "").toString())
                 .addParams(Constant.TOKEN, SpUtils.getParam(getApplicationContext(), Constant.TOKEN, "").toString())
-                .addParams(Constant.ACT, "GetNews")
-                .addParams("channel_id", "14")
-                .addParams("category_id", "33")
+                .addParams(Constant.ACT, "GetInfoList")
                 .addParams("page", page + "")
                 .build()
                 .execute(new GenericsCallback<StudyBean>(new JsonGenerics()) {
