@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
+import com.outsource.changnanguoshui.utlis.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -55,6 +56,16 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         return this;
     }
 
+    public BaseViewHolder setBackground(int viewId, int icon)
+    {
+        TextView tv = getView(viewId);
+        if (tv != null)
+        {
+            tv.setBackgroundResource(icon);
+        }
+        return this;
+    }
+
     public BaseViewHolder setImageResource(int viewId, int icon)
     {
         ImageView tv = getView(viewId);
@@ -73,6 +84,20 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
             Picasso.with(MyApplication.getInstance())
                     .load(Constant.DOMAIN_NAME + url)
                     .placeholder(R.mipmap.male_head)
+                    .into(tv);
+        }
+        return this;
+    }
+
+    public BaseViewHolder setCircleImage(int viewId, String url)
+    {
+        ImageView tv = getView(viewId);
+        if (tv != null)
+        {
+            Picasso.with(MyApplication.getInstance())
+                    .load(Constant.DOMAIN_NAME + url)
+                    .placeholder(R.mipmap.male_head)
+                    .transform(new CircleTransform())
                     .into(tv);
         }
         return this;

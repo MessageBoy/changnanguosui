@@ -21,7 +21,7 @@ public class VoteFragment extends BaseFragment
     @Override
     protected int getLayoutId()
     {
-        return R.layout.fragment_homepage;
+        return R.layout.fragment_vote;
     }
 
     @Override
