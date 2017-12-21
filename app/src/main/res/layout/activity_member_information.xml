@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/info_icon"
-            android:text="龚云兵"
             android:textColor="@color/text"
             android:textSize="15sp"/>
 
@@ -51,7 +50,6 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="党组书记，局长党组书记，局长党组书记，局长党组书记，局长党组书记，局长"
                 android:textColor="@color/tab_text"
                 android:textSize="13sp"/>
 
@@ -72,9 +70,10 @@
                 android:textSize="13sp"/>
 
             <TextView
+                android:id="@+id/point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12"
+                android:text="0"
                 android:textColor="@color/red"
                 android:textSize="13sp"/>
         </LinearLayout>
@@ -85,7 +84,8 @@
         android:layout_height="3dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/bg_dotted_line"/>
+        android:background="@drawable/bg_dotted_line"
+        android:layerType="software"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,10 +118,11 @@
 
 
         <TextView
+            android:id="@+id/video_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="6小时27分钟"
+            android:text="0分钟"
             android:textColor="@color/gray"
             android:textSize="13sp"/>
 
@@ -138,10 +139,11 @@
 
 
         <TextView
+            android:id="@+id/article_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="320篇"
+            android:text="0篇"
             android:textColor="@color/gray"
             android:textSize="13sp"/>
     </LinearLayout>

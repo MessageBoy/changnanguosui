@@ -85,7 +85,10 @@ public class MyFragment extends BaseFragment
                         startActivity(OnlineLearnActivity.class);
                         break;
                     case 3:
-                        startActivity(MemberInformationActivity.class);
+                        intent = new Intent(getActivity(), MemberInformationActivity.class);
+                        intent.putExtra("user_id", SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString());
+                        intent.putExtra("title", "我的信息");
+                        startActivity(intent);
                         break;
                     case 4:
                         intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
