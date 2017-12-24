@@ -27,7 +27,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
+                android:layout_height="180dp"
                 android:background="@mipmap/userinfo_bg">
 
                 <ImageView
@@ -49,16 +49,7 @@
                     android:textColor="@color/white"
                     android:textSize="17sp"/>
 
-                <TextView
-                    android:id="@+id/user_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/user_name"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="4dp"
-                    android:text="查看或编辑个人资料"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"/>
+
             </RelativeLayout>
 
             <LinearLayout

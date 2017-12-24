@@ -56,8 +56,6 @@ public class MyFragment extends BaseFragment
     ImageView userHead;
     @BindView(R.id.user_name)
     TextView userName;
-    @BindView(R.id.user_info)
-    TextView userInfo;
     @BindView(R.id.wwcxx)
     TextView wwcxx;
     @BindView(R.id.xxjd)
@@ -197,11 +195,10 @@ public class MyFragment extends BaseFragment
                         {
                             wwcxx.setText("(" + response.getStudy_unfinish() + ")");
                             wdsc.setText("(" + response.getFavorite_num() + ")");
-                            xxjd.setText("(" + response.getStudy_plan() + ")");
+                            xxjd.setText("(" + response.getStudy_plan() + "%)");
                             userName.setText(response.getReal_name());
                             Picasso.with(getActivity())
                                     .load(Constant.DOMAIN_NAME + response.getPic_url())
-                                    .placeholder(R.mipmap.male_head)
                                     .transform(new CircleTransform())
                                     .into(userHead);
                         }
