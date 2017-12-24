@@ -1,21 +1,21 @@
-package com.outsource.changnanguoshui.fragment;
+package com.outsource.changnanguoshui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.activity.StudyDetailsActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
-import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.application.BaseActivity;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.StudyBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
@@ -33,9 +33,10 @@ import butterknife.BindView;
 import okhttp3.Call;
 
 /**
- * Created by Administrator on 2017/12/8.
+ * Created by Administrator on 2017/12/24.
  */
-public class NoticeBulletinFragment extends BaseFragment implements OnLoadMoreListener, OnRefreshListener, CommonBaseAdapter.onItemClickerListener
+
+public class NoticeBulletinActivty extends BaseActivity implements OnLoadMoreListener, OnRefreshListener, CommonBaseAdapter.onItemClickerListener
 {
     @BindView(R.id.swipe_target)
     RecyclerView swipe_target;
@@ -44,32 +45,29 @@ public class NoticeBulletinFragment extends BaseFragment implements OnLoadMoreLi
     MyAdapter adapter;
     private int page = 1;
     List<StudyBean.ListBean> data;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.back)
+    ImageView back;
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState)
+    protected void initView()
     {
-
-        getData();
-        data = new ArrayList();
-        swipe_target.setLayoutManager(new LinearLayoutManager(getActivity()));
-        swipe_target.addItemDecoration(new ItemDivider());
-        adapter = new MyAdapter(getActivity(), R.layout.item_notice_bulletin, data);
-        swipe_target.setAdapter(adapter);
-        swipeToLoadLayout.setOnRefreshListener(this);
-        swipeToLoadLayout.setOnLoadMoreListener(this);
-        adapter.setItemListener(this);
-
-    }
-
-    @Override
-    protected int getLayoutId()
-    {
-        return R.layout.fragment_list;
+        setContentView(R.layout.fragment_study);
     }
 
     @Override
     protected void initData()
     {
+        data = new ArrayList();
+        title.setText("通知公告");
+        swipe_target.setLayoutManager(new LinearLayoutManager(this));
+        swipe_target.addItemDecoration(new ItemDivider());
+        adapter = new MyAdapter(this, R.layout.item_notice_bulletin, data);
+        swipe_target.setAdapter(adapter);
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
+        adapter.setItemListener(this);
         getData();
     }
 
@@ -78,11 +76,12 @@ public class NoticeBulletinFragment extends BaseFragment implements OnLoadMoreLi
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
-                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
-                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.USER_ID, SpUtils.getParam(this, Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(this, Constant.TOKEN, "").toString())
                 .addParams(Constant.ACT, "GetNews")
                 .addParams("channel_id", "17")
                 .addParams("category_id", "7")
+                .addParams("pagesize", 20 + "")
                 .addParams("page", page + "")
                 .build()
                 .execute(new GenericsCallback<StudyBean>(new JsonGenerics())
@@ -126,7 +125,7 @@ public class NoticeBulletinFragment extends BaseFragment implements OnLoadMoreLi
     @Override
     public void onItemClick(View view, Object data, int position)
     {
-        Intent intent = new Intent(getActivity(), StudyDetailsActivity.class);
+        Intent intent = new Intent(this, StudyDetailsActivity.class);
         intent.putExtra("webUrl", Constant.DOMAIN_NAME + ((StudyBean.ListBean) data).getPage_url());
         intent.putExtra("activityTitle", "公告内容");
         startActivity(intent);

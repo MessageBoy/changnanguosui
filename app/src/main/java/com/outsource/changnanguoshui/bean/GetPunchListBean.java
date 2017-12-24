@@ -11,7 +11,7 @@ public class GetPunchListBean
 
     /**
      * status : 1
-     * msg : 
+     * msg :
      * list : [{"date_str":"2017-12-10","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-11","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-12","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-13","time1":"--:--","time1_status":"请假","time2":"--:--","time2_status":"请假"},{"date_str":"2017-12-14","time1":"8:50","time1_status":"迟到","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-15","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-16","time1":"8:30","time1_status":"正常","time2":"17:01","time2_status":"早退"},{"date_str":"2017-12-17","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-18","time1":"8:30","time1_status":"正常","time2":"--:--","time2_status":"漏签"},{"date_str":"2017-12-19","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"},{"date_str":"2017-12-20","time1":"8:30","time1_status":"正常","time2":"17:35","time2_status":"正常"}]
      */
 
@@ -58,12 +58,22 @@ public class GetPunchListBean
          * time2 : 17:35
          * time2_status : 正常
          */
-
+        private String add_time;
         private String date_str;
         private String time1;
         private String time1_status;
         private String time2;
         private String time2_status;
+
+        public String getAdd_time()
+        {
+            return add_time;
+        }
+
+        public void setAdd_time(String add_time)
+        {
+            this.add_time = add_time;
+        }
 
         public String getDate_str()
         {

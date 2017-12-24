@@ -55,6 +55,8 @@
         <activity android:name=".activity.LearningQueryActivity"/>
         <activity android:name=".activity.LearningProgressActivity"/>
         <activity android:name=".activity.ArticleSearchActivity"/>
+        <activity android:name=".activity.NoticeBulletinActivty"/>
+        <activity android:name=".activity.OnlineCardActivty"/>
         <activity android:name=".activity.AccountMaintenanceActivity"/>
         <activity
             android:name=".activity.LearningDetailsActivity"

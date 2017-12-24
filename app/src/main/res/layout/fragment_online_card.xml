@@ -4,6 +4,7 @@
               android:orientation="vertical"
     >
 
+    <include layout="@layout/title_bar"/>
 
     <FrameLayout
         android:id="@+id/fragment"

@@ -25,7 +25,7 @@ public class DateUtils
         try
         {
             str = str.substring(str.indexOf("(") + 1, str.indexOf("+"));
-            time = new DateTime(Long.parseLong(str)).toString("yyyy-MM-dd");
+            time = new DateTime(Long.parseLong(str)).toString("yyyy-MM-dd  HH:mm");
         } catch (Exception e)
         {
             e.getMessage();
@@ -36,12 +36,22 @@ public class DateUtils
     // 当周开始时间
     public static Date getWeekStart()
     {
+
         Calendar c = new GregorianCalendar();
         c.setFirstDayOfWeek(Calendar.MONDAY);
-        c.setTime(new DateTime().toDate());
-        c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek()); // Monday
-        return (Date) c.getTime().clone();
+        c.setTime(new Date());
+        c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek()); // Monday 
+        return c.getTime();
     }
 
+    public static boolean isBefore(String dateTime)
+    {
+        return new DateTime().isBefore(new DateTime(dateTime));
+    }
+
+    public static boolean isAfter(String dateTime)
+    {
+        return new DateTime().isAfter(new DateTime(dateTime));
+    }
 
 }

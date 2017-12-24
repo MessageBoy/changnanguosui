@@ -68,4 +68,7 @@ public class AdministrativeManagementActivity extends PermissionsActivity
     {
         finish();
     }
+
+  
+
 }

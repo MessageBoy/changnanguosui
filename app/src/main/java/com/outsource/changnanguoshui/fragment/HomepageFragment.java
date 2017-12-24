@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.ArticleSearchActivity;
+import com.outsource.changnanguoshui.activity.NoticeBulletinActivty;
+import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
+import com.outsource.changnanguoshui.activity.OnlineCardActivty;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
@@ -258,19 +260,13 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(RegulatoryRetrievalActivity.class);
                 break;
             case 6:
-                intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
-                intent.putExtra("position", Constant.ZERO);
-                startActivity(intent);
+                startActivity(NoticeBulletinActivty.class);
                 break;
             case 7:
-                intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
-                intent.putExtra("position", Constant.ONE);
-                startActivity(intent);
+                startActivity(OnlineCardActivty.class);
                 break;
             case 8:
-                intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
-                intent.putExtra("position", Constant.Two);
-                startActivity(intent);
+                startActivity(OnlineActivityActivity.class);
                 break;
             case 9:
                 startActivity(ShuiQiHDActivity.class);

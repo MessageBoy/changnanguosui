@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -17,7 +18,9 @@ import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.GetPunchListBean;
+import com.outsource.changnanguoshui.utlis.DateUtils;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
+import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
 import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -37,6 +40,8 @@ import okhttp3.Call;
 
 public class HistoryFragment extends BaseFragment implements OnDateSetListener
 {
+    @BindView(R.id.tab_layout)
+    LinearLayout tab_layout;
     @BindView(R.id.history_list)
     RecyclerView historyList;
     MyAdapter adapter;
@@ -48,7 +53,8 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     {
         mData = new ArrayList<>();
         historyList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new HistoryFragment.MyAdapter(getActivity(), R.layout.item_history, mData);
+        historyList.addItemDecoration(new ItemDivider());
+        adapter = new HistoryFragment.MyAdapter(getActivity(), R.layout.item_text, mData);
         historyList.setAdapter(adapter);
 
     }
@@ -62,13 +68,14 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     @Override
     protected void initData()
     {
+        tab_layout.setVisibility(View.GONE);
         tiemDialog = new TimePickerDialog.Builder()
                 .setTitleStringId("请选择月份")//标题
                 .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
                 .setType(Type.YEAR_MONTH)
                 .setCallBack(this)
                 .build();
-        getData(new DateTime().toString("M"));
+        getData(new DateTime().toString("yyyy-MM"));
     }
 
 
@@ -89,13 +96,14 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
         @Override
         public void bindViewData(BaseViewHolder holder, GetPunchListBean.ListBean item, int position)
         {
-            holder.setText(R.id.date_str, item.getDate_str());
-            holder.setText(R.id.time1, item.getTime1());
-            holder.setText(R.id.time1_status, item.getTime1_status());
-            holder.setText(R.id.time2, item.getTime2());
-            holder.setText(R.id.time2_status, item.getTime2_status());
-            holder.setBackground(R.id.time1_status, getBac(item.getTime1_status()));
-            holder.setBackground(R.id.time2_status, getBac(item.getTime2_status()));
+            holder.setText(R.id.time, DateUtils.getDate(item.getAdd_time()));
+//            holder.setText(R.id.date_str, item.getDate_str());
+//            holder.setText(R.id.time1, item.getTime1());
+//            holder.setText(R.id.time1_status, item.getTime1_status());
+//            holder.setText(R.id.time2, item.getTime2());
+//            holder.setText(R.id.time2_status, item.getTime2_status());
+//            holder.setBackground(R.id.time1_status, getBac(item.getTime1_status()));
+//            holder.setBackground(R.id.time2_status, getBac(item.getTime2_status()));
         }
 
     }
@@ -105,9 +113,10 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
-                .addParams(Constant.ACT, "GetPunchList")
-                .addParams("user_id", SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
-                .addParams("month", month)
+                .addParams(Constant.ACT, "GetPunchHistory")
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams("token", month)
                 .build()
                 .execute(new GenericsCallback<GetPunchListBean>(new JsonGenerics())
                 {
@@ -122,6 +131,7 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
                     {
                         if (response.getStatus() == 1)
                         {
+
                             mData.addAll(response.getList());
                             adapter.notifyDataSetChanged();
                         }
@@ -157,6 +167,8 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds)
     {
-        getData(new DateTime(millseconds).toString("M"));
+        mData.clear();
+        adapter.notifyDataSetChanged();
+        getData(new DateTime(millseconds).toString("yyyy-MM"));
     }
 }

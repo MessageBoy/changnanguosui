@@ -2,9 +2,14 @@ package com.outsource.changnanguoshui.fragment;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,20 +25,26 @@ import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.WeekAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.bean.GetPunchSetBean;
 import com.outsource.changnanguoshui.bean.WeekBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
+import com.outsource.changnanguoshui.utlis.GenericsCallback;
+import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 
 /**
@@ -63,6 +74,13 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     private RegeocodeQuery query;
     private float distance;
     private LatLng latLng;
+    int mapRange = 50;//定位范围，数字，单位是米
+    String time1_str = "8:00-9:05";//上午上班打卡时间段  格式：8:00-9:05
+    String time2_str = "11:55-12:49";// 上午下班打卡时间段
+    String time3_str = "12:50-13:35";//  下午上班打卡时间段
+    String time4_str = "16:55-18:00";// 下午下班打卡时间段
+    String currentDate;//当前日期
+    String intro = "";
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
@@ -83,15 +101,19 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     @Override
     protected void initData()
     {
-        dateCard.setText(new DateTime().toString("yyyy-MM-dd"));
+        currentDate = new DateTime().toString("yyyy-MM-dd");
         tiemCard.setText(new DateTime().toString("HH:mm:SS"));
+        dateCard.setText(currentDate);
+        getPunchSet();
         getData();
+        setLocation();
+
 
     }
 
     private void getData()
     {
-        Date WeekStart = DateUtils.getWeekStart();
+        DateTime WeekStart = new DateTime().dayOfWeek().withMinimumValue();
         for (int i = 0; i < 7; i++)
         {
             String day = new DateTime(WeekStart).plusDays(i).toString("d");
@@ -104,7 +126,7 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
             }
 
         }
-        setLocation();
+
     }
 
     private void setLocation()
@@ -115,12 +137,12 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
             aMap = mMapView.getMap();
         }
         latLng = new LatLng(22.639475, 114.049557);//22.638475
-        aMap.addCircle(new CircleOptions().
-                center(latLng).
-                radius(60).
-                fillColor(R.color.div).
-                strokeColor(R.color.transparent).
-                strokeWidth(1));
+        aMap.addCircle(new CircleOptions()
+                .center(latLng)
+                .radius(mapRange)
+                .fillColor(R.color.div)
+                .strokeColor(R.color.transparent)
+                .strokeWidth(1));
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类
         myLocationStyle.interval(5000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);
@@ -139,13 +161,20 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     @OnClick(R.id.punch_clock)
     public void onViewClicked()
     {
-        if (distance < 60)
+        if (DateUtils.isBefore(currentDate + "T" + time2_str.substring(0, time2_str.indexOf("-"))))
         {
-            Alert("打卡成功");
+            getDate(time1_str);
+        } else if (DateUtils.isBefore(currentDate + "T" + time3_str.substring(0, time2_str.indexOf("-"))))
+        {
+            getDate(time2_str);
+        } else if (DateUtils.isBefore(currentDate + "T" + time4_str.substring(0, time2_str.indexOf("-"))))
+        {
+            getDate(time3_str);
         } else
         {
-            Alert("距离上班地点还有" + (int) (distance - 60) + "米，是否打卡");
+            getDate(time4_str);
         }
+
     }
 
     @Override
@@ -195,12 +224,134 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     {
         if (i == 1000)
         {
-            addressCard.setText("您当前的位置：" + regeocodeResult.getRegeocodeAddress().getFormatAddress());
+            addressCard.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
         }
     }
 
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i)
     {
+    }
+
+    private void getPunchSet()
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "GetPunchSet")
+                .build()
+                .execute(new GenericsCallback<GetPunchSetBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Alert("网络请求出错：" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(GetPunchSetBean response, int id)
+                    {
+                        if (response.getStatus() == 1)
+                        {
+                            mapRange = response.getMap_range();
+                            time1_str = response.getTime1_str();
+                            time2_str = response.getTime2_str();
+                            time3_str = response.getTime3_str();
+                            time4_str = response.getTime4_str();
+
+                        }
+                    }
+                });
+    }
+
+    private void getDate(String time)
+    {
+        if (distance < mapRange)
+        {
+            String startTime = currentDate + "T" + time.substring(0, time.indexOf("-"));
+            String endTime = currentDate + "T" + time.substring(time.indexOf("-") + 1, time.length());
+            if (DateUtils.isAfter(startTime) && DateUtils.isAfter(endTime))
+            {
+                savePunch("1");
+            } else
+            {
+                showOneDialog("1", 0);
+
+            }
+        } else
+        {
+            showOneDialog("0", (int) (distance - mapRange));
+        }
+
+    }
+
+
+    private void savePunch(String range)
+    {
+        Log.e("addParams", "   range=" + range + "    intro=" + intro + "    add_time=" + new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
+        OkHttpUtils
+                .post()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "SavePunch")
+                .addParams("add_time", new DateTime().toString("yyyy-MM-dd HH:mm:ss"))
+                .addParams("range", range)
+                .addParams("intro", intro)
+                .build()
+                .execute(new GenericsCallback<GetPunchSetBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Alert("网络请求出错：" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(GetPunchSetBean response, int id)
+                    {
+                        Alert(response.getMsg());
+                    }
+                });
+    }
+
+    private void showOneDialog(final String range, int mapRange)
+    {
+        final AlertDialog build = new AlertDialog.Builder(getActivity()).create();
+        View view = getActivity().getLayoutInflater().inflate(R.layout.splash_dialog, null);
+        build.setView(view);
+        build.show();
+        Button cancel = (Button) view.findViewById(R.id.cancel);
+        Button confirm = (Button) view.findViewById(R.id.confirm);
+        final EditText message = (EditText) view.findViewById(R.id.message);
+        TextView sj = (TextView) view.findViewById(R.id.sj);
+        TextView fw = (TextView) view.findViewById(R.id.fw);
+        sj.setText("签到时间：" + new DateTime().toString("HH:mm:ss"));
+        fw.setText(mapRange > 0 ? "距离考勤范围还有：" + mapRange + "米" : "已在考勤范围内");
+        cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                build.dismiss();
+            }
+        });
+        confirm.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                intro = message.getText().toString();
+                if (TextUtils.isEmpty(message.getText().toString()))
+                {
+                    Alert("请填写备注");
+                    return;
+                }
+                savePunch(range);
+                build.dismiss();
+            }
+        });
     }
 }
