@@ -19,7 +19,9 @@ import com.outsource.changnanguoshui.activity.LearningQueryActivity;
 import com.outsource.changnanguoshui.activity.MeLearnActivity;
 import com.outsource.changnanguoshui.activity.MemberInformationActivity;
 import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
+import com.outsource.changnanguoshui.activity.MyCollectActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
+import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
@@ -79,6 +81,16 @@ public class MyFragment extends BaseFragment
                 Intent intent;
                 switch (position)
                 {
+                    case 0:
+                        intent = new Intent(getActivity(), OnlinePaymentActivity.class);
+                        intent.putExtra("position", Constant.ZERO);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(getActivity(), OnlinePaymentActivity.class);
+                        intent.putExtra("position", Constant.ONE);
+                        startActivity(intent);
+                        break;
                     case 2:
                         startActivity(OnlineLearnActivity.class);
                         break;
@@ -97,6 +109,13 @@ public class MyFragment extends BaseFragment
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        getData();
     }
 
     @Override
@@ -140,6 +159,7 @@ public class MyFragment extends BaseFragment
                 startActivity(LearningQueryActivity.class);
                 break;
             case R.id.wdsc_ll:
+                startActivity(MyCollectActivity.class);
                 break;
             case R.id.xxjd_ll:
                 startActivity(LearningProgressActivity.class);

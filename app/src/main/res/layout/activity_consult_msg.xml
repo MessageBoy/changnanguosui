@@ -20,7 +20,7 @@
             android:paddingLeft="10dp"
             android:textSize="16dp"
             android:inputType="phone"
-            android:hint="联系方式:"
+            android:hint="联系方式"
             android:gravity="center_vertical"
             android:textColor="@color/black" />
 
@@ -33,7 +33,7 @@
             android:textSize="16dp"
             android:background="@drawable/consult_msg_edit"
             android:gravity="top"
-            android:hint="您要咨询的问题:"
+            android:hint="您要咨询的问题"
             android:textColor="@color/tab_text" />
 
         <Button

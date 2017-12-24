@@ -21,10 +21,10 @@ import com.outsource.changnanguoshui.activity.ArticleSearchActivity;
 import com.outsource.changnanguoshui.activity.NoticeBulletinActivty;
 import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
 import com.outsource.changnanguoshui.activity.OnlineCardActivty;
+import com.outsource.changnanguoshui.activity.MoreActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
-import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ConsultMsgActivity;
 import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
 import com.outsource.changnanguoshui.activity.StudyDetailsActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
@@ -76,7 +76,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
     MyAdapter adapter;
     private int page = 1;
     List<StudyBean.ListBean> data;
-    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险推送", "法规检索", "通知公告", "在线打卡", "线上活动", "线上答疑", "业务办理", "举报建议"};
+    String[] title = {"党员信息", "党建风采", "党费收缴", "在线学习", "风险管理", "法规检索", "通知公告", "无线签到", "主题活动", "线上答疑", "税收业务", "举报建议"};
     int[] icon = {R.mipmap.dyxx, R.mipmap.djfc, R.mipmap.zxdf, R.mipmap.zxxx, R.mipmap.fxts, R.mipmap.wjcx, R.mipmap.tzgg, R.mipmap.zxdk, R.mipmap.xshd, R.mipmap.sqhd, R.mipmap.lzjb, R.mipmap.zhwh};
     HomeAdapter homeAdapter;
     List<HomeBean> mData;
@@ -122,6 +122,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
             @Override
             public void onItemClick(View view, Object data, int position)
             {
+
                 Intent intent = new Intent(getActivity(), StudyDetailsActivity.class);
                 intent.putExtra("webUrl", Constant.DOMAIN_NAME + ((StudyBean.ListBean) data).getPage_url());
                 intent.putExtra("activityTitle", "资讯内容");
@@ -145,6 +146,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 .addParams("channel_id", "22")
                 .addParams("category_id", "11")
                 .addParams("page", page + "")
+                .addParams("pagesize", "5")
                 .build()
                 .execute(new GenericsCallback<StudyBean>(new JsonGenerics())
                 {
@@ -248,7 +250,9 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(PartyBuildingActivity.class);
                 break;
             case 2:
-                startActivity(OnlinePaymentActivity.class);
+                intent = new Intent(getActivity(), OnlinePaymentActivity.class);
+                intent.putExtra("position", Constant.ZERO);
+                startActivity(intent);
                 break;
             case 3:
                 startActivity(OnlineLearnActivity.class);
@@ -269,20 +273,18 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(OnlineActivityActivity.class);
                 break;
             case 9:
-                startActivity(ShuiQiHDActivity.class);
+                intent = new Intent(getActivity(), ShuiQiHDActivity.class);
+                intent.putExtra("position", Constant.ZERO);
+                startActivity(intent);
                 break;
             case 10:
-                intent = new Intent(getActivity(), StudyDetailsActivity.class);
-                intent.putExtra("webUrl", Constant.BUSINESS_TRANSACT);
-                intent.putExtra("activityTitle", "业务办理");
+                intent = new Intent(getActivity(), ShuiQiHDActivity.class);
+                intent.putExtra("position", Constant.ONE);
                 startActivity(intent);
                 break;
             case 11:
-                intent = new Intent(getActivity(), ConsultMsgActivity.class);
-                intent.putExtra("activityTitle", "举报建议");
-                intent.putExtra("category_id", "1");
-                intent.putExtra("content_hint", "请输入举报建议信息");
-                intent.putExtra("button_msg", "提交建议");
+                intent = new Intent(getActivity(), ShuiQiHDActivity.class);
+                intent.putExtra("position", Constant.Two);
                 startActivity(intent);
                 break;
 
@@ -314,11 +316,14 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
         }
     }
 
-    @OnClick({R.id.time_home, R.id.search_home})
+    @OnClick({R.id.time_home, R.id.search_home, R.id.more})
     public void onViewClicked(View view)
     {
         switch (view.getId())
         {
+            case R.id.more:
+                startActivity(MoreActivity.class);
+                break;
             case R.id.time_home:
                 break;
             case R.id.search_home:

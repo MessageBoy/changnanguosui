@@ -21,6 +21,10 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <style name="My_CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+       <item name="colorAccent">@color/tab_indicator</item>
+    </style>
+
     <style name="GovDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowNoTitle">true</item>

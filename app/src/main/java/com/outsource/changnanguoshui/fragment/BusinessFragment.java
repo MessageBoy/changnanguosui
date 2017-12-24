@@ -1,6 +1,7 @@
 package com.outsource.changnanguoshui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.application.BackHandledFragment;
 
 import butterknife.BindView;
 
@@ -17,7 +18,7 @@ import butterknife.BindView;
  * Created by Administrator on 2017/12/4.
  */
 
-public class BusinessFragment extends BaseFragment {
+public class BusinessFragment extends BackHandledFragment {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -27,11 +28,7 @@ public class BusinessFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        title.setText("业务办理");
-        back.setVisibility(View.GONE);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.loadUrl(Constant.BUSINESS_TRANSACT);
+
     }
 
     @Override
@@ -41,6 +38,24 @@ public class BusinessFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        title.setText("业务办理");
+        back.setVisibility(View.GONE);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.loadUrl(Constant.BUSINESS_TRANSACT);
+    }
 
+    @Override
+    public boolean onBackPressed() {
+        if (webView.canGoBack())
+        {
+            webView.goBack();
+            Log.v("webView.goBack()", "webView.goBack()");
+            return true;
+        } else
+        {
+            Log.v("Conversatio退出", "Conversatio退出");
+            return false;
+        }
     }
 }

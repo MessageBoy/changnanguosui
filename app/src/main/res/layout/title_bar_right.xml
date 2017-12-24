@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:id="@+id/bar"
                 android:layout_height="48dp"
                 android:background="@mipmap/tab_bg"
                 android:orientation="horizontal">
@@ -24,4 +23,18 @@
         android:text="标题"
         android:textColor="@color/white"
         android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/tab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="添加1"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_alignParentRight="true"
+        android:textSize="14dp"
+        android:textColor="@color/white"
+        />
+
 </RelativeLayout>

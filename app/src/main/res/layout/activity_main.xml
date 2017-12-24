@@ -41,7 +41,7 @@
             android:id="@+id/rb_vote"
             style="@style/radio_button_tab"
             android:drawableTop="@drawable/selector_contacts_drawable"
-            android:text="投票"
+            android:text="活动"
             />
 
         <RadioButton

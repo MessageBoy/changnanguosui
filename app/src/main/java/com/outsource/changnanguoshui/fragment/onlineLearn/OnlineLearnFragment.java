@@ -3,11 +3,14 @@ package com.outsource.changnanguoshui.fragment.onlineLearn;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -18,6 +21,7 @@ import com.outsource.changnanguoshui.activity.LearningDetailsActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
+import com.outsource.changnanguoshui.bean.ConsultMsgBean;
 import com.outsource.changnanguoshui.bean.GetStudyListBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
@@ -117,15 +121,61 @@ public class OnlineLearnFragment extends BaseFragment implements OnRefreshListen
         }
 
         @Override
-        public void bindViewData(BaseViewHolder holder, GetStudyListBean.ListBean item, int position)
+        public void bindViewData(BaseViewHolder holder, final GetStudyListBean.ListBean item, final int position)
         {
             holder.setText(R.id.context, item.getTitle());
             holder.setText(R.id.online_but, item.getCategory_name());
             holder.setText(R.id.time_of, DateUtils.getDate(item.getAdd_time()));
             holder.setImageResource(R.id.state_of, item.getStatus() == 0 ? R.mipmap.online_file_noover : R.mipmap.hang_the_air);
-            holder.setImageResource(R.id.collection_of, item.getIs_favorite() == 0 ? R.mipmap.online_sc : R.mipmap.online_sc);
+//          holder.setImageResource(R.id.collection_of, item.getIs_favorite() == 0 ? R.mipmap.online_sc : R.mipmap.online_sc);
+            ImageView img=holder.getView(R.id.collection_of);
+
+            Drawable drawable1= DrawableCompat.wrap(getResources().getDrawable(R.mipmap.online_sc).mutate());
+            if(item.getIs_favorite() == 0) {
+                DrawableCompat.setTintList(drawable1, getResources().getColorStateList(R.color.gray));
+            }
+            img.setBackgroundDrawable(drawable1);
+            //收藏
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(item.getIs_favorite() == 0) {
+                        collect(item.getId(), position);
+                    }
+                }
+            });
             holder.setImage(R.id.icon_of, item.getImg_url());
         }
+    }
+
+    private void collect(int info_id, final int position){
+        OkHttpUtils
+                .post()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "AddFavorite")
+                .addParams("type_id", "1")
+                .addParams("info_id", info_id + "")
+                .build()
+                .execute(new GenericsCallback<ConsultMsgBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Alert("网络请求出错");
+                    }
+
+                    @Override
+                    public void onResponse(ConsultMsgBean response, int id)
+                    {
+                        if (response.getStatus() == 1){
+                            Alert("收藏成功");
+                            mData.get(position).setIs_favorite(1);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 
     @Override

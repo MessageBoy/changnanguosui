@@ -5,7 +5,8 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar" />
+    <include layout="@layout/title_bar"
+        />
 
     <WebView
         android:id="@+id/context_ld"

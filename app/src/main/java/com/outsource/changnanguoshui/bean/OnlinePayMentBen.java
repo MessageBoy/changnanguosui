@@ -69,13 +69,21 @@ public class OnlinePayMentBen {
 
         private String pay_month;
         private double amount;
-
+        private boolean checkBox=false;
         public String getPay_month() {
             return pay_month;
         }
 
         public void setPay_month(String pay_month) {
             this.pay_month = pay_month;
+        }
+
+        public boolean isCheckBox() {
+            return checkBox;
+        }
+
+        public void setCheckBox(boolean checkBox) {
+            this.checkBox = checkBox;
         }
 
         public double getAmount() {

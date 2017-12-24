@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/online_but"
             android:layout_toLeftOf="@+id/collection_txt"
-            android:drawableLeft="@mipmap/online_sc"/>
+           />
 
         <TextView
             android:id="@+id/collection_txt"
