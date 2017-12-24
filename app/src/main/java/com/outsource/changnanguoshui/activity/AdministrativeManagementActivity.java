@@ -49,8 +49,8 @@ public class AdministrativeManagementActivity extends PermissionsActivity
     {
         title.setText("行政管理");
         mPageTitleList.add("通知公告");
-        mPageTitleList.add("在线打卡");
-        mPageTitleList.add("线上活动");
+        mPageTitleList.add("无线签到");
+        mPageTitleList.add("主题活动");
         mFragmentList.add(new NoticeBulletinFragment());
         mFragmentList.add(new OnlineCardFragment());
         mFragmentList.add(new OnlineActivityFragment());

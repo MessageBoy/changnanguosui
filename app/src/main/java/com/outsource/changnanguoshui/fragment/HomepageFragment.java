@@ -19,6 +19,7 @@ import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.ArticleSearchActivity;
+import com.outsource.changnanguoshui.activity.MoreActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
@@ -73,7 +74,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
     MyAdapter adapter;
     private int page = 1;
     List<StudyBean.ListBean> data;
-    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险推送", "法规检索", "通知公告", "在线打卡", "线上活动", "线上答疑", "业务办理", "举报建议"};
+    String[] title = {"党员信息", "党建风采", "党费收缴", "在线学习", "风险管理", "法规检索", "通知公告", "无线签到", "主题活动", "线上答疑", "税收业务", "举报建议"};
     int[] icon = {R.mipmap.dyxx, R.mipmap.djfc, R.mipmap.zxdf, R.mipmap.zxxx, R.mipmap.fxts, R.mipmap.wjcx, R.mipmap.tzgg, R.mipmap.zxdk, R.mipmap.xshd, R.mipmap.sqhd, R.mipmap.lzjb, R.mipmap.zhwh};
     HomeAdapter homeAdapter;
     List<HomeBean> mData;
@@ -143,6 +144,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 .addParams("channel_id", "22")
                 .addParams("category_id", "11")
                 .addParams("page", page + "")
+                .addParams("pagesize", "5")
                 .build()
                 .execute(new GenericsCallback<StudyBean>(new JsonGenerics())
                 {
@@ -246,7 +248,9 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(PartyBuildingActivity.class);
                 break;
             case 2:
-                startActivity(OnlinePaymentActivity.class);
+                intent = new Intent(getActivity(), OnlinePaymentActivity.class);
+                intent.putExtra("position", Constant.ZERO);
+                startActivity(intent);
                 break;
             case 3:
                 startActivity(OnlineLearnActivity.class);
@@ -316,11 +320,14 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
         }
     }
 
-    @OnClick({R.id.time_home, R.id.search_home})
+    @OnClick({R.id.time_home, R.id.search_home,R.id.more})
     public void onViewClicked(View view)
     {
         switch (view.getId())
         {
+            case R.id.more:
+                startActivity(MoreActivity.class);
+                break;
             case R.id.time_home:
                 break;
             case R.id.search_home:

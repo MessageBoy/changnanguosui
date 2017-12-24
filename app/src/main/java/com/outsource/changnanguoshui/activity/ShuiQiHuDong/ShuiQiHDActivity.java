@@ -45,8 +45,8 @@ public class ShuiQiHDActivity extends BaseActivity {
     protected void initData() {
         title.setText("税企互动");
         mPageTitleList.add("在线答疑");
-        mPageTitleList.add("业务办理");
-        mPageTitleList.add("廉政举报");
+        mPageTitleList.add("税收业务");
+        mPageTitleList.add("举报建议");
         mFragmentList.add(new ShuiQiHuDongFragment().newInstance(2));
         mFragmentList.add(new BusinessTransactFragment());
         mFragmentList.add(new ShuiQiHuDongFragment().newInstance(1));

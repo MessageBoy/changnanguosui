@@ -41,7 +41,7 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     RecyclerView historyList;
     MyAdapter adapter;
     List<GetPunchListBean.ListBean> mData;
-    TimePickerDialog tiemDialog;
+
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
@@ -62,12 +62,7 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     @Override
     protected void initData()
     {
-        tiemDialog = new TimePickerDialog.Builder()
-                .setTitleStringId("请选择月份")//标题
-                .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
-                .setType(Type.YEAR_MONTH)
-                .setCallBack(this)
-                .build();
+
         getData(new DateTime().toString("M"));
     }
 
@@ -75,7 +70,7 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     @OnClick(R.id.search_ll)
     public void onViewClicked()
     {
-        tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
+        showTimeDialog();
     }
 
     class MyAdapter extends CommonBaseAdapter<GetPunchListBean.ListBean>
@@ -128,6 +123,15 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
                     }
                 });
     }
+private void showTimeDialog(){
+    TimePickerDialog  tiemDialog = new TimePickerDialog.Builder()
+        .setTitleStringId("请选择月份")//标题
+                .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
+        .setType(Type.YEAR_MONTH)
+                .setCallBack(this)
+                .build();
+    tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
+}
 
     private int getBac(String status)
     {

@@ -59,7 +59,6 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
     String months = "";
     @BindView(R.id.year)
     TextView year;
-    TimePickerDialog tiemDialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,12 +96,7 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
 
     @Override
     protected void initData() {
-        tiemDialog = new TimePickerDialog.Builder()
-                .setTitleStringId("请选择月份")//标题
-                .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
-                .setType(Type.YEAR)
-                .setCallBack(this)
-                .build();
+
         getData(new DateTime().toString("yyyy"));
     }
 
@@ -194,7 +188,7 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.search_year:
-                tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
+                showTiemDialog();
                 break;
             case R.id.payment_submit:
                 for (int i = 0; i < data.size(); i++) {
@@ -220,6 +214,17 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
                 break;
         }
     }
+
+   private void showTiemDialog(){
+       TimePickerDialog  tiemDialog = new TimePickerDialog.Builder()
+                .setTitleStringId("请选择月份")//标题
+                .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
+                .setType(Type.YEAR)
+                .setCallBack(this)
+                .build();
+       tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
+    }
+
 
     //选择时间回调
     @Override

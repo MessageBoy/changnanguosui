@@ -41,7 +41,7 @@ public class OnlinePaymentActivity extends BaseActivity
     @Override
     protected void initData()
     {
-        title.setText("在线缴费");
+        title.setText("党费收缴");
         mPageTitleList.add("未缴纳党费");
         mPageTitleList.add("已缴纳党费");
         mFragmentList.add(new OnlineNotPaymentFragment().newInstance(1));
@@ -52,6 +52,7 @@ public class OnlinePaymentActivity extends BaseActivity
         tabLayout.setupWithViewPager(viewPager);
         //设置fragment缓存数为2，不设置默认为1滑到第三个后再回到第一个fragment会从新加载
         viewPager.setOffscreenPageLimit(2);
+        tabLayout.getTabAt(getIntent().getIntExtra("position", 0)).select();
     }
 
 

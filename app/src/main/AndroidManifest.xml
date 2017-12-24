@@ -57,6 +57,8 @@
         <activity android:name=".activity.ArticleSearchActivity"/>
         <activity android:name=".activity.AccountMaintenanceActivity"/>
         <activity android:name=".activity.HuDongDetailsActivity"/>
+        <activity android:name=".activity.MyCollectActivity"/>
+        <activity android:name=".activity.MoreActivity"/>
         <activity
             android:name=".activity.LearningDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
