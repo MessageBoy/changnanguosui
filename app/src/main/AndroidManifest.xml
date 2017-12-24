@@ -61,6 +61,15 @@
             android:name=".activity.LearningDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.doUpdateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/GovDialog"/>
+        <activity
+            android:name=".activity.ShowUpdateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/GovDialog"/>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="52f029b965c9d0a83b0773abd155671d">

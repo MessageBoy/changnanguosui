@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:minWidth="260dip"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/updata_title"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="检测到新版本"
+        android:textColor="#31a3ee"
+        android:textSize="20dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#31a3ee"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/version_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="最新版本：5.4.1"
+            android:textColor="@color/text"
+            android:textSize="17sp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:text="更新内容："
+            android:textColor="@color/text"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/updata_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="5dp"
+            android:text="1.支持横屏查阅文件，网页等   \n2.优化待办功能  \n3.文件预览新增功能"
+            android:textColor="@color/tab_text"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#e5e5e5"/>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:id="@+id/updata_confirm"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_update_sure"
+            android:gravity="center"
+            android:text="立即升级"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#e5e5e5"/>
+
+
+        <Button
+            android:id="@+id/updata_cancel"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_update_later"
+            android:gravity="center"
+            android:text="以后再说"
+            android:textColor="#333333"
+            android:textSize="17sp"/>
+    </LinearLayout>
+
+</LinearLayout>

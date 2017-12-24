@@ -30,4 +30,8 @@
     <color name="yalantis_saffron">#F4B63E</color>
     <color name="yalantis_eggplant">#663D4E</color>
     <color name="yalantis_sienna">#EB6460</color>
+    <drawable name="color_31a3ee">#31a3ee</drawable>
+    <drawable name="color_2c92d6">#2c92d6</drawable>
+    <drawable name="color_ffffff">#ffffff</drawable>
+    <drawable name="color_e5e5e5">#e5e5e5</drawable>
 </resources>

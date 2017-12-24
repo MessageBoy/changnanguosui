@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.outsource.changnanguoshui.Constant;
-import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.utlis.CircleTransform;
 import com.squareup.picasso.Picasso;
 
@@ -83,7 +82,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         {
             Picasso.with(MyApplication.getInstance())
                     .load(Constant.DOMAIN_NAME + url)
-                    .placeholder(R.mipmap.male_head)
                     .into(tv);
         }
         return this;
@@ -96,7 +94,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         {
             Picasso.with(MyApplication.getInstance())
                     .load(Constant.DOMAIN_NAME + url)
-                    .placeholder(R.mipmap.male_head)
                     .transform(new CircleTransform())
                     .into(tv);
         }

@@ -17,6 +17,15 @@
             android:text="昌南国税党旗红"
             android:textColor="@color/white"
             android:textSize="17sp"/>
+
+        <ImageView
+            android:id="@+id/tsts"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@mipmap/tstz"/>
     </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -29,17 +38,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:orientation="vertical">
+                android:layout_height="160dp">
 
-                <ImageView
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/viewpage"/>
-            </LinearLayout>
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:orientation="horizontal"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +88,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/modular_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -114,7 +130,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/information_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

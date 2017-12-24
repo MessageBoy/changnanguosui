@@ -1,13 +1,15 @@
 package com.outsource.changnanguoshui.activity;
 
+import android.Manifest;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.TabAdapter;
-import com.outsource.changnanguoshui.application.BaseActivity;
+import com.outsource.changnanguoshui.application.PermissionsActivity;
 import com.outsource.changnanguoshui.fragment.NoticeBulletinFragment;
 import com.outsource.changnanguoshui.fragment.OnlineActivityFragment;
 import com.outsource.changnanguoshui.fragment.OnlineCardFragment;
@@ -22,7 +24,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/8.
  */
 
-public class AdministrativeManagementActivity extends BaseActivity
+public class AdministrativeManagementActivity extends PermissionsActivity
 {
     @BindView(R.id.title)
     TextView title;
@@ -38,6 +40,8 @@ public class AdministrativeManagementActivity extends BaseActivity
     protected void initView()
     {
         setContentView(R.layout.activity_party_building);
+        isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Constant.QUEST_CODE_LOCTION);
     }
 
     @Override
