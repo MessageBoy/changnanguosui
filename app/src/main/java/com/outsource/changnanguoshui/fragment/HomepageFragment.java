@@ -18,7 +18,6 @@ import com.outsource.changnanguoshui.activity.ArticleSearchActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
-import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ConsultMsgActivity;
 import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
 import com.outsource.changnanguoshui.activity.StudyDetailsActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
@@ -131,20 +130,18 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                         startActivity(intent);
                         break;
                     case 9:
-                        startActivity(ShuiQiHDActivity.class);
+                        intent = new Intent(getActivity(), ShuiQiHDActivity.class);
+                        intent.putExtra("position", Constant.ZERO);
+                        startActivity(intent);
                         break;
                     case 10:
-                        intent = new Intent(getActivity(), StudyDetailsActivity.class);
-                        intent.putExtra("webUrl", Constant.BUSINESS_TRANSACT);
-                        intent.putExtra("activityTitle", "业务办理");
+                        intent = new Intent(getActivity(), ShuiQiHDActivity.class);
+                        intent.putExtra("position", Constant.ONE);
                         startActivity(intent);
                         break;
                     case 11:
-                        intent = new Intent(getActivity(), ConsultMsgActivity.class);
-                        intent.putExtra("activityTitle", "举报建议");
-                        intent.putExtra("category_id", "1");
-                        intent.putExtra("content_hint", "请输入举报建议信息");
-                        intent.putExtra("button_msg", "提交建议");
+                        intent = new Intent(getActivity(), ShuiQiHDActivity.class);
+                        intent.putExtra("position", Constant.Two);
                         startActivity(intent);
                         break;
 

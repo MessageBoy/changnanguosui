@@ -25,8 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
             android:layout_toRightOf="@+id/title_img"
             android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="13011112222"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -45,6 +48,7 @@
                 android:src="@mipmap/shuiqihuding_msg" />
 
             <TextView
+                android:id="@+id/msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -55,6 +59,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -64,6 +69,7 @@
         android:textColor="@color/tab_text" />
 
     <TextView
+        android:id="@+id/data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

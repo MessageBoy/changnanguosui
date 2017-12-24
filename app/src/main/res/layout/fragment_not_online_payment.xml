@@ -14,6 +14,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/search_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_margin="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选择要查询的年份:"
+                    />
+
+                <TextView
+                    android:id="@+id/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/red"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="2017年"
+                    android:drawableRight="@mipmap/year_date"
+                    />
+
+            </LinearLayout>
+
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycle_online"
                 android:layout_width="match_parent"
@@ -25,6 +54,7 @@
                 android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:background="@drawable/online_but_bg"
                 android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
