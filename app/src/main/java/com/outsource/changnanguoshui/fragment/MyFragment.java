@@ -14,11 +14,11 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AccountMaintenanceActivity;
-import com.outsource.changnanguoshui.activity.AdministrativeManagementActivity;
 import com.outsource.changnanguoshui.activity.LearningProgressActivity;
 import com.outsource.changnanguoshui.activity.LearningQueryActivity;
 import com.outsource.changnanguoshui.activity.MeLearnActivity;
 import com.outsource.changnanguoshui.activity.MemberInformationActivity;
+import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
 import com.outsource.changnanguoshui.activity.MyCollectActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
@@ -101,9 +101,7 @@ public class MyFragment extends BaseFragment
                         startActivity(intent);
                         break;
                     case 4:
-                        intent = new Intent(getActivity(), AdministrativeManagementActivity.class);
-                        intent.putExtra("position", Constant.Two);
-                        startActivity(intent);
+                        startActivity(OnlineActivityActivity.class);
                         break;
                     case 5:
 
@@ -114,7 +112,8 @@ public class MyFragment extends BaseFragment
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         getData();
     }

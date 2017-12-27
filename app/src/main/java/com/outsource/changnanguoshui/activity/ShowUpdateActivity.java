@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.outsource.changnanguoshui.R;
+import com.outsource.changnanguoshui.bean.CheckApkUpgradeBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
 public class ShowUpdateActivity extends Activity
 {
 
-
+    private CheckApkUpgradeBean mData;
     @BindView(R.id.version_name)
     TextView versionName;
     @BindView(R.id.updata_message)
@@ -40,10 +41,9 @@ public class ShowUpdateActivity extends Activity
 
     private void initData()
     {
-
-        versionName.setText("最新版本:1.0.2");
-        updataMessage.setText("1.支持横屏查阅文件，网页等   \\n2.优化待办功能  \\n3.文件预览新增功能\"\n" +
-                "          ");
+        mData = (CheckApkUpgradeBean) getIntent().getSerializableExtra("mData");
+        versionName.setText("最新版本：" + mData.getVer());
+        updataMessage.setText(mData.getIntro());
 
     }
 
@@ -53,7 +53,7 @@ public class ShowUpdateActivity extends Activity
     public void doUpdate()
     {
         Intent intent = new Intent(ShowUpdateActivity.this, doUpdateActivity.class);
-        intent.putExtra("url", "");
+        intent.putExtra("url", mData.getDownurl());
         startActivity(intent);
         finish();
     }

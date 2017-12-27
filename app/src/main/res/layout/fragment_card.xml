@@ -68,6 +68,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:drawableLeft="@mipmap/address"
+            android:ellipsize="end"
+            android:maxLines="1"
             />
     </RelativeLayout>
 

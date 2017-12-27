@@ -1,19 +1,14 @@
 package com.outsource.changnanguoshui.activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.adapter.TabAdapter;
 import com.outsource.changnanguoshui.application.BaseActivity;
-import com.outsource.changnanguoshui.fragment.ActivityDetailsFragment;
-import com.outsource.changnanguoshui.fragment.VoteRankingFragment;
-import com.outsource.changnanguoshui.fragment.VotingListFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,35 +21,39 @@ public class OnlineActivityActivity extends BaseActivity
 {
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
-    private List<String> mPageTitleList = new ArrayList<>();
-    private List<Fragment> mFragmentList = new ArrayList<>();
-    private TabAdapter mAdapter;
+    @BindView(R.id.webview)
+    WebView webview;
+//    @BindView(R.id.tab_layout)
+//    TabLayout tabLayout;
+//    @BindView(R.id.view_pager)
+//    ViewPager viewPager;
+//    private List<String> mPageTitleList = new ArrayList<>();
+//    private List<Fragment> mFragmentList = new ArrayList<>();
+//    private TabAdapter mAdapter;
 
     @Override
     protected void initView()
     {
-        setContentView(R.layout.activity_party_building);
+        setContentView(R.layout.activity_online_activity);
     }
 
     @Override
     protected void initData()
     {
-        title.setText("投票");
-        mPageTitleList.add("活动详情");
-        mPageTitleList.add("投票列表");
-        mPageTitleList.add("投票排行");
-        mFragmentList.add(new ActivityDetailsFragment());
-        mFragmentList.add(new VotingListFragment());
-        mFragmentList.add(new VoteRankingFragment());
-        mAdapter = new TabAdapter(this, getSupportFragmentManager(),
-                mFragmentList, mPageTitleList);
-        viewPager.setAdapter(mAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(2);
+        title.setText("线上活动");
+//        mPageTitleList.add("活动详情");
+//        mPageTitleList.add("投票列表");
+//        mPageTitleList.add("投票排行");
+//        mFragmentList.add(new ActivityDetailsFragment());
+//        mFragmentList.add(new VotingListFragment());
+//        mFragmentList.add(new VoteRankingFragment());
+//        mAdapter = new TabAdapter(this, getSupportFragmentManager(),
+//                mFragmentList, mPageTitleList);
+//        viewPager.setAdapter(mAdapter);
+//        tabLayout.setupWithViewPager(viewPager);
+//        viewPager.setOffscreenPageLimit(2);
+        WebUtils.webSetting(webview);
+        webview.loadUrl(Constant.VOTE_URL + SpUtils.getParam(this, Constant.USER_ID, ""));
     }
 
 
@@ -62,6 +61,20 @@ public class OnlineActivityActivity extends BaseActivity
     public void onViewClicked()
     {
         finish();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent keyEvent)
+    {
+        if (keyCode == keyEvent.KEYCODE_BACK)
+        {
+            if (webview.canGoBack())
+            {
+                webview.goBack();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, keyEvent);
+
     }
 }
 

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.TabAdapter;
+import com.outsource.changnanguoshui.application.BackHandledFragment;
+import com.outsource.changnanguoshui.application.BackHandledInterface;
 import com.outsource.changnanguoshui.application.BaseActivity;
 import com.outsource.changnanguoshui.fragment.BusinessTransactFragment;
 import com.outsource.changnanguoshui.fragment.ShuiQiHuDong.ShuiQiHuDongFragment;
@@ -23,7 +25,8 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/5.
  */
 
-public class ShuiQiHDActivity extends BaseActivity {
+public class ShuiQiHDActivity extends BaseActivity implements BackHandledInterface
+{
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.tab_layout)
@@ -35,6 +38,7 @@ public class ShuiQiHDActivity extends BaseActivity {
     private List<String> mPageTitleList = new ArrayList<>();
     private List<Fragment> mFragmentList = new ArrayList<>();
     private TabAdapter mAdapter;
+    private BackHandledFragment mBackHandedFragment;
     int position;
     @Override
     protected void initView() {
@@ -117,6 +121,25 @@ public class ShuiQiHDActivity extends BaseActivity {
                     startActivity(intent);
                 }
                 break;
+        }
+    }
+    @Override
+    public void setSelectedFragment(BackHandledFragment selectedFragment)
+    {
+        this.mBackHandedFragment = selectedFragment;
+    }
+    @Override
+    public void onBackPressed()
+    {
+        if (mBackHandedFragment == null || !mBackHandedFragment.onBackPressed())
+        {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0)
+            {
+                finish();
+            } else
+            {
+                getSupportFragmentManager().popBackStack(); //fragment 出栈  
+            }
         }
     }
 }

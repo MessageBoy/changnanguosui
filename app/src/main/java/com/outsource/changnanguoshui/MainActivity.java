@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.outsource.changnanguoshui.activity.ShowUpdateActivity;
 import com.outsource.changnanguoshui.application.BackHandledFragment;
 import com.outsource.changnanguoshui.application.BackHandledInterface;
-import com.outsource.changnanguoshui.application.BaseActivity;
-import com.outsource.changnanguoshui.bean.StudyBean;
+import com.outsource.changnanguoshui.application.PermissionsActivity;
+import com.outsource.changnanguoshui.bean.CheckApkUpgradeBean;
 import com.outsource.changnanguoshui.fragment.BusinessFragment;
 import com.outsource.changnanguoshui.fragment.HomepageFragment;
 import com.outsource.changnanguoshui.fragment.MyFragment;
@@ -26,7 +26,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import butterknife.BindView;
 import okhttp3.Call;
 
-public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, BackHandledInterface
+public class MainActivity extends PermissionsActivity implements RadioGroup.OnCheckedChangeListener, BackHandledInterface
 {
     HomepageFragment homepageFragment;
     StudyFragment studyFragment;
@@ -53,6 +53,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void initData()
     {
+        isPermissionsAllGranted(Constant.permArray,
+                Constant.QUEST_CODE_ALL);
         try
         {
             PackageInfo packages = getPackageManager().getPackageInfo("com.northdoo.luohu", PackageManager.GET_CONFIGURATIONS);
@@ -181,7 +183,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 .addParams("plat", 1 + "")
                 .addParams(Constant.ACT, "CheckApkUpgrade")
                 .build()
-                .execute(new GenericsCallback<StudyBean>(new JsonGenerics())
+                .execute(new GenericsCallback<CheckApkUpgradeBean>(new JsonGenerics())
                 {
                     @Override
                     public void onError(Call call, Exception e, int id)
@@ -190,18 +192,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     }
 
                     @Override
-                    public void onResponse(StudyBean response, int id)
+                    public void onResponse(CheckApkUpgradeBean response, int id)
                     {
-//                        if (response.getStatus() == 1)
-//                        {
-//                            if (vCode < Integer.parseInt("1"))
-//                            {
-                        Intent intent = new Intent(MainActivity.this, ShowUpdateActivity.class);
-                        Bundle bundle = new Bundle();
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-//                        }
-//                    }
+                        if (response.getStatus() == 1)
+                        {
+                            if (vCode< response.getVcode())
+                            {
+                                Intent intent = new Intent(MainActivity.this, ShowUpdateActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("mData", response);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        }
                     }
                 });
 

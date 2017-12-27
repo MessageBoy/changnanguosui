@@ -47,7 +47,7 @@ public abstract class PermissionsActivity extends BaseActivity
             return true;
         }
         //获得批量请求但被禁止的权限列表  
-        List<String> deniedPerms = new ArrayList<String>();
+        List<String> deniedPerms = new ArrayList<>();
         for (int i = 0; permArray != null && i < permArray.length; i++)
         {
             if (PackageManager.PERMISSION_GRANTED != checkSelfPermission(permArray[i]))
@@ -84,7 +84,36 @@ public abstract class PermissionsActivity extends BaseActivity
                     showShortMsg("恭喜，用户已经授予位置权限");
                 }
                 break;
-        
+            case Constant.QUEST_CODE_CAMERA:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
+                {
+                    popAlterDialog("相机", "摄像头使用权限被禁止，手电筒无法正常使用。是否开启该权限？(步骤：应用信息->权限->'勾选'相机)");
+                } else
+                {
+                    showShortMsg("恭喜，用户已经授予相机权限");
+                }
+                break;
+            case Constant.QUEST_CODE_SEND_SMS:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
+                {
+                    popAlterDialog("短信", "发送短信权限被禁止，无法使用反馈/建议功能。是否开启该权限？(步骤：应用信息->权限->'勾选'短信)");
+                } else
+                {
+                    showShortMsg("恭喜，用户已经授予短信权限");
+                }
+                break;
+            case Constant.QUEST_CODE_ALL:
+                doPermissionAll(Constant.permArray, grantResults);
+                break;
+            case Constant.QUEST_CODE_CALL_PHONE:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
+                {
+                    popAlterDialog("拨打电话", "拨打电话权限被禁止，无法使用拨打电话功能。是否开启该权限？(步骤：应用信息->权限->'勾选'电话)");
+                } else
+                {
+                    showShortMsg("恭喜，用户已经授予所有权限");
+                }
+                break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions,
                         grantResults);
@@ -133,8 +162,7 @@ public abstract class PermissionsActivity extends BaseActivity
 
     private void popAlterDialog(final String msgFlg, String msgInfo)
     {
-        new AlertDialog
-                .Builder(PermissionsActivity.this)
+        new AlertDialog.Builder(this)
                 .setTitle("使用警告")
                 .setMessage(msgInfo)
                 .setNegativeButton("取消", new DialogInterface.OnClickListener()
