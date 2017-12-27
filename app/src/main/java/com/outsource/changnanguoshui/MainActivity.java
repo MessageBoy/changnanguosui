@@ -196,7 +196,7 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
                     {
                         if (response.getStatus() == 1)
                         {
-                            if (0 < response.getVcode())
+                            if (vCode< response.getVcode())
                             {
                                 Intent intent = new Intent(MainActivity.this, ShowUpdateActivity.class);
                                 Bundle bundle = new Bundle();

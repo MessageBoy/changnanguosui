@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
@@ -129,6 +130,13 @@ public class NoticeBulletinActivty extends BaseActivity implements OnLoadMoreLis
         intent.putExtra("webUrl", Constant.DOMAIN_NAME + ((StudyBean.ListBean) data).getPage_url());
         intent.putExtra("activityTitle", "公告内容");
         startActivity(intent);
+    }
+
+
+    @OnClick(R.id.back)
+    public void onViewClicked()
+    {
+        finish();
     }
 
     class MyAdapter extends CommonBaseAdapter<StudyBean.ListBean>

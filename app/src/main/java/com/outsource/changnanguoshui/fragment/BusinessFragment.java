@@ -3,7 +3,6 @@ package com.outsource.changnanguoshui.fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.application.BackHandledFragment;
+import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
 
@@ -40,8 +40,7 @@ public class BusinessFragment extends BackHandledFragment {
     protected void initData() {
         title.setText("业务办理");
         back.setVisibility(View.GONE);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient());
+        WebUtils.webSetting(webView);
         webView.loadUrl(Constant.BUSINESS_TRANSACT);
     }
 

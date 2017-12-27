@@ -121,13 +121,13 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
                         data.clear();
                         if (response.getStatus() == 1) {
                             data.addAll(response.getList());
-                            adapter.notifyDataSetChanged();
                             if (type == 1) {
                                 paymentSubmit.setVisibility(View.VISIBLE);
                             }
                         } else {
                             paymentSubmit.setVisibility(View.GONE);
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 });
     }
