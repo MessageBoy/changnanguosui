@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.AccountMaintenanceActivity;
+import com.outsource.changnanguoshui.activity.BirthdayActivity;
 import com.outsource.changnanguoshui.activity.LearningProgressActivity;
 import com.outsource.changnanguoshui.activity.LearningQueryActivity;
 import com.outsource.changnanguoshui.activity.MeLearnActivity;
 import com.outsource.changnanguoshui.activity.MemberInformationActivity;
 import com.outsource.changnanguoshui.activity.MyCollectActivity;
-import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
+import com.outsource.changnanguoshui.activity.SettingActivity;
 import com.outsource.changnanguoshui.activity.SignInActivty;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
@@ -52,7 +53,7 @@ public class MyFragment extends BaseFragment
 {
     @BindView(R.id.my_list)
     RecyclerView myList;
-    String[] title = {"在线缴费", "签到记录", "在线学习", "我的信息", "线上活动", "设置"};
+    String[] title = {"党费收缴", "签到记录", "在线学习", "我的信息", "线上活动", "设置"};
     int[] icon = {R.mipmap.zxjf_m, R.mipmap.jfcx_m, R.mipmap.zxxx_m, R.mipmap.wdxx_m, R.mipmap.xshd_m, R.mipmap.sz};
     MyAdapter homeAdapter;
     @BindView(R.id.user_head)
@@ -100,10 +101,11 @@ public class MyFragment extends BaseFragment
                         startActivity(intent);
                         break;
                     case 4:
-                        startActivity(OnlineActivityActivity.class);
+                        intent = new Intent(getActivity(), BirthdayActivity.class);
+                        startActivity(intent);
                         break;
                     case 5:
-
+                        startActivity(SettingActivity.class);
                         break;
                 }
             }

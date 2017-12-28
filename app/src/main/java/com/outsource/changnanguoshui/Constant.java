@@ -20,6 +20,9 @@ public class Constant
     public static final String IsLogin = "login";
     public static final String BUSINESS_TRANSACT = DOMAIN_NAME + "/mobile/kjjy.html?user_id=";
     public static final String VOTE_URL = DOMAIN_NAME + "/mobile/app_vote.aspx?user_id=";
+    public static final String BIRTHDAY_WEBVIEW = DOMAIN_NAME + "/mobile/zzsr.aspx?user_id=";
+    public static final String ABOUT_US = DOMAIN_NAME + "/mobile/user_help.aspx?category_id=25";
+
     /**
      * 位置信息权限请求标志
      */

@@ -15,8 +15,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-import static com.outsource.changnanguoshui.Constant.IsLogin;
-
 public class LoginActivity extends BaseActivity
 {
 

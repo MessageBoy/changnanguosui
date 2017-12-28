@@ -77,7 +77,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
     MyAdapter adapter;
     private int page = 1;
     List<StudyBean.ListBean> data;
-    String[] title = {"党员信息", "党建风采", "党费收缴", "在线学习", "风险管理", "法规检索", "通知公告", "无线签到", "主题活动", "线上答疑", "税收业务", "举报建议"};
+    String[] title = {"党员信息", "党建风采", "在线党费", "在线学习", "风险管理", "法规检索", "通知公告", "无线签到", "主题活动", "线上答疑", "税收业务", "投诉建议"};
     int[] icon = {R.mipmap.dyxx, R.mipmap.djfc, R.mipmap.zxdf, R.mipmap.zxxx, R.mipmap.fxts, R.mipmap.wjcx, R.mipmap.tzgg, R.mipmap.zxdk, R.mipmap.xshd, R.mipmap.sqhd, R.mipmap.lzjb, R.mipmap.zhwh};
     HomeAdapter homeAdapter;
     List<HomeBean> mData;

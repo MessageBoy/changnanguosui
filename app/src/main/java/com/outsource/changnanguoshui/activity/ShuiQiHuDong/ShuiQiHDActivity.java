@@ -48,9 +48,9 @@ public class ShuiQiHDActivity extends BaseActivity implements BackHandledInterfa
     @Override
     protected void initData() {
         title.setText("税企互动");
-        mPageTitleList.add("在线答疑");
+        mPageTitleList.add("线上答疑");
         mPageTitleList.add("税收业务");
-        mPageTitleList.add("举报建议");
+        mPageTitleList.add("投诉建议");
         mFragmentList.add(new ShuiQiHuDongFragment().newInstance(2));
         mFragmentList.add(new BusinessTransactFragment());
         mFragmentList.add(new ShuiQiHuDongFragment().newInstance(1));
@@ -68,7 +68,7 @@ public class ShuiQiHDActivity extends BaseActivity implements BackHandledInterfa
         }else if(position==1){
             tabAdd.setVisibility(View.GONE);
         }else{
-            tabAdd.setText("廉政举报");
+            tabAdd.setText("投诉建议");
             tabAdd.setVisibility(View.VISIBLE);
         }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -86,7 +86,7 @@ public class ShuiQiHDActivity extends BaseActivity implements BackHandledInterfa
                 }else if(position==1){
                     tabAdd.setVisibility(View.GONE);
                 }else{
-                    tabAdd.setText("廉政举报");
+                    tabAdd.setText("投诉建议");
                     tabAdd.setVisibility(View.VISIBLE);
                 }
             }
@@ -108,15 +108,15 @@ public class ShuiQiHDActivity extends BaseActivity implements BackHandledInterfa
                 Intent intent;
                 intent = new Intent(getApplicationContext(), ConsultMsgActivity.class);
                 if(position==0) {
-                    intent.putExtra("activityTitle", "在线答疑");
+                    intent.putExtra("activityTitle", "线上答疑");
                     intent.putExtra("category_id", 2);
                     intent.putExtra("content_hint", "请输入税务提问信息");
                     intent.putExtra("button_msg", "提问");
                     startActivity(intent);
                 }else{
-                    intent.putExtra("activityTitle", "举报建议");
+                    intent.putExtra("activityTitle", "投诉建议");
                     intent.putExtra("category_id", 1);
-                    intent.putExtra("content_hint", "请输入举报建议信息");
+                    intent.putExtra("content_hint", "请输入投诉建议信息");
                     intent.putExtra("button_msg", "提交建议");
                     startActivity(intent);
                 }

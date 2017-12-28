@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.outsource.changnanguoshui.activity.BirthdayActivity;
 import com.outsource.changnanguoshui.activity.ShowUpdateActivity;
 import com.outsource.changnanguoshui.application.BackHandledFragment;
 import com.outsource.changnanguoshui.application.BackHandledInterface;
@@ -18,19 +19,18 @@ import com.outsource.changnanguoshui.fragment.BusinessFragment;
 import com.outsource.changnanguoshui.fragment.HomepageFragment;
 import com.outsource.changnanguoshui.fragment.MyFragment;
 import com.outsource.changnanguoshui.fragment.StudyFragment;
-import com.outsource.changnanguoshui.fragment.VoteFragment;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 
-public class MainActivity extends PermissionsActivity implements RadioGroup.OnCheckedChangeListener, BackHandledInterface
-{
+public class MainActivity extends PermissionsActivity implements RadioGroup.OnCheckedChangeListener, BackHandledInterface {
     HomepageFragment homepageFragment;
     StudyFragment studyFragment;
-    VoteFragment voteFragment;
+    //    VoteFragment voteFragment;
     BusinessFragment businessFragment;
     MyFragment myFragment;
 
@@ -45,22 +45,18 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
     int vCode = 1;
 
     @Override
-    protected void initView()
-    {
+    protected void initView() {
         setContentView(R.layout.activity_main);
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         isPermissionsAllGranted(Constant.permArray,
                 Constant.QUEST_CODE_ALL);
-        try
-        {
+        try {
             PackageInfo packages = getPackageManager().getPackageInfo("com.northdoo.luohu", PackageManager.GET_CONFIGURATIONS);
             vCode = packages.versionCode;
-        } catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         radioGroup.setOnCheckedChangeListener(this);
@@ -68,61 +64,54 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
         getData();
     }
 
+
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId)
-    {
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
         FragmentTransaction fTransaction = getSupportFragmentManager().beginTransaction();
-        hideAllFragment(fTransaction);
-        switch (checkedId)
-        {
+        switch (checkedId) {
             case R.id.rb_home:
-                if (homepageFragment == null)
-                {
+                hideAllFragment(fTransaction);
+                if (homepageFragment == null) {
                     homepageFragment = new HomepageFragment();
                     fTransaction.add(R.id.fragment, homepageFragment);
-                } else
-                {
+                } else {
                     fTransaction.show(homepageFragment);
                 }
                 break;
+           /* case R.id.rb_vote:
+                 if (voteFragment == null)
+                 {
+                     voteFragment = new VoteFragment();
+                     fTransaction.add(R.id.fragment, voteFragment);
+                 } else
+                 {
+                     fTransaction.show(voteFragment);
+                 }
+                break;*/
             case R.id.rb_study:
-                if (studyFragment == null)
-                {
+                hideAllFragment(fTransaction);
+                if (studyFragment == null) {
                     studyFragment = new StudyFragment();
                     fTransaction.add(R.id.fragment, studyFragment);
-                } else
-                {
+                } else {
                     fTransaction.show(studyFragment);
                 }
                 break;
-            case R.id.rb_vote:
-                if (voteFragment == null)
-                {
-                    voteFragment = new VoteFragment();
-                    fTransaction.add(R.id.fragment, voteFragment);
-                } else
-                {
-                    fTransaction.show(voteFragment);
-                }
-
-                break;
             case R.id.rb_business:
-                if (businessFragment == null)
-                {
+                hideAllFragment(fTransaction);
+                if (businessFragment == null) {
                     businessFragment = new BusinessFragment();
                     fTransaction.add(R.id.fragment, businessFragment);
-                } else
-                {
+                } else {
                     fTransaction.show(businessFragment);
                 }
                 break;
             case R.id.rb_my:
-                if (myFragment == null)
-                {
+                hideAllFragment(fTransaction);
+                if (myFragment == null) {
                     myFragment = new MyFragment();
                     fTransaction.add(R.id.fragment, myFragment);
-                } else
-                {
+                } else {
                     fTransaction.show(myFragment);
                 }
                 break;
@@ -132,14 +121,13 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
 
     // 隐藏所有Fragment
 
-    private void hideAllFragment(FragmentTransaction fragmentTransaction)
-    {
+    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (homepageFragment != null)
             fragmentTransaction.hide(homepageFragment);
         if (studyFragment != null)
             fragmentTransaction.hide(studyFragment);
-        if (voteFragment != null)
-            fragmentTransaction.hide(voteFragment);
+//        if (voteFragment != null)
+//            fragmentTransaction.hide(voteFragment);
         if (businessFragment != null)
             fragmentTransaction.hide(businessFragment);
         if (myFragment != null)
@@ -147,57 +135,44 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
     }
 
     @Override
-    public void setSelectedFragment(BackHandledFragment selectedFragment)
-    {
+    public void setSelectedFragment(BackHandledFragment selectedFragment) {
         this.mBackHandedFragment = selectedFragment;
     }
 
     @Override
-    public void onBackPressed()
-    {
-        if (mBackHandedFragment == null || !mBackHandedFragment.onBackPressed())
-        {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 0)
-            {
+    public void onBackPressed() {
+        if (mBackHandedFragment == null || !mBackHandedFragment.onBackPressed()) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 long secondTime = System.currentTimeMillis();
-                if (secondTime - firstTime > 2000)
-                {
+                if (secondTime - firstTime > 2000) {
                     Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                     firstTime = secondTime;
-                } else
-                {
+                } else {
                     System.exit(0);
                 }
-            } else
-            {
+            } else {
                 getSupportFragmentManager().popBackStack(); //fragment 出栈  
             }
         }
     }
 
-    private void getData()
-    {
+    private void getData() {
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
                 .addParams("plat", 1 + "")
                 .addParams(Constant.ACT, "CheckApkUpgrade")
                 .build()
-                .execute(new GenericsCallback<CheckApkUpgradeBean>(new JsonGenerics())
-                {
+                .execute(new GenericsCallback<CheckApkUpgradeBean>(new JsonGenerics()) {
                     @Override
-                    public void onError(Call call, Exception e, int id)
-                    {
+                    public void onError(Call call, Exception e, int id) {
                         Alert("网络请求出错：" + e.getMessage());
                     }
 
                     @Override
-                    public void onResponse(CheckApkUpgradeBean response, int id)
-                    {
-                        if (response.getStatus() == 1)
-                        {
-                            if (vCode< response.getVcode())
-                            {
+                    public void onResponse(CheckApkUpgradeBean response, int id) {
+                        if (response.getStatus() == 1) {
+                            if (vCode < response.getVcode()) {
                                 Intent intent = new Intent(MainActivity.this, ShowUpdateActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("mData", response);
@@ -208,5 +183,11 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
                     }
                 });
 
+    }
+
+    @OnClick(R.id.rb_vote)
+    public void onViewClicked() {
+        Intent intent = new Intent(MainActivity.this, BirthdayActivity.class);
+        startActivity(intent);
     }
 }

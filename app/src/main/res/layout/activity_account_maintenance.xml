@@ -7,406 +7,44 @@
 
     <include layout="@layout/title_bar"/>
 
-    <ScrollView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#fff9e8"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:text="必须填写有*标记的字段"
-                android:textColor="#fe9b53"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#eeeeee"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:text="基本信息"
-                android:textColor="#666666"
-                android:textSize="14sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="头像"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:id="@+id/icon_am"
-                    android:layout_width="68dp"
-                    android:layout_height="68dp"
-                    android:src="@mipmap/female_head"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="姓名"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/xing_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="性别"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/ming_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email地址"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/email_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机号码"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/phone_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="所属单位"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/company_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="所属支部"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/branch_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <Button
-                android:id="@+id/xgxx"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/button_bg"
-                android:gravity="center"
-                android:text="修改信息"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#eeeeee"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:text="密码项"
-                android:textColor="#666666"
-                android:textSize="14sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="当前密码"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/dqmm_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="新密码"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/xmm_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="再次输入新密码"
-                    android:textColor="#333333"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/zcsrmm_am"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#eeeeee"/>
-
-            <Button
-                android:id="@+id/xgmm"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/button_bg"
-                android:gravity="center"
-                android:text="修改密码"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="0.5dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/gray"
+        />
+    <TextView
+        android:id="@+id/change_msg"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:drawableRight="@mipmap/ic_next_click"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:textColor="@color/tab_text"
+        android:text="基本信息修改"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        />
+    <TextView
+        android:id="@+id/change_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:drawableRight="@mipmap/ic_next_click"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:textColor="@color/tab_text"
+        android:text="密码修改"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        />
 </LinearLayout>
