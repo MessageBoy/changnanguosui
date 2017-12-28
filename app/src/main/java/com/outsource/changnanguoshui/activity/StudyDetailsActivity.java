@@ -1,12 +1,12 @@
 package com.outsource.changnanguoshui.activity;
 
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.application.BaseActivity;
+import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,8 +32,7 @@ public class StudyDetailsActivity extends BaseActivity {
     @Override
     protected void initData() {
         title.setText(getIntent().getStringExtra("activityTitle"));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient());
+        WebUtils.webSetting(webView);
         String webUrl = getIntent().getStringExtra("webUrl");
         webView.loadUrl(webUrl);
     }

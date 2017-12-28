@@ -15,8 +15,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-import static com.outsource.changnanguoshui.Constant.IsLogin;
-
 public class LoginActivity extends BaseActivity
 {
 
@@ -84,7 +82,7 @@ public class LoginActivity extends BaseActivity
                         {
                             SpUtils.setParam(getApplicationContext(), Constant.TOKEN, response.getToken());
                             SpUtils.setParam(getApplicationContext(), Constant.USER_ID, response.getUser_id());
-                            SpUtils.setParam(getApplicationContext(), IsLogin, true);
+                            SpUtils.setParam(getApplicationContext(), Constant.IsLogin, true);
                             startActivity(MainActivity.class);
                             finish();
                         } else

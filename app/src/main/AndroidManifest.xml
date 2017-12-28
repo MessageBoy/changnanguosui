@@ -61,6 +61,9 @@
         <activity android:name=".activity.HuDongDetailsActivity"/>
         <activity android:name=".activity.MyCollectActivity"/>
         <activity android:name=".activity.MoreActivity"/>
+        <activity android:name=".activity.ChangePwdActivity"/>
+        <activity android:name=".activity.BasicInformationActivity"/>
+        <activity android:name=".activity.SettingActivity"/>
         <activity
             android:name=".activity.LearningDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -73,6 +76,11 @@
             android:name=".activity.ShowUpdateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GovDialog"/>
+
+        <activity
+            android:name=".activity.BirthdayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TopMenuTheme"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

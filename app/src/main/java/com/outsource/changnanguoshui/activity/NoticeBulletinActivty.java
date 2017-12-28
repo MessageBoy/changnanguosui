@@ -110,6 +110,13 @@ public class NoticeBulletinActivty extends BaseActivity implements OnLoadMoreLis
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        page = 1;
+        getData();
+    }
+
+    @Override
     public void onLoadMore()
     {
         page++;

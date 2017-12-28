@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.outsource.changnanguoshui.ActivityCollector;
+
 import butterknife.ButterKnife;
 
 /**
@@ -22,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
         handler = new Handler();
         dialog = null;
         // 初始化ui
@@ -43,6 +46,12 @@ public abstract class BaseActivity extends AppCompatActivity
      **/
     protected abstract void initData();
 
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 
     public void startActivity(Class<? extends Activity> activity)
     {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="480dp"
+    >
+
+
+    <WebView
+        android:id="@+id/birthday_webview"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="match_parent"></WebView>
+
+    <TextView
+        android:id="@+id/birthday_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:background="@drawable/birthday_round_bg"
+        android:text="x"
+        android:textSize="20dp"
+        android:textColor="@color/red"
+        />
+
+</FrameLayout>
