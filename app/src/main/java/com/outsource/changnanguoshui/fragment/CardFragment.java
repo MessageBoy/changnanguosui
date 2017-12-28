@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +31,7 @@ import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.bean.GetPunchSetBean;
 import com.outsource.changnanguoshui.bean.WeekBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
+import com.outsource.changnanguoshui.utlis.GPSUtil;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
 import com.outsource.changnanguoshui.utlis.SpUtils;
@@ -136,13 +136,7 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
         {
             aMap = mMapView.getMap();
         }
-        latLng = new LatLng(22.639475, 114.049557);//22.638475
-        aMap.addCircle(new CircleOptions()
-                .center(latLng)
-                .radius(mapRange)
-                .fillColor(R.color.div)
-                .strokeColor(R.color.transparent)
-                .strokeWidth(1));
+
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类
         myLocationStyle.interval(5000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);
@@ -255,12 +249,20 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
                     {
                         if (response.getStatus() == 1)
                         {
+                            String[] map = response.getMap().split(",");
+                            double[] gps = GPSUtil.bd09_To_Gcj02(Double.valueOf(map[1]), Double.valueOf(map[0]));
                             mapRange = response.getMap_range();
                             time1_str = response.getTime1_str();
                             time2_str = response.getTime2_str();
                             time3_str = response.getTime3_str();
                             time4_str = response.getTime4_str();
-
+                            latLng = new LatLng(gps[0], gps[1]);//22.638475
+                            aMap.addCircle(new CircleOptions()
+                                    .center(latLng)
+                                    .radius(mapRange)
+                                    .fillColor(R.color.div)
+                                    .strokeColor(R.color.transparent)
+                                    .strokeWidth(1));
                         }
                     }
                 });
@@ -290,7 +292,6 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
 
     private void savePunch(String range)
     {
-        Log.e("addParams", "   range=" + range + "    intro=" + intro + "    add_time=" + new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
         OkHttpUtils
                 .post()
                 .url(Constant.HTTP_URL)

@@ -13,9 +13,23 @@
             android:id="@+id/date_str"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             android:gravity="center"
             android:text="2017-12-09"
+            android:textColor="@color/title"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/div"/>
+
+        <TextView
+            android:id="@+id/punch_type"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="上午"
             android:textColor="@color/title"/>
 
         <View

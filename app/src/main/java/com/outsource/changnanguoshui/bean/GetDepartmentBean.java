@@ -52,8 +52,19 @@ public class GetDepartmentBean
         private String dep_id;
         private String dep_name;
         private String content;
+        private String dep_pic;
         private List<UserlistBean> userlist;
         private List<ListBean> children;
+
+        public String getDep_pic()
+        {
+            return dep_pic;
+        }
+
+        public void setDep_pic(String dep_pic)
+        {
+            this.dep_pic = dep_pic;
+        }
 
         public String getDep_id()
         {

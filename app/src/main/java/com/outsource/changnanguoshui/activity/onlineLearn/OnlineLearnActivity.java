@@ -43,7 +43,7 @@ public class OnlineLearnActivity extends BaseActivity
     protected void initData()
     {
         title.setText("在线学习");
-        mPageTitleList.add("在线文档");
+        mPageTitleList.add("文件学习");
         mPageTitleList.add("视频学习");
         mFragmentList.add(new OnlineLearnFragment());
         mFragmentList.add(new OnlineVideoFragment());

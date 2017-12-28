@@ -49,7 +49,7 @@ public class PersonnelManagementActivity extends BaseActivity implements CommonB
     @Override
     protected void initData()
     {
-        title.setText("党员信息");
+        title.setText("党组织信息");
         mData = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new ItemDivider());

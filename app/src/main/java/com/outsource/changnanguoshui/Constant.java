@@ -18,7 +18,7 @@ public class Constant
     public static final String TOKEN = "token";
     public static final String ACT = "act";
     public static final String IsLogin = "login";
-    public static final String BUSINESS_TRANSACT = DOMAIN_NAME + "/mobile/kjjy.html";
+    public static final String BUSINESS_TRANSACT = DOMAIN_NAME + "/mobile/kjjy.html?user_id=";
     public static final String VOTE_URL = DOMAIN_NAME + "/mobile/app_vote.aspx?user_id=";
     /**
      * 位置信息权限请求标志

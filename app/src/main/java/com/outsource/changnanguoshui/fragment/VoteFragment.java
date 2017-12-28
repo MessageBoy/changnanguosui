@@ -41,7 +41,21 @@ public class VoteFragment extends BackHandledFragment
         webView.loadUrl(Constant.VOTE_URL + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 
+    @Override
+    public void onResume()
+    {
 
+        super.onResume();
+        Alert("onResume");
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Alert("onPause");
+    }
+ 
     @Override
     public boolean onBackPressed()
     {

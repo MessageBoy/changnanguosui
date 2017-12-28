@@ -45,6 +45,7 @@ public class LearningDetailsActivity extends BaseActivity
     @BindView(R.id.count_down_view)
     CountdownView countdownView;
     long time = 0;
+    boolean ispostStudy = false;
     int isFinish = 0;
     GetStudyContentBean mData;
 
@@ -92,7 +93,11 @@ public class LearningDetailsActivity extends BaseActivity
                             timeLd.setText(DateUtils.getDate(response.getAdd_time()));
                             titleLb.setText(response.getTitle());
                             webView.loadDataWithBaseURL(null, response.getContent(), "text/html", "utf-8", null);
-                            time = response.getStudy_time() * 60000;
+                            time = (response.getStudy_time() - response.getLearn_time()) * 60000;
+                            if (response.getStudy_time() < 1)
+                            {
+                                ispostStudy = true;
+                            }
                             countdownView.start(time);
                             isFinish = response.getIs_finish();
                             videoPlayer.setUp(Constant.DOMAIN_NAME + response.getVideo_src(), JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, response.getTitle());
@@ -166,7 +171,10 @@ public class LearningDetailsActivity extends BaseActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            if (l > 0)
+                            if (ispostStudy)
+                            {
+                                postStudy(0);
+                            } else if (l > 0)
                             {
                                 postStudy(l);
                             }

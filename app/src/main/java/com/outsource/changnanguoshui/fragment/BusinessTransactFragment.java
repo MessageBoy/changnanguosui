@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.application.BackHandledFragment;
+import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
@@ -26,19 +27,22 @@ public class BusinessTransactFragment extends BackHandledFragment
     RelativeLayout bar;
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState)
+    {
         bar.setVisibility(View.GONE);
         WebUtils.webSetting(webView);
-        webView.loadUrl(Constant.BUSINESS_TRANSACT);
+        webView.loadUrl(Constant.BUSINESS_TRANSACT + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutId()
+    {
         return R.layout.activity_study_details;
     }
 
     @Override
-    protected void initData() {
+    protected void initData()
+    {
 
     }
 

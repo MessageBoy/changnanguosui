@@ -58,21 +58,21 @@ public class GetPunchListBean
          * time2 : 17:35
          * time2_status : 正常
          */
-        private String add_time;
+        private String punch_type;
         private String date_str;
         private String time1;
         private String time1_status;
         private String time2;
         private String time2_status;
 
-        public String getAdd_time()
+        public String getPunch_type()
         {
-            return add_time;
+            return punch_type;
         }
 
-        public void setAdd_time(String add_time)
+        public void setPunch_type(String add_time)
         {
-            this.add_time = add_time;
+            this.punch_type = add_time;
         }
 
         public String getDate_str()

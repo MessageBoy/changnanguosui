@@ -29,14 +29,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".activity.PartyBuildingActivity"/>
         <activity android:name=".activity.AdministrativeManagementActivity"/>
         <activity android:name=".activity.OnlineActivityActivity"/>
@@ -61,6 +61,7 @@
         <activity android:name=".activity.HuDongDetailsActivity"/>
         <activity android:name=".activity.MyCollectActivity"/>
         <activity android:name=".activity.MoreActivity"/>
+        <activity android:name=".activity.SignInActivty"/>
         <activity
             android:name=".activity.LearningDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

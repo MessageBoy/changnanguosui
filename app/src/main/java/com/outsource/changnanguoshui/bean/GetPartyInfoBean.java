@@ -7,22 +7,27 @@ package com.outsource.changnanguoshui.bean;
 public class GetPartyInfoBean
 {
 
+
     /**
      * status : 1
      * msg :
-     * pic_url : /mobile/images/users.png
-     * real_name : 胡涵波
+     * pic_url : /upload/201712/24/201712242157041347.jpg
+     * real_name : 测试用户
      * sex : 男
-     * education : 中等专科
-     * party_job : 党支部委员、退休人员
-     * birthday : 1939-10-30
-     * join_time : 1977-01-07
-     * statu : 在职
+     * age :
+     * education : 中央党校
+     * party_job : 党委委员、主要负责人
+     * birthday :
+     * join_time : 2012-12-04
+     * u_status : 在职
      * point : 0
      * duty : null
      * motto : null
-     * video_time :
-     * article_count : 0
+     * dep_name : 办公室
+     * party_dep_name : 中共南昌县国家税务局机关党支部,
+     * party_birthday : 12月04日
+     * video_time : 1分
+     * article_count : 1
      */
 
     private int status;
@@ -30,14 +35,18 @@ public class GetPartyInfoBean
     private String pic_url;
     private String real_name;
     private String sex;
+    private String age;
     private String education;
     private String party_job;
     private String birthday;
     private String join_time;
-    private String statu;
+    private String u_status;
     private int point;
-    private Object duty;
+    private String duty;
     private Object motto;
+    private String dep_name;
+    private String party_dep_name;
+    private String party_birthday;
     private String video_time;
     private String article_count;
 
@@ -91,6 +100,16 @@ public class GetPartyInfoBean
         this.sex = sex;
     }
 
+    public String getAge()
+    {
+        return age;
+    }
+
+    public void setAge(String age)
+    {
+        this.age = age;
+    }
+
     public String getEducation()
     {
         return education;
@@ -131,14 +150,14 @@ public class GetPartyInfoBean
         this.join_time = join_time;
     }
 
-    public String getStatu()
+    public String getU_status()
     {
-        return statu;
+        return u_status;
     }
 
-    public void setStatu(String statu)
+    public void setU_status(String u_status)
     {
-        this.statu = statu;
+        this.u_status = u_status;
     }
 
     public int getPoint()
@@ -151,12 +170,12 @@ public class GetPartyInfoBean
         this.point = point;
     }
 
-    public Object getDuty()
+    public String getDuty()
     {
         return duty;
     }
 
-    public void setDuty(Object duty)
+    public void setDuty(String duty)
     {
         this.duty = duty;
     }
@@ -169,6 +188,36 @@ public class GetPartyInfoBean
     public void setMotto(Object motto)
     {
         this.motto = motto;
+    }
+
+    public String getDep_name()
+    {
+        return dep_name;
+    }
+
+    public void setDep_name(String dep_name)
+    {
+        this.dep_name = dep_name;
+    }
+
+    public String getParty_dep_name()
+    {
+        return party_dep_name;
+    }
+
+    public void setParty_dep_name(String party_dep_name)
+    {
+        this.party_dep_name = party_dep_name;
+    }
+
+    public String getParty_birthday()
+    {
+        return party_birthday;
+    }
+
+    public void setParty_birthday(String party_birthday)
+    {
+        this.party_birthday = party_birthday;
     }
 
     public String getVideo_time()

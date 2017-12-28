@@ -13,9 +13,6 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.MemberInformationActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
@@ -23,8 +20,6 @@ import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.GetDepartmentBean;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
-
-import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,7 +70,7 @@ public class MemberInformationFragment extends BaseFragment implements OnLoadMor
         recyclerView.setAdapter(adapter);
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
-       
+
     }
 
     @Override
@@ -94,7 +89,7 @@ public class MemberInformationFragment extends BaseFragment implements OnLoadMor
             {
                 Intent intent = new Intent(getActivity(), MemberInformationActivity.class);
                 intent.putExtra("user_id", ((GetDepartmentBean.ListBean.UserlistBean) data).getUser_id());
-                intent.putExtra("title", "成员信息");
+                intent.putExtra("title", "党员信息");
                 startActivity(intent);
             }
         });
@@ -129,5 +124,5 @@ public class MemberInformationFragment extends BaseFragment implements OnLoadMor
         swipeToLoadLayout.setRefreshing(false);
     }
 
-   
+
 }

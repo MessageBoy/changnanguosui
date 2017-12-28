@@ -1,44 +1,36 @@
 package com.outsource.changnanguoshui.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.RelativeLayout;
 
-import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
-import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
-import com.outsource.changnanguoshui.activity.MemberInfoActivity;
-import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
-import com.outsource.changnanguoshui.application.BaseViewHolder;
-import com.outsource.changnanguoshui.bean.GetDepartmentBean;
-import com.outsource.changnanguoshui.utlis.ItemDivider;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
 
 /**
  * Created by Administrator on 2017/12/13.
  */
-
-public class OrganizationalFragment extends BaseFragment implements OnLoadMoreListener, OnRefreshListener
+//implements OnLoadMoreListener, OnRefreshListener
+public class OrganizationalFragment extends BaseFragment
 {
-    @BindView(R.id.swipe_target)
-    RecyclerView recyclerView;
-    @BindView(R.id.swipeToLoadLayout)
-    SwipeToLoadLayout swipeToLoadLayout;
-    MyAdapter adapter;
-    List<GetDepartmentBean.ListBean> mData = new ArrayList<>();
+    //    @BindView(R.id.swipe_target)
+//    RecyclerView recyclerView;
+//    @BindView(R.id.swipeToLoadLayout)
+//    SwipeToLoadLayout swipeToLoadLayout;
+//    MyAdapter adapter;
+//    List<GetDepartmentBean.ListBean> mData = new ArrayList<>();
+    @BindView(R.id.webview)
+    WebView webView;
+    @BindView(R.id.relative_layout)
+    RelativeLayout relativeLayout;
+    String url;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -47,14 +39,14 @@ public class OrganizationalFragment extends BaseFragment implements OnLoadMoreLi
         Bundle bundle = getArguments();
         if (bundle != null)
         {
-            mData.addAll((List<GetDepartmentBean.ListBean>) bundle.getSerializable("mData"));
+            url = bundle.getString("mData");
         }
     }
 
-    public static Fragment newInstance(List<GetDepartmentBean.ListBean> mData)
+    public static Fragment newInstance(String mData)
     {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("mData", (Serializable) mData);
+        bundle.putString("mData", mData);
         OrganizationalFragment fragment = new OrganizationalFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -63,61 +55,63 @@ public class OrganizationalFragment extends BaseFragment implements OnLoadMoreLi
     @Override
     protected void initView(View view, Bundle savedInstanceState)
     {
-        swipeToLoadLayout.setOnRefreshListener(this);
-        swipeToLoadLayout.setOnLoadMoreListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new ItemDivider().setDividerColor(ContextCompat.getColor(getActivity(), R.color.div)));
-        adapter = new MyAdapter(getActivity(), R.layout.item_member_info, mData);
-        recyclerView.setAdapter(adapter);
-
+//        swipeToLoadLayout.setOnRefreshListener(this);
+//        swipeToLoadLayout.setOnLoadMoreListener(this);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.addItemDecoration(new ItemDivider().setDividerColor(ContextCompat.getColor(getActivity(), R.color.div)));
+//        adapter = new MyAdapter(getActivity(), R.layout.item_member_info, mData);
+//        recyclerView.setAdapter(adapter);
+        relativeLayout.setVisibility(View.GONE);
+        WebUtils.webSetting(webView);
+        webView.loadUrl(Constant.DOMAIN_NAME + url + "?user_id=" + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 
     @Override
     protected int getLayoutId()
     {
-        return R.layout.fragment_list;
+        return R.layout.fragment_vote;
     }
 
     @Override
     protected void initData()
     {
-        adapter.setItemListener(new CommonBaseAdapter.onItemClickerListener()
-        {
-            @Override
-            public void onItemClick(View view, Object data, int position)
-            {
-                Intent intent = new Intent(getActivity(), MemberInfoActivity.class);
-                intent.putExtra("mData", ((GetDepartmentBean.ListBean) data));
-                startActivity(intent);
-            }
-        });
+//        adapter.setItemListener(new CommonBaseAdapter.onItemClickerListener()
+//        {
+//            @Override
+//            public void onItemClick(View view, Object data, int position)
+//            {
+//                Intent intent = new Intent(getActivity(), MemberInfoActivity.class);
+//                intent.putExtra("mData", ((GetDepartmentBean.ListBean) data));
+//                startActivity(intent);
+//            }
+//        });
     }
 
-
-    class MyAdapter extends CommonBaseAdapter<GetDepartmentBean.ListBean>
-    {
-
-        public MyAdapter(Context context, @LayoutRes int itemLayoutId, List<GetDepartmentBean.ListBean> data)
-        {
-            super(context, itemLayoutId, data);
-        }
-
-        @Override
-        public void bindViewData(BaseViewHolder holder, GetDepartmentBean.ListBean item, int position)
-        {
-            holder.setText(R.id.department_name, item.getDep_name());
-        }
-    }
-
-    @Override
-    public void onLoadMore()
-    {
-        swipeToLoadLayout.setLoadingMore(false);
-    }
-
-    @Override
-    public void onRefresh()
-    {
-        swipeToLoadLayout.setRefreshing(false);
-    }
+//
+//    class MyAdapter extends CommonBaseAdapter<GetDepartmentBean.ListBean>
+//    {
+//
+//        public MyAdapter(Context context, @LayoutRes int itemLayoutId, List<GetDepartmentBean.ListBean> data)
+//        {
+//            super(context, itemLayoutId, data);
+//        }
+//
+//        @Override
+//        public void bindViewData(BaseViewHolder holder, GetDepartmentBean.ListBean item, int position)
+//        {
+//            holder.setText(R.id.department_name, item.getDep_name());
+//        }
+//    }
+//
+//    @Override
+//    public void onLoadMore()
+//    {
+//        swipeToLoadLayout.setLoadingMore(false);
+//    }
+//
+//    @Override
+//    public void onRefresh()
+//    {
+//        swipeToLoadLayout.setRefreshing(false);
+//    }
 }

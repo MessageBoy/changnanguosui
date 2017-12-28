@@ -47,11 +47,11 @@ public class MemberInfoActivity extends BaseActivity
     {
         mData = (GetDepartmentBean.ListBean) getIntent().getSerializableExtra("mData");
         title.setText("党委机关");
-        mPageTitleList.add("部门简介");
+        mPageTitleList.add("组织简介");
         mPageTitleList.add("组织架构");
-        mPageTitleList.add("成员信息");
+        mPageTitleList.add("党员信息");
         mFragmentList.add(new DepartmentalProfileFragment().newInstance(mData.getContent()));
-        mFragmentList.add(new OrganizationalFragment().newInstance(mData.getChildren()));
+        mFragmentList.add(new OrganizationalFragment().newInstance(mData.getDep_pic()));
         mFragmentList.add(new MemberInformationFragment().newInstance(mData.getUserlist()));
         mAdapter = new TabAdapter(this, getSupportFragmentManager(),
                 mFragmentList, mPageTitleList);

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.application.BackHandledFragment;
+import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
@@ -18,7 +19,8 @@ import butterknife.BindView;
  * Created by Administrator on 2017/12/4.
  */
 
-public class BusinessFragment extends BackHandledFragment {
+public class BusinessFragment extends BackHandledFragment
+{
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -27,25 +29,29 @@ public class BusinessFragment extends BackHandledFragment {
     WebView webView;
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState)
+    {
 
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutId()
+    {
         return R.layout.activity_study_details;
     }
 
     @Override
-    protected void initData() {
+    protected void initData()
+    {
         title.setText("业务办理");
         back.setVisibility(View.GONE);
         WebUtils.webSetting(webView);
-        webView.loadUrl(Constant.BUSINESS_TRANSACT);
+        webView.loadUrl(Constant.BUSINESS_TRANSACT + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 
     @Override
-    public boolean onBackPressed() {
+    public boolean onBackPressed()
+    {
         if (webView.canGoBack())
         {
             webView.goBack();

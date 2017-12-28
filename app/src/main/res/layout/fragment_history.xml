@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.9"
                     android:gravity="center"
                     android:text="日期"
                     android:textColor="#1489d4"/>
@@ -63,9 +63,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:gravity="center"
-                    android:text="上班打卡时间"
+                    android:text="类型"
                     android:textColor="#1489d4"/>
 
                 <View
@@ -78,7 +78,20 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="下班打卡时间"
+                    android:text="上班时间"
+                    android:textColor="#1489d4"/>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="下班时间"
                     android:textColor="#1489d4"/>
             </LinearLayout>
 

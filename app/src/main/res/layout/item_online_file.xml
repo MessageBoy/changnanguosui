@@ -17,6 +17,7 @@
             android:id="@+id/icon_of"
             android:layout_width="120dp"
             android:layout_height="82dp"
+            android:scaleType="fitXY"
             android:layout_marginTop="2dp"
             android:src="@mipmap/online_file_img"/>
 

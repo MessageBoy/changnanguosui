@@ -18,10 +18,10 @@ import android.widget.TextView;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.activity.ArticleSearchActivity;
+import com.outsource.changnanguoshui.activity.MoreActivity;
 import com.outsource.changnanguoshui.activity.NoticeBulletinActivty;
 import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
 import com.outsource.changnanguoshui.activity.OnlineCardActivty;
-import com.outsource.changnanguoshui.activity.MoreActivity;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
@@ -42,6 +42,7 @@ import com.outsource.changnanguoshui.utlis.DateUtils;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.LogoutDialog;
 import com.outsource.changnanguoshui.utlis.MyViewPager;
 import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -81,10 +82,15 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
     HomeAdapter homeAdapter;
     List<HomeBean> mData;
     BadgeView badgeView;
+    private boolean isLogin = false;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
     {
+        if (!TextUtils.isEmpty(SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())) ;
+        {
+            isLogin = true;
+        }
         timeHome.setText(new DateTime().toString("yyyy-MM-dd  EEEE"));
     }
 
@@ -177,6 +183,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 .get()
                 .url(Constant.HTTP_URL)
                 .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
                 .addParams(Constant.ACT, "GetIndexInfoNum")
                 .build()
                 .execute(new GenericsCallback<GetIndexInfoNumBean>(new JsonGenerics())
@@ -242,6 +249,11 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
         switch (position)
         {
             case 0:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 intent = new Intent(getActivity(), PersonnelManagementActivity.class);
                 intent.putExtra("position", Constant.ZERO);
                 startActivity(intent);
@@ -250,26 +262,57 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(PartyBuildingActivity.class);
                 break;
             case 2:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 intent = new Intent(getActivity(), OnlinePaymentActivity.class);
                 intent.putExtra("position", Constant.ZERO);
                 startActivity(intent);
                 break;
             case 3:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 startActivity(OnlineLearnActivity.class);
                 break;
             case 4:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 startActivity(TaxBusinessActivity.class);
                 break;
             case 5:
+               
                 startActivity(RegulatoryRetrievalActivity.class);
                 break;
             case 6:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 startActivity(NoticeBulletinActivty.class);
                 break;
             case 7:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 startActivity(OnlineCardActivty.class);
                 break;
             case 8:
+                if (isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 startActivity(OnlineActivityActivity.class);
                 break;
             case 9:

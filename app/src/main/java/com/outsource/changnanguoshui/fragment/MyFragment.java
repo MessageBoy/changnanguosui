@@ -18,8 +18,9 @@ import com.outsource.changnanguoshui.activity.LearningProgressActivity;
 import com.outsource.changnanguoshui.activity.LearningQueryActivity;
 import com.outsource.changnanguoshui.activity.MeLearnActivity;
 import com.outsource.changnanguoshui.activity.MemberInformationActivity;
-import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
 import com.outsource.changnanguoshui.activity.MyCollectActivity;
+import com.outsource.changnanguoshui.activity.OnlineActivityActivity;
+import com.outsource.changnanguoshui.activity.SignInActivty;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
@@ -51,7 +52,7 @@ public class MyFragment extends BaseFragment
 {
     @BindView(R.id.my_list)
     RecyclerView myList;
-    String[] title = {"在线缴费", "缴费查询", "在线学习", "我的信息", "线上活动", "设置"};
+    String[] title = {"在线缴费", "签到记录", "在线学习", "我的信息", "线上活动", "设置"};
     int[] icon = {R.mipmap.zxjf_m, R.mipmap.jfcx_m, R.mipmap.zxxx_m, R.mipmap.wdxx_m, R.mipmap.xshd_m, R.mipmap.sz};
     MyAdapter homeAdapter;
     @BindView(R.id.user_head)
@@ -87,9 +88,7 @@ public class MyFragment extends BaseFragment
                         startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(getActivity(), OnlinePaymentActivity.class);
-                        intent.putExtra("position", Constant.ONE);
-                        startActivity(intent);
+                        startActivity(SignInActivty.class);
                         break;
                     case 2:
                         startActivity(OnlineLearnActivity.class);

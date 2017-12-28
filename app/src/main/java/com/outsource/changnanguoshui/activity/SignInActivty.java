@@ -1,13 +1,13 @@
-package com.outsource.changnanguoshui.fragment;
+package com.outsource.changnanguoshui.activity;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -15,7 +15,7 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
-import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.application.BaseActivity;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.GetPunchListBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
@@ -35,48 +35,50 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * Created by Administrator on 2017/12/9.
+ * Created by Administrator on 2017/12/28.
  */
 
-public class HistoryFragment extends BaseFragment implements OnDateSetListener
+public class SignInActivty extends BaseActivity implements OnDateSetListener
 {
     @BindView(R.id.tab_layout)
     LinearLayout tab_layout;
+    @BindView(R.id.title)
+    TextView title;
     @BindView(R.id.history_list)
     RecyclerView historyList;
     MyAdapter adapter;
     List<GetPunchListBean.ListBean> mData;
 
-
     @Override
-    protected void initView(View view, Bundle savedInstanceState)
+    protected void initView()
     {
-        mData = new ArrayList<>();
-        historyList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        historyList.addItemDecoration(new ItemDivider());
-        adapter = new HistoryFragment.MyAdapter(getActivity(), R.layout.item_history, mData);
-        historyList.setAdapter(adapter);
-
-    }
-
-    @Override
-    protected int getLayoutId()
-    {
-        return R.layout.fragment_history;
+        setContentView(R.layout.activty_signin);
     }
 
     @Override
     protected void initData()
     {
+        title.setText("打卡记录");
         getData(new DateTime().toString("yyyy-MM"));
-
+        mData = new ArrayList<>();
+        historyList.setLayoutManager(new LinearLayoutManager(this));
+        historyList.addItemDecoration(new ItemDivider());
+        adapter = new MyAdapter(this, R.layout.item_history, mData);
+        historyList.setAdapter(adapter);
     }
 
-
-    @OnClick(R.id.search_ll)
-    public void onViewClicked()
+    @OnClick({R.id.search_ll, R.id.back})
+    public void onViewClicked(View view)
     {
-        showTimeDialog();
+        switch (view.getId())
+        {
+            case R.id.search_ll:
+                showTimeDialog();
+                break;
+            case R.id.back:
+                finish();
+                break;
+        }
     }
 
     class MyAdapter extends CommonBaseAdapter<GetPunchListBean.ListBean>
@@ -108,8 +110,8 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
                 .get()
                 .url(Constant.HTTP_URL)
                 .addParams(Constant.ACT, "GetPunchList")
-                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
-                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.USER_ID, SpUtils.getParam(this, Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(this, Constant.TOKEN, "").toString())
                 .addParams("month", month)
                 .build()
                 .execute(new GenericsCallback<GetPunchListBean>(new JsonGenerics())
@@ -137,11 +139,11 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
     {
         TimePickerDialog tiemDialog = new TimePickerDialog.Builder()
                 .setTitleStringId("请选择月份")//标题
-                .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
+                .setWheelItemTextSelectorColor(ContextCompat.getColor(this, R.color.red))//当前文本颜色
                 .setType(Type.YEAR_MONTH)
                 .setCallBack(this)
                 .build();
-        tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
+        tiemDialog.show(this.getSupportFragmentManager(), "YEAR_MONTH_DAY");
     }
 
     private int getBac(String status)
@@ -176,4 +178,6 @@ public class HistoryFragment extends BaseFragment implements OnDateSetListener
         adapter.notifyDataSetChanged();
         getData(new DateTime(millseconds).toString("yyyy-MM"));
     }
+
+
 }
