@@ -18,17 +18,19 @@ import butterknife.OnClick;
  *
  * @author xiaolei
  */
-public class BirthdayActivity extends Activity {
+public class BirthdayActivity extends Activity
+{
 
     @BindView(R.id.birthday_webview)
     WebView webView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday);
         ButterKnife.bind(this);
-        WebUtils.webSetting(webView);
+        WebUtils.webSetting(webView, this);
         webView.setHorizontalScrollBarEnabled(false);//水平不显示
         webView.setVerticalScrollBarEnabled(false); //垂直不显示
         webView.setBackgroundColor(0);
@@ -36,7 +38,8 @@ public class BirthdayActivity extends Activity {
     }
 
     @OnClick(R.id.birthday_button)
-    public void onViewClicked() {
+    public void onViewClicked()
+    {
         finish();
     }
 }

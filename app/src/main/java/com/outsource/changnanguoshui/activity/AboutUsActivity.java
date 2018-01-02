@@ -19,7 +19,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/16.
  */
 
-public class StudyDetailsActivity extends BaseActivity
+public class AboutUsActivity extends BaseActivity
 {
 
     @BindView(R.id.back)
@@ -32,7 +32,7 @@ public class StudyDetailsActivity extends BaseActivity
     @Override
     protected void initView()
     {
-        setContentView(R.layout.activity_study_details);
+        setContentView(R.layout.activity_about_us);
     }
 
     @Override

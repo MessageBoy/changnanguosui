@@ -52,7 +52,7 @@ public class OnlineActivityActivity extends BaseActivity
 //        viewPager.setAdapter(mAdapter);
 //        tabLayout.setupWithViewPager(viewPager);
 //        viewPager.setOffscreenPageLimit(2);
-        WebUtils.webSetting(webview);
+        WebUtils.webSetting(webview, this);
         webview.loadUrl(Constant.VOTE_URL + SpUtils.getParam(this, Constant.USER_ID, ""));
     }
 

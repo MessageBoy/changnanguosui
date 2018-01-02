@@ -62,7 +62,7 @@ public class OrganizationalFragment extends BaseFragment
 //        adapter = new MyAdapter(getActivity(), R.layout.item_member_info, mData);
 //        recyclerView.setAdapter(adapter);
         relativeLayout.setVisibility(View.GONE);
-        WebUtils.webSetting(webView);
+        WebUtils.webSetting(webView, getActivity());
         webView.loadUrl(Constant.DOMAIN_NAME + url + "?user_id=" + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 
