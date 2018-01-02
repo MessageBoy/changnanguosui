@@ -4,12 +4,13 @@
     android:useLevel="false">
 
     <!-- 实心 -->
-    <solid android:color="@color/white" />
+    <solid android:color="@color/white"/>
     <!-- 圆角 -->
-    <corners android:radius="360dp" />
+    <corners android:radius="360dp"/>
 
     <!-- 大小 -->
-    <size android:width="30dp"
-        android:height="30dp" />
+    <size
+        android:width="25dp"
+        android:height="25dp"/>
 
 </shape>

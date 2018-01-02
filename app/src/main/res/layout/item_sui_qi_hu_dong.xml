@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginTop="10dp"
-    android:background="@color/white"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical"
+              android:paddingBottom="10dp"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp"
+              android:paddingTop="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/shuiqihudong_title" />
+            android:src="@mipmap/shuiqihudong_title"/>
 
         <TextView
             android:id="@+id/textView"
@@ -27,13 +27,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:layout_toRightOf="@+id/title_img"
-            android:gravity="center_vertical"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:text="13011112222"
             android:textColor="@color/black"
             android:textSize="16dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/shuiqihuding_msg" />
+                android:src="@mipmap/shuiqihuding_msg"/>
 
             <TextView
                 android:id="@+id/msg"
@@ -54,7 +54,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:text="2"
-                android:textColor="@color/gray" />
+                android:textColor="@color/gray"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -66,7 +66,7 @@
         android:lineSpacingExtra="5dp"
         android:maxLines="2"
         android:text="    近年来持续深化“放管服”，2016年2月发布《税务系统简化优化纳税服务政策》11111111111111111111111111111111111111111111111111111111111111111"
-        android:textColor="@color/tab_text" />
+        android:textColor="@color/tab_text"/>
 
     <TextView
         android:id="@+id/data"
@@ -75,7 +75,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="5dp"
         android:text="2017-08-03"
-        android:textColor="@color/gray" />
+        android:textColor="@color/gray"/>
 
 </LinearLayout>
 

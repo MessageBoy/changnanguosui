@@ -27,11 +27,17 @@ public class BusinessFragment extends BackHandledFragment
     TextView title;
     @BindView(R.id.context_ld)
     WebView webView;
+    String url;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
     {
+        url = Constant.BUSINESS_TRANSACT + "&user_id=" + SpUtils.getParam(getActivity(), Constant.USER_ID, "");
+    }
 
+    public void setWebView()
+    {
+        webView.loadUrl(url);
     }
 
     @Override
@@ -46,21 +52,25 @@ public class BusinessFragment extends BackHandledFragment
         title.setText("业务办理");
         back.setVisibility(View.GONE);
         WebUtils.webSetting(webView);
-        webView.loadUrl(Constant.BUSINESS_TRANSACT + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
+        webView.loadUrl(url);
     }
 
     @Override
     public boolean onBackPressed()
     {
-        if (webView.canGoBack())
+        if (webView != null)
         {
-            webView.goBack();
-            Log.v("webView.goBack()", "webView.goBack()");
-            return true;
-        } else
-        {
-            Log.v("Conversatio退出", "Conversatio退出");
-            return false;
+            if (webView.canGoBack())
+            {
+                webView.goBack();
+                Log.v("webView.goBack()", "webView.goBack()");
+                return true;
+            } else
+            {
+                Log.v("Conversatio退出", "Conversatio退出");
+                return false;
+            }
         }
+        return true;
     }
 }

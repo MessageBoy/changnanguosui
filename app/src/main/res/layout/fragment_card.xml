@@ -39,16 +39,27 @@
             android:layout_width="95dp"
             android:layout_height="95dp"
             android:layout_centerInParent="true"
-            android:background="@mipmap/card_blue"
+            android:background="@mipmap/yidaka"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/yidaka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="已考勤"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/daka"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="打卡"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tiem_card"
@@ -57,7 +68,8 @@
                 android:layout_marginTop="10dp"
                 android:text="08:12:30"
                 android:textColor="@color/white"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <TextView

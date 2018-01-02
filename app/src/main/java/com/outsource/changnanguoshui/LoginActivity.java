@@ -80,9 +80,9 @@ public class LoginActivity extends BaseActivity
                     {
                         if (response.getStatus() == 1)
                         {
-                            SpUtils.setParam(getApplicationContext(), Constant.TOKEN, response.getToken());
-                            SpUtils.setParam(getApplicationContext(), Constant.USER_ID, response.getUser_id());
-                            SpUtils.setParam(getApplicationContext(), Constant.IsLogin, true);
+                            SpUtils.setParam(LoginActivity.this, Constant.TOKEN, response.getToken());
+                            SpUtils.setParam(LoginActivity.this, Constant.USER_ID, response.getUser_id());
+                            SpUtils.setParam(LoginActivity.this, Constant.IsLogin, true);
                             startActivity(MainActivity.class);
                             finish();
                         } else

@@ -25,7 +25,7 @@ import com.outsource.changnanguoshui.activity.OnlineCardActivty;
 import com.outsource.changnanguoshui.activity.PartyBuildingActivity;
 import com.outsource.changnanguoshui.activity.PersonnelManagementActivity;
 import com.outsource.changnanguoshui.activity.RegulatoryRetrievalActivity;
-import com.outsource.changnanguoshui.activity.ShuiQiHuDong.ShuiQiHDActivity;
+import com.outsource.changnanguoshui.activity.ShuiQiHuDongActivity;
 import com.outsource.changnanguoshui.activity.StudyDetailsActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlineLearnActivity;
 import com.outsource.changnanguoshui.activity.onlineLearn.OnlinePaymentActivity;
@@ -87,7 +87,8 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
     @Override
     protected void initView(View view, Bundle savedInstanceState)
     {
-        if (!TextUtils.isEmpty(SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())) ;
+
+        if (SpUtils.getParam(getActivity(), Constant.IsLogin, false).equals(true))
         {
             isLogin = true;
         }
@@ -249,7 +250,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
         switch (position)
         {
             case 0:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -262,7 +263,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(PartyBuildingActivity.class);
                 break;
             case 2:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -272,7 +273,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(intent);
                 break;
             case 3:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -280,7 +281,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(OnlineLearnActivity.class);
                 break;
             case 4:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -288,11 +289,11 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(TaxBusinessActivity.class);
                 break;
             case 5:
-               
+
                 startActivity(RegulatoryRetrievalActivity.class);
                 break;
             case 6:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -300,7 +301,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(NoticeBulletinActivty.class);
                 break;
             case 7:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -308,7 +309,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(OnlineCardActivty.class);
                 break;
             case 8:
-                if (isLogin)
+                if (!isLogin)
                 {
                     LogoutDialog.popAlterDialog(getActivity());
                     return;
@@ -316,18 +317,19 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                 startActivity(OnlineActivityActivity.class);
                 break;
             case 9:
-                intent = new Intent(getActivity(), ShuiQiHDActivity.class);
-                intent.putExtra("position", Constant.ZERO);
+                intent = new Intent(getActivity(), ShuiQiHuDongActivity.class);
+                intent.putExtra("position", Constant.Two);
                 startActivity(intent);
                 break;
             case 10:
-                intent = new Intent(getActivity(), ShuiQiHDActivity.class);
-                intent.putExtra("position", Constant.ONE);
+                intent = new Intent(getActivity(), StudyDetailsActivity.class);
+                intent.putExtra("webUrl", Constant.BUSINESS_TRANSACT + "&user_id=" + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
+                intent.putExtra("activityTitle", "税收业务");
                 startActivity(intent);
                 break;
             case 11:
-                intent = new Intent(getActivity(), ShuiQiHDActivity.class);
-                intent.putExtra("position", Constant.Two);
+                intent = new Intent(getActivity(), ShuiQiHuDongActivity.class);
+                intent.putExtra("position", Constant.ONE);
                 startActivity(intent);
                 break;
 

@@ -18,7 +18,6 @@ import com.outsource.changnanguoshui.activity.BirthdayActivity;
 import com.outsource.changnanguoshui.activity.LearningProgressActivity;
 import com.outsource.changnanguoshui.activity.LearningQueryActivity;
 import com.outsource.changnanguoshui.activity.MeLearnActivity;
-import com.outsource.changnanguoshui.activity.MemberInformationActivity;
 import com.outsource.changnanguoshui.activity.MyCollectActivity;
 import com.outsource.changnanguoshui.activity.SettingActivity;
 import com.outsource.changnanguoshui.activity.SignInActivty;
@@ -33,6 +32,7 @@ import com.outsource.changnanguoshui.utlis.CircleTransform;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.LogoutDialog;
 import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -42,7 +42,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.Call;
 
 /**
@@ -53,7 +52,7 @@ public class MyFragment extends BaseFragment
 {
     @BindView(R.id.my_list)
     RecyclerView myList;
-    String[] title = {"党费收缴", "签到记录", "在线学习", "我的信息", "线上活动", "设置"};
+    String[] title = {"党费收缴", "签到记录", "在线学习", "我的信息", "政治生日", "设置"};
     int[] icon = {R.mipmap.zxjf_m, R.mipmap.jfcx_m, R.mipmap.zxxx_m, R.mipmap.wdxx_m, R.mipmap.xshd_m, R.mipmap.sz};
     MyAdapter homeAdapter;
     @BindView(R.id.user_head)
@@ -66,11 +65,15 @@ public class MyFragment extends BaseFragment
     TextView xxjd;
     @BindView(R.id.wdsc)
     TextView wdsc;
-    Unbinder unbinder;
+    private boolean isLogin = false;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
     {
+        if (SpUtils.getParam(getActivity(), Constant.IsLogin, false).equals(true))
+        {
+            isLogin = true;
+        }
         myList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         myList.addItemDecoration(new ItemDivider().setDividerWith(2).setDividerColor(ContextCompat.getColor(getActivity(), R.color.div)));
         homeAdapter = new MyAdapter(getActivity(), R.layout.item_personal, setHomeData());
@@ -80,6 +83,11 @@ public class MyFragment extends BaseFragment
             @Override
             public void onItemClick(View view, Object data, int position)
             {
+                if (!isLogin)
+                {
+                    LogoutDialog.popAlterDialog(getActivity());
+                    return;
+                }
                 Intent intent;
                 switch (position)
                 {
@@ -95,10 +103,7 @@ public class MyFragment extends BaseFragment
                         startActivity(OnlineLearnActivity.class);
                         break;
                     case 3:
-                        intent = new Intent(getActivity(), MemberInformationActivity.class);
-                        intent.putExtra("user_id", SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString());
-                        intent.putExtra("title", "我的信息");
-                        startActivity(intent);
+                        startActivity(AccountMaintenanceActivity.class);
                         break;
                     case 4:
                         intent = new Intent(getActivity(), BirthdayActivity.class);
@@ -145,6 +150,11 @@ public class MyFragment extends BaseFragment
     @OnClick({R.id.user_head, R.id.xxjd_ll, R.id.wwcxx_ll, R.id.wdsc_ll, R.id.my_study, R.id.content_query})
     public void onViewClicked(View view)
     {
+        if (!isLogin)
+        {
+            LogoutDialog.popAlterDialog(getActivity());
+            return;
+        }
         Intent intent;
         switch (view.getId())
         {
