@@ -59,7 +59,7 @@ public class SettingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.gydj:
-                intent=new Intent(getApplicationContext(),StudyDetailsActivity.class);
+                intent=new Intent(getApplicationContext(),AboutUsActivity.class);
                 intent.putExtra("activityTitle","关于党建");
                 intent.putExtra("webUrl",ABOUT_US);
                 startActivity(intent);

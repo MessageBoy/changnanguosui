@@ -30,7 +30,7 @@ public class BusinessTransactFragment extends BackHandledFragment
     protected void initView(View view, Bundle savedInstanceState)
     {
         bar.setVisibility(View.GONE);
-        WebUtils.webSetting(webView);
+        WebUtils.webSetting(webView, getActivity());
         webView.loadUrl(Constant.BUSINESS_TRANSACT + "&user_id=" + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 

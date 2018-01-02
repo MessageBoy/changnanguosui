@@ -51,7 +51,7 @@ public class BusinessFragment extends BackHandledFragment
     {
         title.setText("业务办理");
         back.setVisibility(View.GONE);
-        WebUtils.webSetting(webView);
+        WebUtils.webSetting(webView, getActivity());
         webView.loadUrl(url);
     }
 

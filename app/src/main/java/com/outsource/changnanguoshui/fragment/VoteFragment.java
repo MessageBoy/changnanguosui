@@ -37,11 +37,11 @@ public class VoteFragment extends BackHandledFragment
     @Override
     protected void initData()
     {
-        WebUtils.webSetting(webView);
+        WebUtils.webSetting(webView, getActivity());
         webView.loadUrl(Constant.VOTE_URL + SpUtils.getParam(getActivity(), Constant.USER_ID, ""));
     }
 
-  
+
     @Override
     public boolean onBackPressed()
     {
