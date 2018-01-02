@@ -70,9 +70,9 @@ public class GetPunchListBean
             return punch_type;
         }
 
-        public void setPunch_type(String add_time)
+        public void setPunch_type(String punch_type)
         {
-            this.punch_type = add_time;
+            this.punch_type = punch_type;
         }
 
         public String getDate_str()

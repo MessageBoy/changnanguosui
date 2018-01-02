@@ -2,6 +2,8 @@ package com.outsource.changnanguoshui.fragment;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +30,10 @@ import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.WeekAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
+import com.outsource.changnanguoshui.bean.AmapBean;
 import com.outsource.changnanguoshui.bean.GetPunchSetBean;
 import com.outsource.changnanguoshui.bean.WeekBean;
 import com.outsource.changnanguoshui.utlis.DateUtils;
-import com.outsource.changnanguoshui.utlis.GPSUtil;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
 import com.outsource.changnanguoshui.utlis.SpUtils;
@@ -39,12 +41,16 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.joda.time.DateTime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
+
+import static com.outsource.changnanguoshui.utlis.SpUtils.getParam;
 
 
 /**
@@ -63,6 +69,10 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     LinearLayout punchClock;
     @BindView(R.id.address_card)
     TextView addressCard;
+    @BindView(R.id.yidaka)
+    TextView yidaka;
+    @BindView(R.id.daka)
+    TextView daka;
     @BindView(R.id.map)
     MapView mMapView;
     private List<WeekBean> mData;
@@ -81,6 +91,13 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     String time4_str = "16:55-18:00";// 下午下班打卡时间段
     String currentDate;//当前日期
     String intro = "";
+    private int state = 0;
+    private String isCard;
+    private static final int ZHENGCHANG = 1002;
+    private static final int YIDAKA = 1004;
+    private static final int CHAOCHU = 1003;
+    private static final int UPDATE_TIME = 1001;
+    private boolean isStop = true;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState)
@@ -102,10 +119,12 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     protected void initData()
     {
         currentDate = new DateTime().toString("yyyy-MM-dd");
-        tiemCard.setText(new DateTime().toString("HH:mm:SS"));
+
         dateCard.setText(currentDate);
-        getPunchSet();
+
         getData();
+        AlertDialog();
+        getPunchSet();
         setLocation();
 
 
@@ -127,7 +146,9 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
 
         }
 
+
     }
+
 
     private void setLocation()
     {
@@ -155,20 +176,33 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     @OnClick(R.id.punch_clock)
     public void onViewClicked()
     {
-        if (DateUtils.isBefore(currentDate + "T" + time2_str.substring(0, time2_str.indexOf("-"))))
+        if (isCard.equals("flase"))
         {
-            getDate(time1_str);
-        } else if (DateUtils.isBefore(currentDate + "T" + time3_str.substring(0, time2_str.indexOf("-"))))
-        {
-            getDate(time2_str);
-        } else if (DateUtils.isBefore(currentDate + "T" + time4_str.substring(0, time2_str.indexOf("-"))))
-        {
-            getDate(time3_str);
-        } else
-        {
-            getDate(time4_str);
+            if (state != 0)
+            {
+                if (distance < mapRange)
+                {
+                    savePunch("1");
+                } else
+                {
+                    showOneDialog((int) (distance - mapRange));
+                }
+            }
         }
+    }
 
+    private boolean getDate(String time)
+    {
+
+        String startTime = currentDate + "T" + time.substring(0, time.indexOf("-"));
+        String endTime = currentDate + "T" + time.substring(time.indexOf("-") + 1, time.length());
+        if (DateUtils.isAfter(startTime) && DateUtils.isBefore(endTime))
+        {
+            return true;
+        }
+        state = 0;
+        handlers.sendEmptyMessage(YIDAKA);
+        return false;
     }
 
     @Override
@@ -177,6 +211,7 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
         super.onDestroy();
         if (mMapView != null)
             mMapView.onDestroy();//销毁地图
+        isStop = false;
 
     }
 
@@ -207,6 +242,13 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     public void onMyLocationChange(Location location)
     {
         distance = AMapUtils.calculateLineDistance(latLng, new LatLng(location.getLatitude(), location.getLongitude()));
+        if (isCard.equals("flase") && state != 0 && distance > mapRange)
+        {
+            handlers.sendEmptyMessage(CHAOCHU);
+        } else if (isCard.equals("flase") && state != 0 && distance < mapRange)
+        {
+            handlers.sendEmptyMessage(ZHENGCHANG);
+        }
         // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
         query = new RegeocodeQuery(new LatLonPoint(location.getLatitude(), location.getLongitude()), 200, GeocodeSearch.AMAP);
         geocoderSearch.getFromLocationAsyn(query);
@@ -232,8 +274,8 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
-                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
-                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.USER_ID, getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, getParam(getActivity(), Constant.TOKEN, "").toString())
                 .addParams(Constant.ACT, "GetPunchSet")
                 .build()
                 .execute(new GenericsCallback<GetPunchSetBean>(new JsonGenerics())
@@ -242,6 +284,7 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
                     public void onError(Call call, Exception e, int id)
                     {
                         Alert("网络请求出错：" + e.getMessage());
+                        dialog.dismiss();
                     }
 
                     @Override
@@ -249,44 +292,56 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
                     {
                         if (response.getStatus() == 1)
                         {
-                            String[] map = response.getMap().split(",");
-                            double[] gps = GPSUtil.bd09_To_Gcj02(Double.valueOf(map[1]), Double.valueOf(map[0]));
                             mapRange = response.getMap_range();
                             time1_str = response.getTime1_str();
                             time2_str = response.getTime2_str();
                             time3_str = response.getTime3_str();
                             time4_str = response.getTime4_str();
-                            latLng = new LatLng(gps[0], gps[1]);//22.638475
-                            aMap.addCircle(new CircleOptions()
-                                    .center(latLng)
-                                    .radius(mapRange)
-                                    .fillColor(R.color.div)
-                                    .strokeColor(R.color.transparent)
-                                    .strokeWidth(1));
+                            getAmap(response.getMap());
+                            if (getDate(time1_str))
+                            {
+                                state = 1;
+                                isCard = SpUtils.getParam(getActivity(), currentDate + "state1", "flase").toString();
+                                if (isCard.equals("flase"))
+                                {
+                                    handlers.sendEmptyMessage(ZHENGCHANG);
+                                    thread.start();
+                                }
+                            } else if (getDate(time2_str))
+                            {
+                                state = 2;
+                                isCard = getParam(getActivity(), currentDate + "state2", "flase").toString();
+                                if (isCard.equals("flase"))
+                                {
+                                    handlers.sendEmptyMessage(ZHENGCHANG);
+                                    thread.start();
+                                }
+                            } else if (getDate(time3_str))
+                            {
+                                state = 3;
+                                isCard = getParam(getActivity(), currentDate + "state3", "flase").toString();
+                                if (isCard.equals("flase"))
+                                {
+                                    handlers.sendEmptyMessage(ZHENGCHANG);
+                                    thread.start();
+                                }
+                            } else if (getDate(time4_str))
+                            {
+                                state = 4;
+                                isCard = getParam(getActivity(), currentDate + "state4", "flase").toString();
+                                if (isCard.equals("flase"))
+                                {
+                                    handlers.sendEmptyMessage(ZHENGCHANG);
+                                    thread.start();
+                                }
+                            } else
+                            {
+                                isCard = "true";
+                                state = 0;
+                            }
                         }
                     }
                 });
-    }
-
-    private void getDate(String time)
-    {
-        if (distance < mapRange)
-        {
-            String startTime = currentDate + "T" + time.substring(0, time.indexOf("-"));
-            String endTime = currentDate + "T" + time.substring(time.indexOf("-") + 1, time.length());
-            if (DateUtils.isAfter(startTime) && DateUtils.isAfter(endTime))
-            {
-                savePunch("1");
-            } else
-            {
-                showOneDialog("1", 0);
-
-            }
-        } else
-        {
-            showOneDialog("0", (int) (distance - mapRange));
-        }
-
     }
 
 
@@ -295,8 +350,8 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
         OkHttpUtils
                 .post()
                 .url(Constant.HTTP_URL)
-                .addParams(Constant.USER_ID, SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString())
-                .addParams(Constant.TOKEN, SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString())
+                .addParams(Constant.USER_ID, getParam(getActivity(), Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, getParam(getActivity(), Constant.TOKEN, "").toString())
                 .addParams(Constant.ACT, "SavePunch")
                 .addParams("add_time", new DateTime().toString("yyyy-MM-dd HH:mm:ss"))
                 .addParams("range", range)
@@ -314,11 +369,53 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
                     public void onResponse(GetPunchSetBean response, int id)
                     {
                         Alert(response.getMsg());
+                        SpUtils.setParam(getActivity(), currentDate + "state" + state, "true");
+                        handlers.sendEmptyMessage(YIDAKA);
+                        state = 0;
                     }
                 });
     }
 
-    private void showOneDialog(final String range, int mapRange)
+    private void getAmap(String locations)
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.AMAP)
+                .addParams("key", "054cde5f482b46a63594e06a13f85dca")
+                .addParams("locations", locations)
+                .addParams("coordsys", "baidu")
+                .addParams("output", "json")
+                .build()
+                .execute(new GenericsCallback<AmapBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Alert("网络请求出错：" + e.getMessage());
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onResponse(AmapBean response, int id)
+                    {
+                        dialog.dismiss();
+                        if (response.getStatus().equals("1"))
+                        {
+                            String[] gps = response.getLocations().split(",");
+                            latLng = new LatLng(Double.parseDouble(gps[1]), Double.parseDouble(gps[0]));//22.638475/
+                            aMap.addCircle(new CircleOptions()
+                                    .center(latLng)
+                                    .radius(mapRange)
+                                    .fillColor(R.color.div)
+                                    .strokeColor(R.color.transparent)
+                                    .strokeWidth(1));
+
+                        }
+                    }
+                });
+    }
+
+    private void showOneDialog(int mapRange)
     {
         final AlertDialog build = new AlertDialog.Builder(getActivity()).create();
         View view = getActivity().getLayoutInflater().inflate(R.layout.splash_dialog, null);
@@ -350,9 +447,85 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
                     Alert("请填写备注");
                     return;
                 }
-                savePunch(range);
+                savePunch("0");
                 build.dismiss();
             }
         });
     }
+
+    Handler handlers = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            switch (msg.what)
+            {
+                case UPDATE_TIME:
+                    long time = System.currentTimeMillis();
+                    Date data = new Date(time);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                    if (tiemCard != null)
+                    {
+                        tiemCard.setText(simpleDateFormat.format(data));
+                    }
+                    switch (state)
+                    {
+                        case 1:
+                            getDate(time1_str);
+                            break;
+                        case 2:
+                            getDate(time2_str);
+                            break;
+                        case 3:
+                            getDate(time3_str);
+                            break;
+                        case 4:
+                            getDate(time4_str);
+                            break;
+                    }
+
+                    break;
+                case CHAOCHU:
+                    yidaka.setVisibility(View.GONE);
+                    daka.setVisibility(View.VISIBLE);
+                    tiemCard.setVisibility(View.VISIBLE);
+                    punchClock.setBackgroundResource(R.mipmap.chaochu);
+                    break;
+                case ZHENGCHANG:
+                    punchClock.setBackgroundResource(R.mipmap.card_blue);
+                    yidaka.setVisibility(View.GONE);
+                    daka.setVisibility(View.VISIBLE);
+                    tiemCard.setVisibility(View.VISIBLE);
+                    break;
+                case YIDAKA:
+                    punchClock.setBackgroundResource(R.mipmap.yidaka);
+                    yidaka.setVisibility(View.VISIBLE);
+                    daka.setVisibility(View.GONE);
+                    tiemCard.setVisibility(View.GONE);
+                    break;
+            }
+
+
+        }
+    };
+    Thread thread = new Thread(new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            while (isStop)
+            {
+                try
+                {
+                    Thread.sleep(1000);
+                    handlers.sendEmptyMessage(UPDATE_TIME);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+
+
 }

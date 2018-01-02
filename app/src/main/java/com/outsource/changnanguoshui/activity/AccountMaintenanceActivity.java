@@ -13,24 +13,29 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/17.
  */
 
-public class AccountMaintenanceActivity extends BaseActivity {
+public class AccountMaintenanceActivity extends BaseActivity
+{
 
     @BindView(R.id.title)
     TextView title;
 
     @Override
-    protected void initView() {
+    protected void initView()
+    {
         setContentView(R.layout.activity_account_maintenance);
     }
 
     @Override
-    protected void initData() {
-        title.setText("账号维护");
+    protected void initData()
+    {
+        title.setText("我的信息");
     }
 
     @OnClick({R.id.back, R.id.change_msg, R.id.change_pwd})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
+    public void onViewClicked(View view)
+    {
+        switch (view.getId())
+        {
             case R.id.back:
                 finish();
                 break;

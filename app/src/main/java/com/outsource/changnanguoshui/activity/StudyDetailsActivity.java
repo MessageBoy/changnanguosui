@@ -1,11 +1,15 @@
 package com.outsource.changnanguoshui.activity;
 
+import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.outsource.changnanguoshui.Constant;
 import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.application.BaseActivity;
+import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.outsource.changnanguoshui.utlis.WebUtils;
 
 import butterknife.BindView;
@@ -15,7 +19,8 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/16.
  */
 
-public class StudyDetailsActivity extends BaseActivity {
+public class StudyDetailsActivity extends BaseActivity
+{
 
     @BindView(R.id.back)
     ImageView back;
@@ -25,21 +30,38 @@ public class StudyDetailsActivity extends BaseActivity {
     WebView webView;
 
     @Override
-    protected void initView() {
+    protected void initView()
+    {
         setContentView(R.layout.activity_study_details);
     }
 
     @Override
-    protected void initData() {
+    protected void initData()
+    {
         title.setText(getIntent().getStringExtra("activityTitle"));
         WebUtils.webSetting(webView);
         String webUrl = getIntent().getStringExtra("webUrl");
-        webView.loadUrl(webUrl);
+        Log.e("webUrl", webUrl);
+        webView.loadUrl(webUrl + "&user_id=" + SpUtils.getParam(this, Constant.USER_ID, ""));
     }
 
     @OnClick(R.id.back)
-    public void onViewClicked() {
+    public void onViewClicked()
+    {
         finish();
     }
 
+    public boolean onKeyDown(int keyCode, KeyEvent keyEvent)
+    {
+        if (keyCode == keyEvent.KEYCODE_BACK)
+        {
+            if (webView.canGoBack())
+            {
+                webView.goBack();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, keyEvent);
+
+    }
 }

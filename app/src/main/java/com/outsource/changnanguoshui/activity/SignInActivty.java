@@ -18,7 +18,6 @@ import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseActivity;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
 import com.outsource.changnanguoshui.bean.GetPunchListBean;
-import com.outsource.changnanguoshui.utlis.DateUtils;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
@@ -92,7 +91,7 @@ public class SignInActivty extends BaseActivity implements OnDateSetListener
         @Override
         public void bindViewData(BaseViewHolder holder, GetPunchListBean.ListBean item, int position)
         {
-            holder.setText(R.id.punch_type, DateUtils.getDate(item.getPunch_type()));
+            holder.setText(R.id.punch_type, item.getPunch_type());
             holder.setText(R.id.date_str, item.getDate_str());
             holder.setText(R.id.time1, item.getTime1());
             holder.setText(R.id.time1_status, item.getTime1_status());

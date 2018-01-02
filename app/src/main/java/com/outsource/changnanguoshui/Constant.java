@@ -14,15 +14,15 @@ public class Constant
     public static final int Three = 3;
     public static final String DOMAIN_NAME = "http://cndj.edongli.net";
     public static final String HTTP_URL = DOMAIN_NAME + "/services/pub/api.ashx";
+    public static final String AMAP = "http://restapi.amap.com/v3/assistant/coordinate/convert";
+    public static final String BUSINESS_TRANSACT = DOMAIN_NAME + "/mobile/kjjy.html?1=1";
+    public static final String VOTE_URL = DOMAIN_NAME + "/mobile/app_vote.aspx?user_id=";
+    public static final String BIRTHDAY_WEBVIEW = DOMAIN_NAME + "/mobile/zzsr.aspx?user_id=";
+    public static final String ABOUT_US = DOMAIN_NAME + "/mobile/user_help.aspx?category_id=25";
     public static final String USER_ID = "user_id";
     public static final String TOKEN = "token";
     public static final String ACT = "act";
     public static final String IsLogin = "login";
-    public static final String BUSINESS_TRANSACT = DOMAIN_NAME + "/mobile/kjjy.html?user_id=";
-    public static final String VOTE_URL = DOMAIN_NAME + "/mobile/app_vote.aspx?user_id=";
-    public static final String BIRTHDAY_WEBVIEW = DOMAIN_NAME + "/mobile/zzsr.aspx?user_id=";
-    public static final String ABOUT_US = DOMAIN_NAME + "/mobile/user_help.aspx?category_id=25";
-
     /**
      * 位置信息权限请求标志
      */
