@@ -38,6 +38,9 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
     RadioButton rbHome;
     @BindView(R.id.radio_group)
     RadioGroup radioGroup;
+    @BindView(R.id.rb_vote)
+    RadioGroup rbVote;
+
 
     private BackHandledFragment mBackHandedFragment;
     private boolean hadIntercept;
@@ -61,6 +64,8 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
         }
         radioGroup.setOnCheckedChangeListener(this);
         rbHome.setChecked(true);
+        rbVote.setClickable(false);
+
         getData();
     }
 
@@ -99,12 +104,14 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
                 break;
             case R.id.rb_business:
                 hideAllFragment(fTransaction);
-                if (businessFragment == null) {
+                /*if (businessFragment == null) {
                     businessFragment = new BusinessFragment();
                     fTransaction.add(R.id.fragment, businessFragment);
                 } else {
                     fTransaction.show(businessFragment);
-                }
+                }*/
+                businessFragment = new BusinessFragment();
+                fTransaction.replace(R.id.fragment, businessFragment);
                 break;
             case R.id.rb_my:
                 hideAllFragment(fTransaction);
@@ -128,8 +135,8 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
             fragmentTransaction.hide(studyFragment);
 //        if (voteFragment != null)
 //            fragmentTransaction.hide(voteFragment);
-        if (businessFragment != null)
-            fragmentTransaction.hide(businessFragment);
+        /*if (businessFragment != null)
+            fragmentTransaction.hide(businessFragment);*/
         if (myFragment != null)
             fragmentTransaction.hide(myFragment);
     }
