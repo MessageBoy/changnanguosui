@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.outsource.changnanguoshui.activity.LeaveActivity;
 import com.outsource.changnanguoshui.activity.StudyDetailsActivity;
 import com.outsource.changnanguoshui.activity.taxBusiness.TaxBusinessActivity;
 
@@ -65,10 +66,11 @@ public class IntentReceiver extends BroadcastReceiver {
             String content = bundle.getString(JPushInterface.EXTRA_ALERT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     context);
-            builder.setContentText(content).setSmallIcon(R.mipmap.app_icon);
+            builder.setContentText(content);
+            builder.setSmallIcon(R.mipmap.app_icon);
             builder.setContentTitle("先锋e线");
             builder.setDefaults(Notification.DEFAULT_SOUND);
-
+            builder.setWhen(System.currentTimeMillis());
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
                 .getAction())) {
             //用户点击了通知
@@ -89,8 +91,8 @@ public class IntentReceiver extends BroadcastReceiver {
                     switch (category_id){
                         case "7":  // 通知公告 按照内容标识直接进入详细页面
                             i.setClass(context, StudyDetailsActivity.class);
-                            intent.putExtra("webUrl", Constant.DOMAIN_NAME + item_id);
-                            intent.putExtra("activityTitle", "推送内容");
+                            i.putExtra("webUrl", Constant.DOMAIN_NAME + item_id);
+                            i.putExtra("activityTitle", "推送内容");
                             break;
                     }
                 }else if ("-1".equals(channel_id)){
@@ -100,6 +102,8 @@ public class IntentReceiver extends BroadcastReceiver {
                 }else if("-2".equals(channel_id)){   // 请假推送  进入请假管理中的请假审批列表
                     switch (item_id){
                         case "0":
+                            i.setClass(context, LeaveActivity.class);
+                            i.putExtra("position", Constant.ONE);
                             break;
                     }
                 }
@@ -165,14 +169,14 @@ public class IntentReceiver extends BroadcastReceiver {
         // 使用广播或者通知进行内容的显示
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context);
-        builder.setContentText(message).setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentText(message).setSmallIcon(R.mipmap.app_icon);
         builder.setContentTitle(MainActivity.class.getName());
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
 
         Log.i("Jpush", extras + "~~");
 
-        int drawResId=R.mipmap.ic_launcher;
+        int drawResId=R.mipmap.app_icon;
         int num = 0;
         String title="hello";
         int iconType=0;
@@ -184,7 +188,7 @@ public class IntentReceiver extends BroadcastReceiver {
             try {
                 JSONObject object = new JSONObject(extras);
                 num = object.optInt("num");
-                title=object.optString("title","hello");
+                title=object.optString("title","先锋e线");
                 iconType=object.optInt("iconType");
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -199,7 +203,7 @@ public class IntentReceiver extends BroadcastReceiver {
         // 不同的节日不同的推送  图标
         switch (iconType) {
             case 0://推送图标1
-                drawResId=R.mipmap.ic_launcher;
+                drawResId=R.mipmap.app_icon;
                 break;
             default:
                 break;

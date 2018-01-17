@@ -84,7 +84,7 @@ public class WebUtils
                 }
 
                 //处理http和https开头的url
-//                wv.loadUrl(url);
+                wv.loadUrl(url);
                 return true;
             }
         });

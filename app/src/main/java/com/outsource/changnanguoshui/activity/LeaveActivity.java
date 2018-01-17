@@ -54,6 +54,7 @@ public class LeaveActivity extends BaseActivity
                 mFragmentList, mPageTitleList);
         viewPager.setAdapter(mAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(getIntent().getIntExtra("position", 0)).select();
     }
 
 

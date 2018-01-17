@@ -1,6 +1,11 @@
 package com.outsource.changnanguoshui.activity;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.view.KeyEvent;
+import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,8 +24,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/16.
  */
 
-public class StudyDetailsActivity extends BaseActivity
-{
+public class StudyDetailsActivity extends BaseActivity {
 
     @BindView(R.id.back)
     ImageView back;
@@ -28,16 +32,15 @@ public class StudyDetailsActivity extends BaseActivity
     TextView title;
     @BindView(R.id.context_ld)
     WebView webView;
+    private String CookieStr;
 
     @Override
-    protected void initView()
-    {
+    protected void initView() {
         setContentView(R.layout.activity_study_details);
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         title.setText(getIntent().getStringExtra("activityTitle"));
 //        WebUtils.webSetting(webView, this);
         String webUrl = getIntent().getStringExtra("webUrl");
@@ -60,22 +63,19 @@ public class StudyDetailsActivity extends BaseActivity
         webSettings.setLoadWithOverviewMode(true);
         webView.loadUrl(webUrl + "&user_id=" + SpUtils.getParam(this, Constant.USER_ID, ""));
         webView.setWebViewClient(new webViewClient());
-
+        webView.setDownloadListener(new MyWebViewDownLoadListener());
     }
 
     @OnClick(R.id.back)
-    public void onViewClicked()
-    {
+    public void onViewClicked() {
         finish();
     }
 
     @Override
     // 设置回退
     // 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack())
-        {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
             webView.goBack(); // goBack()表示返回WebView的上一页面
             return true;
         }
@@ -85,12 +85,34 @@ public class StudyDetailsActivity extends BaseActivity
     }
 
     // Web视图
-    private class webViewClient extends WebViewClient
-    {
-        public boolean shouldOverrideUrlLoading(WebView view, String url)
-        {
+    private class webViewClient extends WebViewClient {
+
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
+
+        public void onPageFinished(WebView view, String url) {
+            CookieStr = CookieManager.getInstance().getCookie(url);
+            super.onPageFinished(view, url);
+        }
+
+    }
+
+    private class MyWebViewDownLoadListener implements DownloadListener {
+        @Override
+        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+            //先判断有无权限，否在未授权时app直接跳出
+            int perm = StudyDetailsActivity.this.checkCallingOrSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+            if (perm != PackageManager.PERMISSION_GRANTED) {
+                Alert("缺少存储权限:手机-设置-应用管理-权限-存储");
+            } else {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        }
     }
 }
+
+
