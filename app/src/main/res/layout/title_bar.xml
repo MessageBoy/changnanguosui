@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
                 android:id="@+id/bar"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@mipmap/tab_bg"
                 android:orientation="horizontal">
@@ -13,7 +13,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:src="@drawable/selector_app_back"
-       />
+        />
 
 
     <TextView
@@ -24,4 +24,19 @@
         android:text="标题"
         android:textColor="@color/white"
         android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/wyqj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:drawableLeft="@mipmap/edit"
+        android:drawablePadding="3dp"
+        android:gravity="center"
+        android:text="我要请假"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:visibility="gone"/>
 </RelativeLayout>

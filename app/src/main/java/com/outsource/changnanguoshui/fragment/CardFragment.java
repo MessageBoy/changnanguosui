@@ -96,6 +96,7 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
     private static final int ZHENGCHANG = 1002;
     private static final int YIDAKA = 1004;
     private static final int CHAOCHU = 1003;
+    private static final int CHAOCHUSJ = 1005;
     private static final int UPDATE_TIME = 1001;
     private boolean isStop = true;
 
@@ -201,7 +202,7 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
             return true;
         }
         state = 0;
-        handlers.sendEmptyMessage(YIDAKA);
+        handlers.sendEmptyMessage(CHAOCHUSJ);
         return false;
     }
 
@@ -501,6 +502,12 @@ public class CardFragment extends BaseFragment implements AMap.OnMyLocationChang
                     punchClock.setBackgroundResource(R.mipmap.yidaka);
                     yidaka.setVisibility(View.VISIBLE);
                     daka.setVisibility(View.GONE);
+                    tiemCard.setVisibility(View.GONE);
+                    break;
+                case CHAOCHUSJ:
+                    punchClock.setBackgroundResource(R.mipmap.yidaka);
+                    daka.setVisibility(View.VISIBLE);
+                    yidaka.setVisibility(View.GONE);
                     tiemCard.setVisibility(View.GONE);
                     break;
             }

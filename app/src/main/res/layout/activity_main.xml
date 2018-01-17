@@ -13,51 +13,78 @@
         android:background="@color/white">
     </FrameLayout>
 
-
-    <RadioGroup
-        android:id="@+id/radio_group"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="@drawable/tab_bg"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_home"
-            style="@style/radio_button_tab"
-            android:drawableTop="@drawable/selector_message_drawable"
-            android:text="首页"
-            />
+        android:layout_height="54dp">
 
 
-        <RadioButton
-            android:id="@+id/rb_study"
-            style="@style/radio_button_tab"
-            android:drawableTop="@drawable/selector_shuiwen_drawable"
-            android:text="税闻"
-            />
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/tab_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_vote"
-            style="@style/radio_button_tab"
-            android:drawableTop="@drawable/selector_contacts_drawable"
-            android:text="政治生日"
-            />
-
-        <RadioButton
-            android:id="@+id/rb_business"
-            style="@style/radio_button_tab"
-            android:drawableTop="@drawable/selector_application_drawable"
-            android:text="业务"
-            />
-
-        <RadioButton
-            android:id="@+id/rb_my"
-            style="@style/radio_button_tab"
-            android:drawableTop="@drawable/selector_mine_drawable"
-            android:text="我的"
-            />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rb_home"
+                style="@style/radio_button_tab"
+                android:drawableTop="@drawable/selector_message_drawable"
+                android:text="首页"
+                />
 
 
+            <RadioButton
+                android:id="@+id/rb_study"
+                style="@style/radio_button_tab"
+                android:drawableTop="@drawable/selector_shuiwen_drawable"
+                android:text="税闻"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_vote"
+                style="@style/radio_button_tab"
+                android:drawableTop="@drawable/selector_contacts_drawable"
+                android:text="政治生日"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_business"
+                style="@style/radio_button_tab"
+                android:drawableTop="@drawable/selector_application_drawable"
+                android:text="业务"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_my"
+                style="@style/radio_button_tab"
+                android:drawableTop="@drawable/selector_mine_drawable"
+                android:text="我的"
+                />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <View
+                android:id="@+id/num"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+        </LinearLayout>
+
+    </FrameLayout>
 </LinearLayout>

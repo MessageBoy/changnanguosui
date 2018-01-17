@@ -27,8 +27,11 @@ public class OnlineCardActivty extends PermissionsActivity implements RadioGroup
     TextView title;
     @BindView(R.id.rb_card)
     RadioButton rbCard;
+    @BindView(R.id.rb_history)
+    RadioButton rbHistory;
     @BindView(R.id.radio_group)
     RadioGroup radioGroup;
+    int position = 0;
 
     @Override
     protected void initView()
@@ -55,6 +58,7 @@ public class OnlineCardActivty extends PermissionsActivity implements RadioGroup
         {
 
             case R.id.rb_card:
+                position = 1;
                 if (cardFragment == null)
                 {
                     cardFragment = new CardFragment();
@@ -64,7 +68,12 @@ public class OnlineCardActivty extends PermissionsActivity implements RadioGroup
                     fTransaction.show(cardFragment);
                 }
                 break;
+            case R.id.rb_leave:
+                startActivity(LeaveActivity.class);
+
+                break;
             case R.id.rb_history:
+                position = 2;
                 if (historyFragment == null)
                 {
                     historyFragment = new HistoryFragment();
@@ -76,6 +85,21 @@ public class OnlineCardActivty extends PermissionsActivity implements RadioGroup
                 break;
         }
         fTransaction.commit();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        switch (position)
+        {
+            case 1:
+                rbCard.setChecked(true);
+                break;
+            case 2:
+                rbHistory.setChecked(true);
+                break;
+        }
     }
 
     // 隐藏所有Fragment
@@ -93,6 +117,6 @@ public class OnlineCardActivty extends PermissionsActivity implements RadioGroup
     {
         finish();
     }
-    
-    
+
+
 }

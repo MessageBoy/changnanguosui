@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -15,18 +16,22 @@ import com.outsource.changnanguoshui.application.BackHandledFragment;
 import com.outsource.changnanguoshui.application.BackHandledInterface;
 import com.outsource.changnanguoshui.application.PermissionsActivity;
 import com.outsource.changnanguoshui.bean.CheckApkUpgradeBean;
+import com.outsource.changnanguoshui.bean.GetIndexInfoNumBean;
 import com.outsource.changnanguoshui.fragment.BusinessFragment;
 import com.outsource.changnanguoshui.fragment.HomepageFragment;
 import com.outsource.changnanguoshui.fragment.MyFragment;
 import com.outsource.changnanguoshui.fragment.StudyFragment;
+import com.outsource.changnanguoshui.utlis.BadgeView;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
+import com.outsource.changnanguoshui.utlis.SpUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+
+import static com.outsource.changnanguoshui.fragment.HomepageFragment.formatBadgeNumber;
 
 public class MainActivity extends PermissionsActivity implements RadioGroup.OnCheckedChangeListener, BackHandledInterface
 {
@@ -46,6 +51,8 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
     RadioButton rbBusiness;
     @BindView(R.id.rb_my)
     RadioButton rbMy;
+    @BindView(R.id.num)
+    View num;
     private BackHandledFragment mBackHandedFragment;
     long firstTime = 0;
     int vCode = 1;
@@ -234,11 +241,47 @@ public class MainActivity extends PermissionsActivity implements RadioGroup.OnCh
 
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onResume()
     {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        super.onResume();
+        GetIndexInfoNum();
     }
+
+    private void GetIndexInfoNum()
+    {
+        OkHttpUtils
+                .get()
+                .url(Constant.HTTP_URL)
+                .addParams(Constant.USER_ID, SpUtils.getParam(this, Constant.USER_ID, "").toString())
+                .addParams(Constant.TOKEN, SpUtils.getParam(this, Constant.TOKEN, "").toString())
+                .addParams(Constant.ACT, "GetIndexInfoNum")
+                .build()
+                .execute(new GenericsCallback<GetIndexInfoNumBean>(new JsonGenerics())
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Alert("网络请求出错：" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(GetIndexInfoNumBean response, int id)
+                    {
+                        if (response.getStatus() == 1)
+                        {
+                            if (homepageFragment != null)
+                                homepageFragment.setNum(response.getList());
+                            BadgeView badgeView = new BadgeView(MainActivity.this);
+                            badgeView.setTargetView(num);
+                            badgeView.setBadgeMargin(45, 5, 0, 0);
+                            badgeView.setTextSize(9);
+                            badgeView.setText(formatBadgeNumber(response.getList().get(8).getInfo_num()));
+                        }
+
+                    }
+                });
+    }
+
 }

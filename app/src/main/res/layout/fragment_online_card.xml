@@ -30,6 +30,12 @@
             android:text="打卡"
             />
 
+        <RadioButton
+            android:id="@+id/rb_leave"
+            style="@style/radio_button_tab"
+            android:drawableTop="@drawable/selector_application_drawable"
+            android:text="请假"
+            />
 
         <RadioButton
             android:id="@+id/rb_history"

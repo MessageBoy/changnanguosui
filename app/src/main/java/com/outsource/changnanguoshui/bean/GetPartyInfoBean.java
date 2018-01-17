@@ -43,7 +43,7 @@ public class GetPartyInfoBean
     private String u_status;
     private int point;
     private String duty;
-    private Object motto;
+    private String motto;
     private String dep_name;
     private String party_dep_name;
     private String party_birthday;
@@ -180,12 +180,12 @@ public class GetPartyInfoBean
         this.duty = duty;
     }
 
-    public Object getMotto()
+    public String getMotto()
     {
         return motto;
     }
 
-    public void setMotto(Object motto)
+    public void setMotto(String motto)
     {
         this.motto = motto;
     }

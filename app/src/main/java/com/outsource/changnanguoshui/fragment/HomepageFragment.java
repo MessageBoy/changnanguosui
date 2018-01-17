@@ -138,7 +138,7 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
         });
         getData();
         getSlides();
-        GetIndexInfoNum();
+//        GetIndexInfoNum();
     }
 
 
@@ -200,18 +200,29 @@ public class HomepageFragment extends BaseFragment implements CommonBaseAdapter.
                     {
                         if (response.getStatus() == 1)
                         {
-                            int infoNum = 0;
-                            for (int i = 0; i < response.getList().size(); i++)
-                            {
-                                infoNum += response.getList().get(i).getInfo_num();
-                                mData.get(i).setNum(response.getList().get(i).getInfo_num());
-                            }
-                            badgeView.setText(formatBadgeNumber(infoNum));
-                            homeAdapter.notifyDataSetChanged();
+
                         }
 
                     }
                 });
+    }
+
+    public void setNum(List<GetIndexInfoNumBean.ListBean> response)
+    {
+        int infoNum = 0;
+        for (int i = 0; i < response.size(); i++)
+        {
+            infoNum += response.get(i).getInfo_num();
+            if (i == 8)
+            {
+                mData.get(i).setNum(0);
+            } else
+            {
+                mData.get(i).setNum(response.get(i).getInfo_num());
+            }
+        }
+        badgeView.setText(formatBadgeNumber(infoNum));
+        homeAdapter.notifyDataSetChanged();
     }
 
     private void getSlides()

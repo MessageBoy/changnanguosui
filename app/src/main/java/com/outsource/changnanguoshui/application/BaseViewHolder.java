@@ -45,6 +45,16 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         return this;
     }
 
+    public BaseViewHolder setOnClick(int viewId, View.OnClickListener oncl)
+    {
+        View tv = getView(viewId);
+        if (tv != null)
+        {
+            tv.setOnClickListener(oncl);
+        }
+        return this;
+    }
+
     public BaseViewHolder setVisibility(int viewId, int visibility)
     {
         View tv = getView(viewId);
@@ -61,6 +71,16 @@ public class BaseViewHolder extends RecyclerView.ViewHolder
         if (tv != null)
         {
             tv.setBackgroundResource(icon);
+        }
+        return this;
+    }
+
+    public BaseViewHolder setTextColor(int viewId, int icon)
+    {
+        TextView tv = getView(viewId);
+        if (tv != null)
+        {
+            tv.setTextColor(icon);
         }
         return this;
     }

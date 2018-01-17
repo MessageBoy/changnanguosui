@@ -25,7 +25,21 @@ public class DateUtils
         try
         {
             str = str.substring(str.indexOf("(") + 1, str.indexOf("+"));
-            time = new DateTime(Long.parseLong(str)).toString("yyyy-MM-dd  HH:mm");
+            time = new DateTime(Long.parseLong(str)).toString("yyyy-MM-dd HH:mm");
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return time;
+    }
+
+    public static String getDates(String str)
+    {
+        String time = "";
+        try
+        {
+            str = str.substring(str.indexOf("(") + 1, str.indexOf("+"));
+            time = new DateTime(Long.parseLong(str)).toString("yyyy-MM-dd (EEEE)");
         } catch (Exception e)
         {
             e.getMessage();

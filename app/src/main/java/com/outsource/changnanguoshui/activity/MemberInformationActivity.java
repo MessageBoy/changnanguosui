@@ -121,7 +121,7 @@ public class MemberInformationActivity extends BaseActivity
                             age.setText(response.getAge());
                             partyDepName.setText(response.getParty_dep_name());
                             partyBirthday.setText(response.getParty_birthday());
-                            duty.setText(response.getDuty());
+                            duty.setText(response.getMotto());
                         }
                     }
                 });
