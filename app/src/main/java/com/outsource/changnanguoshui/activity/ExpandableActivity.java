@@ -76,7 +76,7 @@ public class ExpandableActivity extends BaseActivity
         OkHttpUtils
                 .get()
                 .url(Constant.HTTP_URL)
-                .addParams(Constant.ACT, "GetDepartment")
+                .addParams(Constant.ACT, "GetXZDepartment")
                 .build()
                 .execute(new GenericsCallback<GetDepartmentBean>(new JsonGenerics())
                 {
