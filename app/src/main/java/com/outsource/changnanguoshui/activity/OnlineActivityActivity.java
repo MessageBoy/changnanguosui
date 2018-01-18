@@ -40,7 +40,7 @@ public class OnlineActivityActivity extends BaseActivity
     @Override
     protected void initData()
     {
-        title.setText("线上活动");
+        title.setText("主题活动");
 //        mPageTitleList.add("活动详情");
 //        mPageTitleList.add("投票列表");
 //        mPageTitleList.add("投票排行");

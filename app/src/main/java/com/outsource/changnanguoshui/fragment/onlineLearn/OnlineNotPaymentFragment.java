@@ -96,7 +96,7 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
 
     @Override
     protected void initData() {
-
+        year.setText(new DateTime().toString("yyyy")+"年");
         getData(new DateTime().toString("yyyy"));
     }
 
@@ -231,7 +231,7 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
     public void onDateSet(TimePickerDialog timePickerView, long millseconds)
     {
         getData(new DateTime(millseconds).toString("yyyy"));
-        year.setText(new DateTime(millseconds).toString("yyyy"));
+        year.setText(new DateTime(millseconds).toString("yyyy")+"年");
     }
 
 

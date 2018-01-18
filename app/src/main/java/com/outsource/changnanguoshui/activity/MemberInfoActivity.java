@@ -46,7 +46,7 @@ public class MemberInfoActivity extends BaseActivity
     protected void initData()
     {
         mData = (GetDepartmentBean.ListBean) getIntent().getSerializableExtra("mData");
-        title.setText("党委机关");
+        title.setText("组织信息");
         mPageTitleList.add("组织简介");
         mPageTitleList.add("组织架构");
         mPageTitleList.add("党员信息");
