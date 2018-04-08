@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,12 +25,15 @@ import com.outsource.changnanguoshui.R;
 import com.outsource.changnanguoshui.adapter.CommonBaseAdapter;
 import com.outsource.changnanguoshui.application.BaseFragment;
 import com.outsource.changnanguoshui.application.BaseViewHolder;
-import com.outsource.changnanguoshui.bean.ConsultMsgBean;
+import com.outsource.changnanguoshui.bean.AddPayOrderBean;
 import com.outsource.changnanguoshui.bean.OnlinePayMentBen;
 import com.outsource.changnanguoshui.utlis.GenericsCallback;
 import com.outsource.changnanguoshui.utlis.ItemDivider;
 import com.outsource.changnanguoshui.utlis.JsonGenerics;
 import com.outsource.changnanguoshui.utlis.SpUtils;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.joda.time.DateTime;
@@ -59,6 +63,8 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
     String months = "";
     @BindView(R.id.year)
     TextView year;
+    private IWXAPI iwxapi;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +80,13 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
         OnlineNotPaymentFragment fragment = new OnlineNotPaymentFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String yearT = year.getText().toString();
+        getData(yearT.substring(0, yearT.length() - 1));
     }
 
     @Override
@@ -96,8 +109,8 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
 
     @Override
     protected void initData() {
-        year.setText(new DateTime().toString("yyyy")+"年");
-        getData(new DateTime().toString("yyyy"));
+
+        year.setText(new DateTime().toString("yyyy") + "年");
     }
 
     private void getData(String year) {
@@ -155,6 +168,9 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
 
     private void postData() {
         AlertDialog();
+        Log.e("USER_ID", SpUtils.getParam(getActivity(), Constant.USER_ID, "").toString());
+        Log.e("TOKEN", SpUtils.getParam(getActivity(), Constant.TOKEN, "").toString());
+        Log.e("ACT", months);
         OkHttpUtils
                 .post()
                 .url(Constant.HTTP_URL)
@@ -165,7 +181,7 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
                 .addParams("payment_id", "" + 2)
                 .addParams("pay_month", months)
                 .build()
-                .execute(new GenericsCallback<ConsultMsgBean>(new JsonGenerics()) {
+                .execute(new GenericsCallback<AddPayOrderBean>(new JsonGenerics()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Alert("网络请求出错");
@@ -173,14 +189,39 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
                     }
 
                     @Override
-                    public void onResponse(ConsultMsgBean response, int id) {
+                    public void onResponse(AddPayOrderBean response, int id) {
                         dialog.dismiss();
-                        Alert(response.getMsg());
+
                         if (response.getStatus() == 1) {
-                            getData(year.getText().toString());
+                            toWXPay(response);
                         }
+                        str = 0;
+                        months = "";
                     }
                 });
+    }
+
+    private void toWXPay(final AddPayOrderBean response) {
+        iwxapi = WXAPIFactory.createWXAPI(getActivity(), null); //初始化微信api
+        iwxapi.registerApp("wx20d82208bc65f133"); //注册appid  appid可以在开发平台获取
+
+        Runnable payRunnable = new Runnable() {  //这里注意要放在子线程
+            @Override
+            public void run() {
+                PayReq request = new PayReq(); //调起微信APP的对象
+                //下面是设置必要的参数，也就是前面说的参数,这几个参数从何而来请看上面说明
+                request.appId = response.getAppid();
+                request.partnerId = response.getPartnerid();
+                request.prepayId = response.getPrepayid();
+                request.packageValue = response.get_package();
+                request.nonceStr = response.getNoncestr();
+                request.timeStamp = response.getTimestamp();
+                request.sign = response.getSign();
+                iwxapi.sendReq(request);//发送调起微信的请求
+            }
+        };
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
     }
 
 
@@ -215,23 +256,22 @@ public class OnlineNotPaymentFragment extends BaseFragment implements OnDateSetL
         }
     }
 
-   private void showTiemDialog(){
-       TimePickerDialog  tiemDialog = new TimePickerDialog.Builder()
+    private void showTiemDialog() {
+        TimePickerDialog tiemDialog = new TimePickerDialog.Builder()
                 .setTitleStringId("请选择月份")//标题
                 .setWheelItemTextSelectorColor(ContextCompat.getColor(getActivity(), R.color.red))//当前文本颜色
                 .setType(Type.YEAR)
                 .setCallBack(this)
                 .build();
-       tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
+        tiemDialog.show(getActivity().getSupportFragmentManager(), "YEAR_MONTH_DAY");
     }
 
 
     //选择时间回调
     @Override
-    public void onDateSet(TimePickerDialog timePickerView, long millseconds)
-    {
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
         getData(new DateTime(millseconds).toString("yyyy"));
-        year.setText(new DateTime(millseconds).toString("yyyy")+"年");
+        year.setText(new DateTime(millseconds).toString("yyyy") + "年");
     }
 
 

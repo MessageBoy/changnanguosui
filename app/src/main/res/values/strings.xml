@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">先锋e线</string>
+    <string name="app_tip">提示</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付：%s</string>
 </resources>

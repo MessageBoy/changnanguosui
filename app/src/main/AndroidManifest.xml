@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.outsource.changnanguoshui">
+    package="com.outsource.changnanguoshui">
     <!--用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--用于申请调用A-GPS模块-->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!--用于申请获取蓝牙信息进行室内定位-->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!--允许程序打开网络套接字-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!--允许程序设置内置sd卡的写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--允许程序获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--允许程序访问WiFi网络信息-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--允许程序读写手机状态和身份-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:name=".application.MyApplication"
@@ -31,7 +32,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
@@ -42,62 +43,66 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".activity.PartyBuildingActivity"/>
-        <activity android:name=".activity.AdministrativeManagementActivity"/>
-        <activity android:name=".activity.OnlineActivityActivity"/>
-        <activity android:name=".activity.VoteActivity"/>
-        <activity android:name=".activity.onlineLearn.OnlineLearnActivity"/>
-        <activity android:name=".activity.onlineLearn.OnlinePaymentActivity"/>
-        <activity android:name=".activity.taxBusiness.TaxBusinessActivity"/>
-        <activity android:name=".activity.ShuiQiHuDong.ShuiQiHDActivity"/>
-        <activity android:name=".activity.ShuiQiHuDong.ConsultMsgActivity"/>
-        <activity android:name=".activity.MeLearnActivity"/>
-        <activity android:name=".activity.PersonnelManagementActivity"/>
-        <activity android:name=".activity.MemberInfoActivity"/>
-        <activity android:name=".activity.MemberInformationActivity"/>
-        <activity android:name=".activity.RegulatoryRetrievalActivity"/>
-        <activity android:name=".activity.StudyDetailsActivity"/>
-        <activity android:name=".activity.LearningQueryActivity"/>
-        <activity android:name=".activity.LearningProgressActivity"/>
-        <activity android:name=".activity.ArticleSearchActivity"/>
-        <activity android:name=".activity.NoticeBulletinActivty"/>
-        <activity android:name=".activity.OnlineCardActivty"/>
-        <activity android:name=".activity.AccountMaintenanceActivity"/>
-        <activity android:name=".activity.HuDongDetailsActivity"/>
-        <activity android:name=".activity.MyCollectActivity"/>
-        <activity android:name=".activity.MoreActivity"/>
-        <activity android:name=".activity.SignInActivty"/>
-        <activity android:name=".activity.ChangePwdActivity"/>
-        <activity android:name=".activity.IwantLeaveActivty"/>
-        <activity android:name=".activity.BasicInformationActivity"/>
-        <activity android:name=".activity.SettingActivity"/>
-        <activity android:name=".activity.ShuiQiHuDongActivity"/>
-        <activity android:name=".activity.AboutUsActivity"/>
-        <activity android:name=".activity.LeaveActivity"/>
-        <activity android:name=".activity.ExpandableActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".activity.PartyBuildingActivity" />
+        <activity android:name=".activity.AdministrativeManagementActivity" />
+        <activity android:name=".activity.OnlineActivityActivity" />
+        <activity android:name=".activity.VoteActivity" />
+        <activity android:name=".activity.onlineLearn.OnlineLearnActivity" />
+        <activity android:name=".activity.onlineLearn.OnlinePaymentActivity" />
+        <activity android:name=".activity.taxBusiness.TaxBusinessActivity" />
+        <activity android:name=".activity.ShuiQiHuDong.ShuiQiHDActivity" />
+        <activity android:name=".activity.ShuiQiHuDong.ConsultMsgActivity" />
+        <activity android:name=".activity.MeLearnActivity" />
+        <activity android:name=".activity.PersonnelManagementActivity" />
+        <activity android:name=".activity.MemberInfoActivity" />
+        <activity android:name=".activity.MemberInformationActivity" />
+        <activity android:name=".activity.RegulatoryRetrievalActivity" />
+        <activity android:name=".activity.StudyDetailsActivity" />
+        <activity android:name=".activity.LearningQueryActivity" />
+        <activity android:name=".activity.LearningProgressActivity" />
+        <activity android:name=".activity.ArticleSearchActivity" />
+        <activity android:name=".activity.NoticeBulletinActivty" />
+        <activity android:name=".activity.OnlineCardActivty" />
+        <activity android:name=".activity.AccountMaintenanceActivity" />
+        <activity android:name=".activity.HuDongDetailsActivity" />
+        <activity android:name=".activity.MyCollectActivity" />
+        <activity android:name=".activity.MoreActivity" />
+        <activity android:name=".activity.SignInActivty" />
+        <activity android:name=".activity.ChangePwdActivity" />
+        <activity android:name=".activity.IwantLeaveActivty" />
+        <activity android:name=".activity.BasicInformationActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.ShuiQiHuDongActivity" />
+        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.LeaveActivity" />
+        <activity android:name=".activity.ExpandableActivity" />
         <activity
             android:name=".activity.LearningDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.doUpdateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/GovDialog"/>
+            android:theme="@style/GovDialog" />
         <activity
             android:name=".activity.ShowUpdateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/GovDialog"/>
+            android:theme="@style/GovDialog" />
 
         <activity
             android:name=".activity.BirthdayActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TopMenuTheme"/>
+            android:theme="@style/TopMenuTheme" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="52f029b965c9d0a83b0773abd155671d">
-        </meta-data>
+            android:value="52f029b965c9d0a83b0773abd155671d"></meta-data>
         <service android:name="com.amap.api.location.APSService"></service>
 
         <receiver
